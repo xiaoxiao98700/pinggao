@@ -128,6 +128,19 @@
 
                 <!-- 右侧：电价时段配置表格 -->
                 <div class="price-config-main">
+                    <!-- 省份选择 -->
+                    <div class="province-selector">
+                        <label class="province-label">省份：</label>
+                        <select class="province-select" id="provinceSelect">
+                            <option value="">请选择省份</option>
+                            <option value="beijing">北京市</option>
+                            <option value="tianjin">天津市</option>
+                            <option value="hebei">河北省</option>
+                            <option value="shanxi">山西省</option>
+                            <option value="neimenggu">内蒙古自治区</option>
+                        </select>
+                    </div>
+                    
                     <!-- 操作按钮栏 -->
                     <div class="price-config-actions">
                         <button class="price-btn price-btn-new">
@@ -184,6 +197,80 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- 新增弹窗 -->
+    <div class="modal-overlay" id="newPriceModal" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">新增</h3>
+                <button class="modal-close" onclick="closeNewPriceModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <table class="modal-table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>电价类型</th>
+                            <th>电价</th>
+                            <th colspan="3">时段</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>尖峰</td>
+                            <td><input type="number" class="modal-input" value="1.00" step="0.01"></td>
+                            <td><input type="time" class="modal-input" placeholder="起始时间"></td>
+                            <td class="modal-separator">至</td>
+                            <td><input type="time" class="modal-input" placeholder="终止时间"></td>
+                            <td><a href="javascript:void(0)" class="add-time-link" onclick="addTimeRow(this)">添加时段</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>峰电</td>
+                            <td><input type="number" class="modal-input" value="1.00" step="0.01"></td>
+                            <td><input type="time" class="modal-input" placeholder="起始时间"></td>
+                            <td class="modal-separator">至</td>
+                            <td><input type="time" class="modal-input" placeholder="终止时间"></td>
+                            <td><a href="javascript:void(0)" class="add-time-link" onclick="addTimeRow(this)">添加时段</a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>平电</td>
+                            <td><input type="number" class="modal-input" value="1.00" step="0.01"></td>
+                            <td><input type="time" class="modal-input" placeholder="起始时间"></td>
+                            <td class="modal-separator">至</td>
+                            <td><input type="time" class="modal-input" placeholder="终止时间"></td>
+                            <td><a href="javascript:void(0)" class="add-time-link" onclick="addTimeRow(this)">添加时段</a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>谷电</td>
+                            <td><input type="number" class="modal-input" value="1.00" step="0.01"></td>
+                            <td><input type="time" class="modal-input" placeholder="起始时间"></td>
+                            <td class="modal-separator">至</td>
+                            <td><input type="time" class="modal-input" placeholder="终止时间"></td>
+                            <td><a href="javascript:void(0)" class="add-time-link" onclick="addTimeRow(this)">添加时段</a></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>深谷</td>
+                            <td><input type="number" class="modal-input" value="1.00" step="0.01"></td>
+                            <td><input type="time" class="modal-input" placeholder="起始时间"></td>
+                            <td class="modal-separator">至</td>
+                            <td><input type="time" class="modal-input" placeholder="终止时间"></td>
+                            <td><a href="javascript:void(0)" class="add-time-link" onclick="addTimeRow(this)">添加时段</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-cancel" onclick="closeNewPriceModal()">取消</button>
+                <button class="modal-btn modal-btn-confirm" onclick="saveNewPrice()">确定</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
@@ -249,14 +336,14 @@
             });
 
             // 操作按钮事件
-            const btnNew = document.querySelector('.btn-new');
-            const btnReference = document.querySelector('.btn-reference');
-            const btnEdit = document.querySelector('.btn-edit');
-            const btnDelete = document.querySelector('.btn-delete');
+            const btnNew = document.querySelector('.price-btn-new');
+            const btnReference = document.querySelector('.price-btn-reference');
+            const btnEdit = document.querySelector('.price-btn-edit');
+            const btnDelete = document.querySelector('.price-btn-delete');
 
             if (btnNew) {
                 btnNew.addEventListener('click', function() {
-                    alert('新建功能待实现');
+                    openNewPriceModal();
                 });
             }
 
@@ -295,6 +382,45 @@
                 });
             }
         });
+
+        // 弹窗相关函数
+        function openNewPriceModal() {
+            document.getElementById('newPriceModal').style.display = 'flex';
+        }
+
+        function closeNewPriceModal() {
+            document.getElementById('newPriceModal').style.display = 'none';
+        }
+
+        function saveNewPrice() {
+            // 保存逻辑待实现
+            alert('保存成功');
+            closeNewPriceModal();
+        }
+
+        function addTimeRow(link) {
+            const row = link.closest('tr');
+            const tbody = row.parentNode;
+            const newRow = document.createElement('tr');
+            const rowIndex = row.rowIndex;
+            
+            newRow.innerHTML = `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="time" class="modal-input" placeholder="起始时间"></td>
+                <td class="modal-separator">至</td>
+                <td><input type="time" class="modal-input" placeholder="终止时间"></td>
+                <td><a href="javascript:void(0)" class="remove-time-link" onclick="removeTimeRow(this)">删除时段</a></td>
+            `;
+            
+            tbody.insertBefore(newRow, row.nextSibling);
+        }
+
+        function removeTimeRow(link) {
+            const row = link.closest('tr');
+            row.remove();
+        }
     </script>
 </body>
 </html>
