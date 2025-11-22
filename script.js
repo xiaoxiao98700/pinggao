@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dataChart = echarts.init(chartElement);
         
         // 生成模拟数据
-        function generateMockData(hours = 24) {
+        function generateMockData(timeRange = '24h') {
             const now = new Date();
             const data = {
                 times: [],
@@ -573,27 +573,58 @@ document.addEventListener('DOMContentLoaded', function() {
             const upperLimit = 120;
             const lowerLimit = 100;
             
-            for (let i = hours; i >= 0; i--) {
-                const time = new Date(now.getTime() - i * 60 * 60 * 1000);
-                data.times.push(time.getHours() + ':00');
+            // 根据时间范围确定数据点数量和时间间隔
+            let points, intervalMinutes, formatTime;
+            switch(timeRange) {
+                case '1h':
+                    points = 60;
+                    intervalMinutes = 1;
+                    formatTime = (date) => date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+                    break;
+                case '6h':
+                    points = 72;
+                    intervalMinutes = 5;
+                    formatTime = (date) => date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+                    break;
+                case '7d':
+                    points = 168;
+                    intervalMinutes = 60;
+                    formatTime = (date) => (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
+                    break;
+                case '30d':
+                    points = 120;
+                    intervalMinutes = 360;
+                    formatTime = (date) => (date.getMonth() + 1) + '月' + date.getDate() + '日';
+                    break;
+                default: // 24h
+                    points = 48;
+                    intervalMinutes = 30;
+                    formatTime = (date) => date.getHours() + ':' + (date.getMinutes() === 0 ? '00' : '30');
+            }
+            
+            for (let i = points; i >= 0; i--) {
+                const time = new Date(now.getTime() - i * intervalMinutes * 60 * 1000);
+                data.times.push(formatTime(time));
                 
                 // 生成实时值（在上下限之间波动，有15%概率超标）
                 const random = Math.random();
+                const waveOffset = Math.sin(i / 5) * 5; // 添加波浪效果
                 let actualValue;
+                
                 if (random < 0.15) {
                     // 超标值
-                    actualValue = upperLimit + Math.random() * 10;
+                    actualValue = upperLimit + Math.random() * 8;
                 } else {
-                    actualValue = baseValue + (Math.random() - 0.5) * 15;
+                    actualValue = baseValue + waveOffset + (Math.random() - 0.5) * 8;
                 }
                 
-                data.actual.push(actualValue.toFixed(1));
+                data.actual.push(parseFloat(actualValue.toFixed(1)));
                 data.upper.push(upperLimit);
                 data.lower.push(lowerLimit);
                 
-                // 计算均值
-                const avgValue = (actualValue * 0.7 + baseValue * 0.3);
-                data.average.push(avgValue.toFixed(1));
+                // 计算均值（更平滑）
+                const avgValue = (actualValue * 0.6 + baseValue * 0.4);
+                data.average.push(parseFloat(avgValue.toFixed(1)));
             }
             
             return data;
@@ -601,14 +632,28 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 绘制图表
         function renderChart(paramType, timeRange) {
-            const data = generateMockData(24);
+            const data = generateMockData(timeRange);
+            
+            // 根据参数类型设置单位和标题
+            const paramConfig = {
+                temperature: { unit: '°C', title: '温度趋势分析' },
+                pressure: { unit: 'Bar', title: '压力趋势分析' },
+                current: { unit: 'A', title: '电流趋势分析' },
+                voltage: { unit: 'V', title: '电压趋势分析' },
+                waterLevel: { unit: '%', title: '水位趋势分析' },
+                power: { unit: 'kW', title: '功率趋势分析' }
+            };
+            
+            const config = paramConfig[paramType] || paramConfig.temperature;
+            document.querySelector('.chart-title').textContent = config.title;
             
             const option = {
                 grid: {
-                    left: '60px',
-                    right: '40px',
-                    top: '40px',
-                    bottom: '60px'
+                    left: '70px',
+                    right: '50px',
+                    top: '50px',
+                    bottom: '70px',
+                    containLabel: false
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -619,10 +664,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         color: '#fff',
                         fontSize: 13
                     },
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
                     formatter: function(params) {
-                        let result = params[0].name + '<br/>';
+                        let result = '<strong>' + params[0].name + '</strong><br/>';
                         params.forEach(item => {
-                            result += item.marker + item.seriesName + ': ' + item.value + '<br/>';
+                            result += item.marker + ' ' + item.seriesName + ': ' + item.value + config.unit + '<br/>';
                         });
                         return result;
                     }
@@ -632,36 +683,58 @@ document.addEventListener('DOMContentLoaded', function() {
                     data: data.times,
                     boundaryGap: false,
                     axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#d9d9d9',
+                            width: 2
+                        }
+                    },
+                    axisTick: {
+                        show: true,
                         lineStyle: {
                             color: '#d9d9d9'
                         }
                     },
                     axisLabel: {
                         color: '#595959',
-                        fontSize: 12
+                        fontSize: 12,
+                        interval: 'auto',
+                        rotate: 0
                     }
                 },
                 yAxis: {
                     type: 'value',
-                    name: '温度 (°C)',
+                    name: config.title.replace('趋势分析', '') + ' (' + config.unit + ')',
                     nameTextStyle: {
                         color: '#595959',
-                        fontSize: 13,
-                        padding: [0, 0, 0, 0]
+                        fontSize: 14,
+                        fontWeight: 600,
+                        padding: [0, 0, 10, 0]
                     },
                     axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#d9d9d9',
+                            width: 2
+                        }
+                    },
+                    axisTick: {
+                        show: true,
                         lineStyle: {
                             color: '#d9d9d9'
                         }
                     },
                     axisLabel: {
                         color: '#595959',
-                        fontSize: 12
+                        fontSize: 12,
+                        formatter: '{value}'
                     },
                     splitLine: {
+                        show: true,
                         lineStyle: {
-                            color: '#f0f0f0',
-                            type: 'dashed'
+                            color: '#e8e8e8',
+                            type: 'dashed',
+                            width: 1
                         }
                     }
                 },
@@ -671,14 +744,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         type: 'line',
                         data: data.actual,
                         smooth: true,
+                        showSymbol: true,
                         symbol: 'circle',
-                        symbolSize: 6,
+                        symbolSize: 4,
                         lineStyle: {
-                            width: 3,
-                            color: '#1890ff'
+                            width: 4,
+                            color: '#1890ff',
+                            shadowColor: 'rgba(24, 144, 255, 0.3)',
+                            shadowBlur: 10
                         },
                         itemStyle: {
-                            color: '#1890ff'
+                            color: '#1890ff',
+                            borderColor: '#fff',
+                            borderWidth: 2
                         },
                         areaStyle: {
                             color: {
@@ -688,9 +766,15 @@ document.addEventListener('DOMContentLoaded', function() {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [
-                                    { offset: 0, color: 'rgba(24, 144, 255, 0.3)' },
-                                    { offset: 1, color: 'rgba(24, 144, 255, 0.05)' }
+                                    { offset: 0, color: 'rgba(24, 144, 255, 0.25)' },
+                                    { offset: 1, color: 'rgba(24, 144, 255, 0.02)' }
                                 ]
+                            }
+                        },
+                        emphasis: {
+                            focus: 'series',
+                            lineStyle: {
+                                width: 5
                             }
                         }
                     },
@@ -698,62 +782,91 @@ document.addEventListener('DOMContentLoaded', function() {
                         name: '上限值',
                         type: 'line',
                         data: data.upper,
+                        showSymbol: false,
                         lineStyle: {
-                            width: 2,
+                            width: 3,
                             color: '#ff4d4f',
-                            type: 'dashed'
+                            type: 'dashed',
+                            dashOffset: 5
                         },
                         itemStyle: {
                             color: '#ff4d4f'
                         },
-                        symbol: 'none'
+                        emphasis: {
+                            focus: 'series',
+                            lineStyle: {
+                                width: 4
+                            }
+                        }
                     },
                     {
                         name: '下限值',
                         type: 'line',
                         data: data.lower,
+                        showSymbol: false,
                         lineStyle: {
-                            width: 2,
+                            width: 3,
                             color: '#faad14',
-                            type: 'dashed'
+                            type: 'dashed',
+                            dashOffset: 5
                         },
                         itemStyle: {
                             color: '#faad14'
                         },
-                        symbol: 'none'
+                        emphasis: {
+                            focus: 'series',
+                            lineStyle: {
+                                width: 4
+                            }
+                        }
                     },
                     {
                         name: '均值',
                         type: 'line',
                         data: data.average,
                         smooth: true,
+                        showSymbol: false,
                         lineStyle: {
-                            width: 2,
+                            width: 3,
                             color: '#52c41a'
                         },
                         itemStyle: {
                             color: '#52c41a'
                         },
-                        symbol: 'none'
+                        emphasis: {
+                            focus: 'series',
+                            lineStyle: {
+                                width: 4
+                            }
+                        }
                     }
-                ]
+                ],
+                animation: true,
+                animationDuration: 1000,
+                animationEasing: 'cubicOut'
             };
             
             dataChart.setOption(option);
         }
         
-        // 初始渲染
-        renderChart('temperature', '24h');
+        // 初始渲染（确保图表在页面加载时立即显示）
+        setTimeout(() => {
+            renderChart('temperature', '24h');
+        }, 100);
         
         // 查询按钮
         const queryBtn = document.getElementById('queryBtn');
-        if (queryBtn) {
+        const paramTypeSelect = document.getElementById('paramType');
+        const timeRangeSelect = document.getElementById('timeRange');
+        
+        if (queryBtn && paramTypeSelect && timeRangeSelect) {
             queryBtn.addEventListener('click', function() {
-                const paramType = document.getElementById('paramType').value;
-                const timeRange = document.getElementById('timeRange').value;
-                renderChart(paramType, timeRange);
+                const paramType = paramTypeSelect.value;
+                const timeRange = timeRangeSelect.value;
                 
-                // 更新统计数据
+                console.log('查询参数:', paramType, timeRange); // 调试输出
+                
+                renderChart(paramType, timeRange);
                 updateStats(paramType);
             });
         }
