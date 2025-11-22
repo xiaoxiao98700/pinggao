@@ -529,16 +529,38 @@ body {
     gap: 8px;
 }
 
+.data-table thead th:last-child {
+    position: sticky;
+    right: 0;
+    z-index: 11;
+    background-color: #fafafa;
+    border-left: 1px solid #e8e8e8;
+    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.data-table tbody td:last-child {
+    position: sticky;
+    right: 0;
+    z-index: 5;
+    background-color: #fff;
+    border-left: 1px solid #e8e8e8;
+    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.data-table tbody tr:hover td:last-child {
+    background-color: #fafafa;
+}
+
 .action-link {
     color: #1890ff;
-    text-decoration: none;
+    text-decoration: underline;
     cursor: pointer;
     transition: color 0.3s;
+    white-space: nowrap;
 }
 
 .action-link:hover {
     color: #40a9ff;
-    text-decoration: underline;
 }
 
 /* 分页 */
