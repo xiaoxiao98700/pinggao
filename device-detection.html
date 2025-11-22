@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>智选方案 - 设备检测</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -895,8 +896,114 @@
 
                     <!-- 数据分析页签内容 -->
                     <div class="device-tab-content" id="analysisContent" data-device="tianbang-heat-tank">
-                        <div class="tab-placeholder">
-                            <p>数据分析内容</p>
+                        <div class="analysis-container">
+                            <!-- 筛选器 -->
+                            <div class="analysis-filters">
+                                <div class="filter-group">
+                                    <label>参数类型：</label>
+                                    <select class="filter-select" id="paramType">
+                                        <option value="temperature">温度</option>
+                                        <option value="pressure">压力</option>
+                                        <option value="current">电流</option>
+                                        <option value="voltage">电压</option>
+                                        <option value="waterLevel">水位</option>
+                                        <option value="power">功率</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>时间范围：</label>
+                                    <select class="filter-select" id="timeRange">
+                                        <option value="1h">近1小时</option>
+                                        <option value="6h">近6小时</option>
+                                        <option value="24h" selected>近24小时</option>
+                                        <option value="7d">近7天</option>
+                                        <option value="30d">近30天</option>
+                                        <option value="custom">自定义</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group custom-time" style="display: none;">
+                                    <input type="datetime-local" class="filter-input" id="startTime">
+                                    <span style="margin: 0 8px;">至</span>
+                                    <input type="datetime-local" class="filter-input" id="endTime">
+                                </div>
+                                <button class="btn-filter" id="queryBtn">查询</button>
+                                <button class="btn-reset" id="exportBtn">导出数据</button>
+                            </div>
+                            
+                            <!-- 数据统计卡片 -->
+                            <div class="data-stats">
+                                <div class="data-stat-card">
+                                    <div class="stat-title">当前值</div>
+                                    <div class="stat-main-value" id="currentValue">125.8°C</div>
+                                    <div class="stat-trend up">↑ 2.5%</div>
+                                </div>
+                                <div class="data-stat-card">
+                                    <div class="stat-title">平均值</div>
+                                    <div class="stat-main-value" id="avgValue">118.6°C</div>
+                                    <div class="stat-trend">持平</div>
+                                </div>
+                                <div class="data-stat-card">
+                                    <div class="stat-title">最大值</div>
+                                    <div class="stat-main-value" id="maxValue">128.4°C</div>
+                                    <div class="stat-trend down">↓ 1.2%</div>
+                                </div>
+                                <div class="data-stat-card">
+                                    <div class="stat-title">最小值</div>
+                                    <div class="stat-main-value" id="minValue">108.2°C</div>
+                                    <div class="stat-trend up">↑ 3.8%</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 图表容器 -->
+                            <div class="chart-container">
+                                <div class="chart-header">
+                                    <h3 class="chart-title">温度趋势分析</h3>
+                                    <div class="chart-legend">
+                                        <div class="legend-item">
+                                            <span class="legend-color" style="background: #1890ff;"></span>
+                                            <span>实时值</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-color" style="background: #ff4d4f;"></span>
+                                            <span>上限值</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-color" style="background: #faad14;"></span>
+                                            <span>下限值</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-color" style="background: #52c41a;"></span>
+                                            <span>均值</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="dataChart" style="width: 100%; height: 450px;"></div>
+                            </div>
+                            
+                            <!-- 数据表格 -->
+                            <div class="data-table-section">
+                                <div class="section-header">
+                                    <h3>历史数据记录</h3>
+                                    <button class="btn-toggle" id="toggleTable">展开 ▼</button>
+                                </div>
+                                <div class="data-table-wrapper" style="display: none;">
+                                    <table class="data-history-table">
+                                        <thead>
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>实时值</th>
+                                                <th>上限值</th>
+                                                <th>下限值</th>
+                                                <th>均值</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dataTableBody">
+                                            <!-- 动态填充 -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

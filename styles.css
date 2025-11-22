@@ -3055,6 +3055,224 @@ body {
     padding: 0 4px;
 }
 
+/* ============================================
+   数据分析页面样式
+   ============================================ */
+
+.analysis-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* 数据统计卡片 */
+.data-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.data-stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    animation: scaleIn 0.5s ease-out backwards;
+}
+
+.data-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.data-stat-card:nth-child(2) { animation-delay: 0.2s; }
+.data-stat-card:nth-child(3) { animation-delay: 0.3s; }
+.data-stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.data-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-color: #1890ff;
+}
+
+.stat-title {
+    font-size: 14px;
+    color: #8c8c8c;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.stat-main-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.stat-trend {
+    font-size: 13px;
+    color: #8c8c8c;
+    font-weight: 600;
+}
+
+.stat-trend.up {
+    color: #ff4d4f;
+}
+
+.stat-trend.down {
+    color: #52c41a;
+}
+
+/* 图表容器 */
+.chart-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.chart-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #262626;
+    margin: 0;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 24px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #595959;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+/* 数据表格部分 */
+.data-table-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #262626;
+    margin: 0;
+}
+
+.btn-toggle {
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-toggle:hover {
+    background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(24, 144, 255, 0.4);
+}
+
+.data-table-wrapper {
+    overflow-x: auto;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+    }
+}
+
+.data-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.data-history-table thead {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+.data-history-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 700;
+    color: #262626;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.data-history-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s;
+}
+
+.data-history-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.data-history-table td {
+    padding: 12px;
+    color: #595959;
+}
+
+.status-normal {
+    color: #52c41a;
+    font-weight: 600;
+}
+
+.status-warning {
+    color: #faad14;
+    font-weight: 600;
+}
+
+.status-danger {
+    color: #ff4d4f;
+    font-weight: 600;
+}
+
 /* 管道系统 */
 .pipe {
     position: absolute;

@@ -546,4 +546,315 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    // ============================================
+    // 数据分析页面功能
+    // ============================================
+    
+    // 初始化图表
+    let dataChart = null;
+    const chartElement = document.getElementById('dataChart');
+    
+    if (chartElement && typeof echarts !== 'undefined') {
+        dataChart = echarts.init(chartElement);
+        
+        // 生成模拟数据
+        function generateMockData(hours = 24) {
+            const now = new Date();
+            const data = {
+                times: [],
+                actual: [],
+                upper: [],
+                lower: [],
+                average: []
+            };
+            
+            const baseValue = 118;
+            const upperLimit = 120;
+            const lowerLimit = 100;
+            
+            for (let i = hours; i >= 0; i--) {
+                const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                data.times.push(time.getHours() + ':00');
+                
+                // 生成实时值（在上下限之间波动，有15%概率超标）
+                const random = Math.random();
+                let actualValue;
+                if (random < 0.15) {
+                    // 超标值
+                    actualValue = upperLimit + Math.random() * 10;
+                } else {
+                    actualValue = baseValue + (Math.random() - 0.5) * 15;
+                }
+                
+                data.actual.push(actualValue.toFixed(1));
+                data.upper.push(upperLimit);
+                data.lower.push(lowerLimit);
+                
+                // 计算均值
+                const avgValue = (actualValue * 0.7 + baseValue * 0.3);
+                data.average.push(avgValue.toFixed(1));
+            }
+            
+            return data;
+        }
+        
+        // 绘制图表
+        function renderChart(paramType, timeRange) {
+            const data = generateMockData(24);
+            
+            const option = {
+                grid: {
+                    left: '60px',
+                    right: '40px',
+                    top: '40px',
+                    bottom: '60px'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(50, 50, 50, 0.95)',
+                    borderColor: '#333',
+                    borderWidth: 1,
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 13
+                    },
+                    formatter: function(params) {
+                        let result = params[0].name + '<br/>';
+                        params.forEach(item => {
+                            result += item.marker + item.seriesName + ': ' + item.value + '<br/>';
+                        });
+                        return result;
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data.times,
+                    boundaryGap: false,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#d9d9d9'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#595959',
+                        fontSize: 12
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '温度 (°C)',
+                    nameTextStyle: {
+                        color: '#595959',
+                        fontSize: 13,
+                        padding: [0, 0, 0, 0]
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#d9d9d9'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#595959',
+                        fontSize: 12
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#f0f0f0',
+                            type: 'dashed'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '实时值',
+                        type: 'line',
+                        data: data.actual,
+                        smooth: true,
+                        symbol: 'circle',
+                        symbolSize: 6,
+                        lineStyle: {
+                            width: 3,
+                            color: '#1890ff'
+                        },
+                        itemStyle: {
+                            color: '#1890ff'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [
+                                    { offset: 0, color: 'rgba(24, 144, 255, 0.3)' },
+                                    { offset: 1, color: 'rgba(24, 144, 255, 0.05)' }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        name: '上限值',
+                        type: 'line',
+                        data: data.upper,
+                        lineStyle: {
+                            width: 2,
+                            color: '#ff4d4f',
+                            type: 'dashed'
+                        },
+                        itemStyle: {
+                            color: '#ff4d4f'
+                        },
+                        symbol: 'none'
+                    },
+                    {
+                        name: '下限值',
+                        type: 'line',
+                        data: data.lower,
+                        lineStyle: {
+                            width: 2,
+                            color: '#faad14',
+                            type: 'dashed'
+                        },
+                        itemStyle: {
+                            color: '#faad14'
+                        },
+                        symbol: 'none'
+                    },
+                    {
+                        name: '均值',
+                        type: 'line',
+                        data: data.average,
+                        smooth: true,
+                        lineStyle: {
+                            width: 2,
+                            color: '#52c41a'
+                        },
+                        itemStyle: {
+                            color: '#52c41a'
+                        },
+                        symbol: 'none'
+                    }
+                ]
+            };
+            
+            dataChart.setOption(option);
+        }
+        
+        // 初始渲染
+        renderChart('temperature', '24h');
+        
+        // 查询按钮
+        const queryBtn = document.getElementById('queryBtn');
+        if (queryBtn) {
+            queryBtn.addEventListener('click', function() {
+                const paramType = document.getElementById('paramType').value;
+                const timeRange = document.getElementById('timeRange').value;
+                renderChart(paramType, timeRange);
+                
+                // 更新统计数据
+                updateStats(paramType);
+            });
+        }
+        
+        // 更新统计数据
+        function updateStats(paramType) {
+            // 模拟更新统计卡片数据
+            const stats = {
+                temperature: { current: '125.8°C', avg: '118.6°C', max: '128.4°C', min: '108.2°C' },
+                pressure: { current: '1.52Bar', avg: '1.45Bar', max: '1.68Bar', min: '1.32Bar' },
+                current: { current: '82.5A', avg: '78.3A', max: '88.2A', min: '72.1A' },
+                voltage: { current: '385V', avg: '380V', max: '392V', min: '375V' },
+                waterLevel: { current: '75.3%', avg: '72.8%', max: '84.5%', min: '65.2%' },
+                power: { current: '285kW', avg: '268kW', max: '312kW', min: '245kW' }
+            };
+            
+            const stat = stats[paramType];
+            document.getElementById('currentValue').textContent = stat.current;
+            document.getElementById('avgValue').textContent = stat.avg;
+            document.getElementById('maxValue').textContent = stat.max;
+            document.getElementById('minValue').textContent = stat.min;
+        }
+        
+        // 时间范围变化
+        const timeRangeSelect = document.getElementById('timeRange');
+        const customTime = document.querySelector('.custom-time');
+        if (timeRangeSelect && customTime) {
+            timeRangeSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customTime.style.display = 'flex';
+                } else {
+                    customTime.style.display = 'none';
+                }
+            });
+        }
+        
+        // 表格展开/收起
+        const toggleTableBtn = document.getElementById('toggleTable');
+        const dataTableWrapper = document.querySelector('.data-table-wrapper');
+        if (toggleTableBtn && dataTableWrapper) {
+            toggleTableBtn.addEventListener('click', function() {
+                if (dataTableWrapper.style.display === 'none') {
+                    dataTableWrapper.style.display = 'block';
+                    this.textContent = '收起 ▲';
+                    
+                    // 填充表格数据
+                    fillTableData();
+                } else {
+                    dataTableWrapper.style.display = 'none';
+                    this.textContent = '展开 ▼';
+                }
+            });
+        }
+        
+        // 填充表格数据
+        function fillTableData() {
+            const tbody = document.getElementById('dataTableBody');
+            if (!tbody || tbody.children.length > 0) return;
+            
+            const now = new Date();
+            for (let i = 0; i < 24; i++) {
+                const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                const hour = time.getHours();
+                const timeStr = time.getFullYear() + '-' + 
+                               String(time.getMonth() + 1).padStart(2, '0') + '-' +
+                               String(time.getDate()).padStart(2, '0') + ' ' +
+                               String(hour).padStart(2, '0') + ':00';
+                
+                const actual = (118 + (Math.random() - 0.5) * 20).toFixed(1);
+                const upper = 120;
+                const lower = 100;
+                const avg = (118 + (Math.random() - 0.5) * 10).toFixed(1);
+                const status = actual > upper ? 'danger' : actual < lower ? 'warning' : 'normal';
+                const statusText = actual > upper ? '超上限' : actual < lower ? '超下限' : '正常';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${timeStr}</td>
+                    <td>${actual}°C</td>
+                    <td>${upper}°C</td>
+                    <td>${lower}°C</td>
+                    <td>${avg}°C</td>
+                    <td class="status-${status}">${statusText}</td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+        
+        // 导出按钮
+        const exportBtn = document.getElementById('exportBtn');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', function() {
+                alert('导出功能开发中...');
+            });
+        }
+        
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            if (dataChart) {
+                dataChart.resize();
+            }
+        });
+    }
 });
