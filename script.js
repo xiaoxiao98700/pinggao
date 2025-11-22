@@ -370,9 +370,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
         item.addEventListener('click', function(e) {
-            e.preventDefault();
-            navItems.forEach(nav => nav.classList.remove('active'));
-            this.classList.add('active');
+            const href = this.getAttribute('href');
+            // 如果链接是 # 或空，则阻止默认行为并只切换激活状态
+            if (!href || href === '#') {
+                e.preventDefault();
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            }
+            // 如果有有效的链接，允许默认跳转行为，但仍更新激活状态
+            else {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                // 允许浏览器正常跳转
+            }
         });
     });
     
