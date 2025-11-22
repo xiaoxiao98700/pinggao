@@ -1513,7 +1513,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px 28px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -1523,7 +1523,7 @@ body {
 .monitoring-item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
     padding: 12px;
     border-radius: 6px;
@@ -1564,7 +1564,7 @@ body {
     background-color: #fff;
     cursor: default;
     font-weight: 500;
-    text-align: center;
+    text-align: left;
 }
 
 /* 参数状态样式 */
