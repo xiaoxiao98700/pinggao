@@ -226,6 +226,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    max-height: calc(100vh - 60px - 50px);
 }
 
 /* 内容包装器：左侧客户列表 + 右侧项目列表 */
@@ -281,6 +282,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-width: 0;
 }
 
 /* 搜索筛选区域 */
@@ -443,9 +445,12 @@ body {
 /* 数据表格 */
 .table-container {
     flex: 1;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
     margin: 0 16px;
     padding-bottom: 16px;
+    min-height: 0;
+    max-height: 100%;
 }
 
 .data-table {
