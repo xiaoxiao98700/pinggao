@@ -10,6 +10,7 @@
     <!-- 顶部导航栏 -->
     <header class="header">
         <div class="header-left">
+            <button class="btn-collapse">«</button>
             <div class="logo">智选方案</div>
         </div>
         <div class="header-right">
@@ -24,6 +25,7 @@
                 </div>
                 <span class="icon">⋯</span>
             </div>
+            <button class="btn-collapse">»</button>
         </div>
     </header>
 
@@ -38,180 +40,246 @@
                 <a href="#" class="nav-item">选型规则</a>
                 <a href="#" class="nav-item">电价时段配置</a>
             </nav>
+            
+            <!-- 我的客户部分 -->
+            <div class="sidebar-customers">
+                <div class="customers-title">我的客户</div>
+                <div class="customers-search">
+                    <input type="text" placeholder="请输入客户名称" class="customers-input">
+                </div>
+                <div class="customers-list">
+                    <div class="customer-item">天邦酒业</div>
+                    <div class="customer-item">新疆昌吉2</div>
+                    <div class="customer-item">治多县</div>
+                    <div class="customer-item">武汉迈瑞医疗</div>
+                    <div class="customer-item">平顶山尼龙园</div>
+                    <div class="customer-item">河北尚义县</div>
+                    <div class="customer-item">内蒙赤峰大虎台</div>
+                    <div class="customer-item">天云聚合</div>
+                    <div class="customer-item">名昌制药</div>
+                    <div class="customer-item">哈哈水业</div>
+                    <div class="customer-item">永利化工</div>
+                    <div class="customer-item">吴明制药</div>
+                    <div class="customer-item">科林客户</div>
+                    <div class="customer-item">225客户名称</div>
+                    <div class="customer-item">226客户信息</div>
+                    <div class="customer-item">昌源制造科技有限公司</div>
+                    <div class="customer-item">正大化工有限公司</div>
+                    <div class="customer-item">明浩制造科研有限公司</div>
+                    <div class="customer-item">郑州科技网路公司</div>
+                    <div class="customer-item">泰明制造有限公司</div>
+                    <div class="customer-item">舒格制造有限公司</div>
+                    <div class="customer-item">巴陆山</div>
+                    <div class="customer-item">中国科技有限公司</div>
+                    <div class="customer-item">奇瑞新能源有限公司</div>
+                </div>
+            </div>
         </aside>
 
         <!-- 主内容区域 -->
         <main class="main-content">
             <!-- 标签页 -->
             <div class="tabs">
-                <div class="tab active">项目管理</div>
+                <div class="tab active">
+                    项目管理
+                    <span class="tab-close">×</span>
+                </div>
                 <div class="tab">选型报表</div>
             </div>
 
-            <!-- 操作栏 -->
-            <div class="action-bar">
-                <div class="action-left">
-                    <button class="btn-icon"><<</button>
-                    <button class="btn-back">返回</button>
-                    <button class="btn-new">新建项目</button>
+            <!-- 搜索筛选区域 -->
+            <div class="search-section">
+                <div class="search-filters">
+                    <div class="filter-item">
+                        <label>项目名称</label>
+                        <input type="text" placeholder="输入项目名称" class="filter-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>项目地址</label>
+                        <input type="text" placeholder="输入项目地址" class="filter-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>项目负责人</label>
+                        <input type="text" placeholder="输入项目负责人" class="filter-input">
+                    </div>
                 </div>
-                <div class="action-right">
-                    <button class="btn-confirm">确定</button>
-                    <button class="btn-cancel">取消</button>
+                <div class="search-actions">
+                    <button class="btn-query">Q查询</button>
+                    <button class="btn-reset">C重置</button>
+                    <button class="btn-expand">展开</button>
                 </div>
             </div>
 
-            <!-- 项目信息表单 -->
-            <div class="form-container">
-                <h2 class="form-title">项目信息</h2>
-                <form class="project-form" id="projectForm">
-                    <!-- 第一行 -->
-                    <div class="form-row">
-                        <div class="form-group required">
-                            <label>项目编号</label>
-                            <input type="text" value="PE2025-11-1301" readonly>
-                        </div>
-                        <div class="form-group required">
-                            <label>所属客户</label>
-                            <select>
-                                <option value="">请选择所属客户</option>
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <label>项目名称</label>
-                            <input type="text" placeholder="请输入项目名称">
-                        </div>
-                        <div class="form-group required">
-                            <label>项目地点</label>
-                            <select>
-                                <option value="">请选择省市区地址</option>
-                            </select>
-                        </div>
+            <!-- 操作按钮 -->
+            <div class="table-actions">
+                <button class="btn-add">+ 新增</button>
+                <button class="btn-delete">删除</button>
+                <button class="btn-export">导出</button>
+            </div>
+
+            <!-- 数据表格 -->
+            <div class="table-container">
+                <table class="data-table" id="projectTable">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="select-all"></th>
+                            <th>序号</th>
+                            <th>项目编号</th>
+                            <th>项目名称</th>
+                            <th>所属客户</th>
+                            <th>项目负责人</th>
+                            <th>项目地址</th>
+                            <th>项目开始日期</th>
+                            <th>项目验收日期</th>
+                            <th>项目状态</th>
+                            <th>项目签订日期</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>1</td>
+                            <td>PE2025-09-2607</td>
+                            <td>app新增数据查看情况34567888...</td>
+                            <td>沙俄有限公司</td>
+                            <td>刘静</td>
+                            <td></td>
+                            <td>2025-09-26</td>
+                            <td>2025-08-29</td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td>1111111111111111111</td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link">签约</a>
+                                <a href="#" class="action-link">编辑</a>
+                                <a href="#" class="action-link">详情</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>2</td>
+                            <td>PE2025-09-2606</td>
+                            <td>appduan xinzneg</td>
+                            <td>正大化工有限公司</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td></td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link">签约</a>
+                                <a href="#" class="action-link">编辑</a>
+                                <a href="#" class="action-link">详情</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>3</td>
+                            <td>PE2025-09-2605</td>
+                            <td>sdggyy</td>
+                            <td>345</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td></td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link">签约</a>
+                                <a href="#" class="action-link">编辑</a>
+                                <a href="#" class="action-link">详情</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>4</td>
+                            <td>PE2025-09-2604</td>
+                            <td>111</td>
+                            <td>yifingduan xinzneg</td>
+                            <td>刘静</td>
+                            <td></td>
+                            <td>2025-09-17</td>
+                            <td>2025-09-30</td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td>9.26</td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link">签约</a>
+                                <a href="#" class="action-link">编辑</a>
+                                <a href="#" class="action-link">详情</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>5</td>
+                            <td>PE2025-09-2603</td>
+                            <td>123系只能数据</td>
+                            <td>新疆乌鲁木齐有限公司</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td></td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link">签约</a>
+                                <a href="#" class="action-link">编辑</a>
+                                <a href="#" class="action-link">详情</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>6</td>
+                            <td>PE2025-09-2602</td>
+                            <td>沙俄有限公司002</td>
+                            <td>沙俄有限公司</td>
+                            <td>刘静</td>
+                            <td></td>
+                            <td>2025-09-16</td>
+                            <td>2025-09-29</td>
+                            <td><span class="status-badge status-signed">已签约</span></td>
+                            <td>测试人员测试数据测试人员测...</td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link">签约</a>
+                                <a href="#" class="action-link">编辑</a>
+                                <a href="#" class="action-link">详情</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    <span>共47条</span>
+                </div>
+                <div class="pagination-controls">
+                    <select class="page-size">
+                        <option value="20" selected>20条/页</option>
+                        <option value="50">50条/页</option>
+                        <option value="100">100条/页</option>
+                    </select>
+                    <div class="page-nav">
+                        <button class="page-btn" disabled><</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">></button>
                     </div>
-
-                    <!-- 第二行 -->
-                    <div class="form-row">
-                        <div class="form-group required">
-                            <label>详细地址</label>
-                            <input type="text" placeholder="请输入详细地址">
-                        </div>
-                        <div class="form-group">
-                            <label>项目负责人</label>
-                            <select>
-                                <option value="">请选择负责人</option>
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <label>项目开始日期</label>
-                            <input type="date" placeholder="请选择项目开始日期">
-                        </div>
-                        <div class="form-group required">
-                            <label>项目验收日期</label>
-                            <input type="date" placeholder="请选择项目验收日期">
-                        </div>
+                    <div class="page-jump">
+                        <span>前往</span>
+                        <input type="number" class="page-input" value="1" min="1">
+                        <span>页</span>
                     </div>
-
-                    <!-- 第三行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>项目状态</label>
-                            <select>
-                                <option value="未签约" selected>未签约</option>
-                                <option value="已签约">已签约</option>
-                                <option value="进行中">进行中</option>
-                                <option value="已完成">已完成</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>业务员</label>
-                            <input type="text" value="业务员">
-                        </div>
-                        <div class="form-group">
-                            <label>联系人</label>
-                            <input type="text" placeholder="输入联系人">
-                        </div>
-                        <div class="form-group">
-                            <label>联系电话</label>
-                            <input type="text" placeholder="输入联系电话">
-                        </div>
-                    </div>
-
-                    <!-- 第四行 -->
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label>备注</label>
-                            <textarea placeholder="请输入备注"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- 红色箭头指向的字段区域 -->
-                    <div class="additional-fields-section">
-                        <div class="section-divider"></div>
-                        <h3 class="section-title">合同信息</h3>
-                        
-                        <!-- 第五行 - 合同相关字段 -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>合同类型</label>
-                                <select>
-                                    <option value="">请选择合同类型</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>额定功率MW</label>
-                                <input type="number" placeholder="请输入额定功率" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>合计功率</label>
-                                <input type="number" placeholder="请输入合计功率" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>运行(合同) 功率MW</label>
-                                <input type="number" placeholder="请输入运行功率" step="0.01">
-                            </div>
-                        </div>
-
-                        <!-- 第六行 - 时间相关字段 -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>签订时间</label>
-                                <input type="date" placeholder="请选择签订时间">
-                            </div>
-                            <div class="form-group">
-                                <label>签订主体</label>
-                                <input type="text" placeholder="请输入签订主体">
-                            </div>
-                            <div class="form-group">
-                                <label>合同交货期</label>
-                                <input type="date" placeholder="请选择合同交货期">
-                            </div>
-                            <div class="form-group">
-                                <label>实际交货期</label>
-                                <input type="date" placeholder="请选择实际交货期">
-                            </div>
-                        </div>
-
-                        <!-- 第七行 - 完工和开工时间 -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>合同完工时间</label>
-                                <input type="date" placeholder="请选择合同完工时间">
-                            </div>
-                            <div class="form-group">
-                                <label>实际开工时间</label>
-                                <input type="date" placeholder="请选择实际开工时间">
-                            </div>
-                            <div class="form-group">
-                                <label>销售负责人</label>
-                                <input type="text" placeholder="请输入销售负责人">
-                            </div>
-                            <div class="form-group">
-                                <label>联系方式</label>
-                                <input type="text" placeholder="请输入联系方式">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </main>
     </div>
@@ -226,4 +294,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

@@ -1,83 +1,277 @@
 // 页面交互功能
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 表单验证
-    const form = document.getElementById('projectForm');
-    const requiredFields = form.querySelectorAll('.required input, .required select');
+    // 全选/取消全选
+    const selectAllCheckbox = document.querySelector('.select-all');
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
     
-    // 表单提交处理
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        let isValid = true;
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                isValid = false;
-                field.style.borderColor = '#ff4d4f';
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function() {
+            rowCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    }
+    
+    // 单个复选框变化时更新全选状态
+    rowCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const allChecked = Array.from(rowCheckboxes).every(cb => cb.checked);
+            const someChecked = Array.from(rowCheckboxes).some(cb => cb.checked);
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = allChecked;
+                selectAllCheckbox.indeterminate = someChecked && !allChecked;
+            }
+        });
+    });
+    
+    // 搜索筛选功能
+    const queryBtn = document.querySelector('.btn-query');
+    const resetBtn = document.querySelector('.btn-reset');
+    const filterInputs = document.querySelectorAll('.filter-input');
+    
+    if (queryBtn) {
+        queryBtn.addEventListener('click', function() {
+            const filters = {};
+            filterInputs.forEach(input => {
+                const label = input.closest('.filter-item').querySelector('label').textContent;
+                filters[label] = input.value.trim();
+            });
+            console.log('查询条件:', filters);
+            // 这里可以添加实际的查询逻辑
+            alert('查询功能：' + JSON.stringify(filters, null, 2));
+        });
+    }
+    
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            filterInputs.forEach(input => {
+                input.value = '';
+            });
+            // 重置后重新加载数据
+            console.log('重置筛选条件');
+        });
+    }
+    
+    // 展开/收起筛选
+    const expandBtn = document.querySelector('.btn-expand');
+    const searchSection = document.querySelector('.search-section');
+    let isExpanded = false;
+    
+    if (expandBtn) {
+        expandBtn.addEventListener('click', function() {
+            isExpanded = !isExpanded;
+            if (isExpanded) {
+                this.textContent = '收起';
+                searchSection.style.maxHeight = 'none';
             } else {
-                field.style.borderColor = '#d9d9d9';
+                this.textContent = '展开';
+                searchSection.style.maxHeight = '120px';
             }
         });
-        
-        if (isValid) {
-            alert('表单提交成功！');
-            // 这里可以添加实际的提交逻辑
-        } else {
-            alert('请填写所有必填字段！');
-        }
+    }
+    
+    // 新增按钮
+    const addBtn = document.querySelector('.btn-add');
+    if (addBtn) {
+        addBtn.addEventListener('click', function() {
+            alert('跳转到新增项目页面');
+            // 这里可以添加跳转逻辑
+            // window.location.href = 'add-project.html';
+        });
+    }
+    
+    // 删除按钮
+    const deleteBtn = document.querySelector('.btn-delete');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', function() {
+            const selectedRows = Array.from(rowCheckboxes).filter(cb => cb.checked);
+            if (selectedRows.length === 0) {
+                alert('请至少选择一条记录');
+                return;
+            }
+            if (confirm(`确定要删除选中的 ${selectedRows.length} 条记录吗？`)) {
+                // 这里可以添加删除逻辑
+                console.log('删除选中的记录');
+                selectedRows.forEach(checkbox => {
+                    const row = checkbox.closest('tr');
+                    if (row) {
+                        row.remove();
+                    }
+                });
+                alert('删除成功');
+            }
+        });
+    }
+    
+    // 导出按钮
+    const exportBtn = document.querySelector('.btn-export');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', function() {
+            alert('导出功能');
+            // 这里可以添加导出逻辑
+        });
+    }
+    
+    // 操作链接
+    const actionLinks = document.querySelectorAll('.action-link');
+    actionLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const action = this.textContent.trim();
+            const row = this.closest('tr');
+            const projectNumber = row.querySelector('td:nth-child(3)').textContent;
+            
+            switch(action) {
+                case '签约':
+                    alert(`签约项目：${projectNumber}`);
+                    break;
+                case '编辑':
+                    alert(`编辑项目：${projectNumber}`);
+                    // window.location.href = `edit-project.html?id=${projectNumber}`;
+                    break;
+                case '详情':
+                    alert(`查看项目详情：${projectNumber}`);
+                    // window.location.href = `project-detail.html?id=${projectNumber}`;
+                    break;
+            }
+        });
     });
     
-    // 输入框焦点事件
-    const inputs = form.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            this.style.borderColor = '#1890ff';
-        });
-        
-        input.addEventListener('blur', function() {
-            if (!this.value && this.closest('.required')) {
-                this.style.borderColor = '#ff4d4f';
+    // 分页功能
+    const pageBtns = document.querySelectorAll('.page-btn');
+    const pageInput = document.querySelector('.page-input');
+    const pageSize = document.querySelector('.page-size');
+    let currentPage = 1;
+    
+    pageBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.disabled) return;
+            
+            const text = this.textContent.trim();
+            if (text === '<') {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePagination();
+                }
+            } else if (text === '>') {
+                currentPage++;
+                updatePagination();
             } else {
-                this.style.borderColor = '#d9d9d9';
+                currentPage = parseInt(text);
+                updatePagination();
             }
         });
     });
     
-    // 确定按钮点击
-    const confirmBtn = document.querySelector('.btn-confirm');
-    confirmBtn.addEventListener('click', function() {
-        form.dispatchEvent(new Event('submit'));
-    });
-    
-    // 取消按钮点击
-    const cancelBtn = document.querySelector('.btn-cancel');
-    cancelBtn.addEventListener('click', function() {
-        if (confirm('确定要取消吗？未保存的数据将丢失。')) {
-            form.reset();
-            // 重置项目编号为默认值
-            const projectNumber = form.querySelector('input[type="text"][value="PE2025-11-1301"]');
-            if (projectNumber) {
-                projectNumber.value = 'PE2025-11-1301';
+    if (pageInput) {
+        pageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const page = parseInt(this.value);
+                if (page > 0) {
+                    currentPage = page;
+                    updatePagination();
+                }
             }
-        }
-    });
+        });
+    }
     
-    // 返回按钮
-    const backBtn = document.querySelector('.btn-back');
-    backBtn.addEventListener('click', function() {
-        if (confirm('确定要返回吗？未保存的数据将丢失。')) {
-            window.history.back();
+    if (pageSize) {
+        pageSize.addEventListener('change', function() {
+            const size = parseInt(this.value);
+            console.log('每页显示:', size);
+            currentPage = 1;
+            updatePagination();
+            // 这里可以添加重新加载数据的逻辑
+        });
+    }
+    
+    function updatePagination() {
+        // 更新页码按钮状态
+        pageBtns.forEach(btn => {
+            btn.classList.remove('active');
+            const text = btn.textContent.trim();
+            if (text === currentPage.toString()) {
+                btn.classList.add('active');
+            }
+            
+            // 更新上一页/下一页按钮状态
+            if (text === '<') {
+                btn.disabled = currentPage === 1;
+            } else if (text === '>') {
+                // 这里应该根据总页数来判断，暂时设为false
+                btn.disabled = false;
+            }
+        });
+        
+        if (pageInput) {
+            pageInput.value = currentPage;
         }
+        
+        // 这里可以添加加载数据的逻辑
+        console.log('当前页码:', currentPage);
+    }
+    
+    // 客户列表搜索
+    const customersInput = document.querySelector('.customers-input');
+    const customerItems = document.querySelectorAll('.customer-item');
+    
+    if (customersInput) {
+        customersInput.addEventListener('input', function() {
+            const searchText = this.value.toLowerCase().trim();
+            customerItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchText)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // 客户项点击
+    customerItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // 移除其他项的选中状态
+            customerItems.forEach(i => i.classList.remove('active'));
+            // 添加当前项的选中状态
+            this.classList.add('active');
+            // 这里可以添加筛选项目的逻辑
+            console.log('选中客户:', this.textContent);
+        });
     });
     
     // 标签页切换
     const tabs = document.querySelectorAll('.tab');
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
+            if (this.classList.contains('active')) return;
+            
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
+            
+            const tabText = this.textContent.replace('×', '').trim();
+            console.log('切换到标签:', tabText);
         });
     });
+    
+    // 标签关闭
+    const tabClose = document.querySelector('.tab-close');
+    if (tabClose) {
+        tabClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const tab = this.closest('.tab');
+            if (confirm('确定要关闭此标签吗？')) {
+                tab.remove();
+                // 激活第一个标签
+                const firstTab = document.querySelector('.tab');
+                if (firstTab) {
+                    firstTab.classList.add('active');
+                }
+            }
+        });
+    }
     
     // 导航菜单项点击
     const navItems = document.querySelectorAll('.nav-item');
@@ -89,37 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 日期输入框的默认值处理
-    const dateInputs = form.querySelectorAll('input[type="date"]');
-    dateInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            // 可以在这里添加日期验证逻辑
-        });
-    });
-    
-    // 数字输入框验证
-    const numberInputs = form.querySelectorAll('input[type="number"]');
-    numberInputs.forEach(input => {
-        input.addEventListener('input', function() {
-            if (this.value < 0) {
-                this.value = 0;
-            }
-        });
-    });
-    
-    // 下拉框占位符样式
-    const selects = form.querySelectorAll('select');
-    selects.forEach(select => {
-        if (!select.value) {
-            select.style.color = '#999';
-        }
-        select.addEventListener('change', function() {
-            if (this.value) {
-                this.style.color = '#333';
-            } else {
-                this.style.color = '#999';
-            }
-        });
-    });
+    // 初始化分页
+    updatePagination();
 });
-
