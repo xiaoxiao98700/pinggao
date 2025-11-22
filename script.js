@@ -684,6 +684,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 case '详情':
                     window.location.href = `detail-project.html?id=${projectNumber}`;
                     break;
+                case '信息补充':
+                    // 显示信息补充弹窗
+                    const modal = document.getElementById('infoSupplementModal');
+                    if (modal) {
+                        modal.classList.add('show');
+                    }
+                    break;
             }
         });
     });
@@ -929,6 +936,76 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // 信息补充弹窗
+    const infoSupplementModal = document.getElementById('infoSupplementModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.querySelector('.btn-cancel-modal');
+    const confirmModalBtn = document.querySelector('.btn-confirm-modal');
+    const addCustomerBtn = document.querySelector('.btn-add-customer');
+    const addProjectBtn = document.querySelector('.btn-add-project');
+    
+    if (infoSupplementModal) {
+        // 关闭弹窗
+        function closeModal() {
+            infoSupplementModal.classList.remove('show');
+            // 清空表单
+            const form = document.getElementById('infoSupplementForm');
+            if (form) {
+                form.reset();
+            }
+        }
+        
+        // 点击关闭按钮
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', closeModal);
+        }
+        
+        // 点击取消按钮
+        if (cancelModalBtn) {
+            cancelModalBtn.addEventListener('click', closeModal);
+        }
+        
+        // 点击遮罩层关闭
+        infoSupplementModal.addEventListener('click', function(e) {
+            if (e.target === infoSupplementModal) {
+                closeModal();
+            }
+        });
+        
+        // 确定按钮
+        if (confirmModalBtn) {
+            confirmModalBtn.addEventListener('click', function() {
+                const customerName = document.querySelector('#infoSupplementForm .modal-input:first-of-type').value;
+                const projectName = document.querySelector('#infoSupplementForm .modal-input:last-of-type').value;
+                
+                // 这里可以添加保存逻辑
+                console.log('客户名称:', customerName);
+                console.log('项目名称:', projectName);
+                
+                // 关闭弹窗
+                closeModal();
+                
+                // 可以添加成功提示
+                // alert('信息补充成功！');
+            });
+        }
+        
+        // 新增客户按钮
+        if (addCustomerBtn) {
+            addCustomerBtn.addEventListener('click', function() {
+                alert('新增客户功能');
+                // 这里可以添加跳转到新增客户页面的逻辑
+            });
+        }
+        
+        // 新增项目按钮
+        if (addProjectBtn) {
+            addProjectBtn.addEventListener('click', function() {
+                alert('新增项目功能');
+                // 这里可以添加跳转到新增项目页面的逻辑
+            });
+        }
+    }
     
     // 新增项目页面表单验证
     const projectForm = document.getElementById('projectForm');
