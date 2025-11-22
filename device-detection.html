@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 设备检测</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item">客户档案</a>
+                <a href="index.html" class="nav-item">项目管理</a>
+                <a href="selection-report.html" class="nav-item">选型报表</a>
+                <a href="#" class="nav-item">选型规则</a>
+                <a href="#" class="nav-item">电价时段配置</a>
+                <a href="#" class="nav-item">设备全景智控</a>
+                <a href="device-detection.html" class="nav-item active">设备检测</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 页面标题 -->
+            <div class="device-page-header">
+                <h2 class="device-title" id="deviceTitle">天邦酒业——天邦蓄热罐</h2>
+            </div>
+
+            <!-- 页签 -->
+            <div class="device-tabs">
+                <div class="device-tab active" data-tab="monitoring">实时监测</div>
+                <div class="device-tab" data-tab="configuration">组态</div>
+                <div class="device-tab" data-tab="alarm">告警记录</div>
+                <div class="device-tab" data-tab="analysis">数据分析</div>
+            </div>
+
+            <!-- 左侧项目导航 -->
+            <div class="device-content-wrapper">
+                <aside class="device-sidebar">
+                    <div class="device-sidebar-title">功能位置</div>
+                    <div class="device-project-list">
+                        <div class="device-project-item expanded">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▼</span>
+                                <span class="device-project-name">天邦酒业</span>
+                            </div>
+                            <div class="device-project-children">
+                                <div class="device-device-item">电极式蒸汽锅炉</div>
+                                <div class="device-device-item active">天邦蓄热罐</div>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">治多供暖项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">迈瑞医疗项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">平顶山尼龙园项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">尚义县供热改造项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">赤峰大虎台风电场项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">新疆昌吉项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">科林项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">哈密项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">平高电气项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">东部投资项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">升浩敦煌项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">上海浦东项目</span>
+                            </div>
+                        </div>
+                        <div class="device-project-item">
+                            <div class="device-project-header">
+                                <span class="device-project-toggle">▶</span>
+                                <span class="device-project-name">新疆中电项目</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- 主内容区域 -->
+                <div class="device-main-content">
+                    <!-- 实时监测页签内容 -->
+                    <div class="device-tab-content active" id="monitoringContent">
+                        <div class="monitoring-grid">
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电流1:</label>
+                                <input type="text" class="monitoring-input" value="112" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电流2:</label>
+                                <input type="text" class="monitoring-input" value="112" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电流3:</label>
+                                <input type="text" class="monitoring-input" value="112" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电压1:</label>
+                                <input type="text" class="monitoring-input" value="380" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电压2:</label>
+                                <input type="text" class="monitoring-input" value="380" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电压3:</label>
+                                <input type="text" class="monitoring-input" value="380" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">功率1:</label>
+                                <input type="text" class="monitoring-input" value="42.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">功率2:</label>
+                                <input type="text" class="monitoring-input" value="42.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">功率3:</label>
+                                <input type="text" class="monitoring-input" value="42.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">总功率:</label>
+                                <input type="text" class="monitoring-input" value="127.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">锅炉温度:</label>
+                                <input type="text" class="monitoring-input" value="85" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">出水温度:</label>
+                                <input type="text" class="monitoring-input" value="82" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">回水温度:</label>
+                                <input type="text" class="monitoring-input" value="75" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">锅炉压力:</label>
+                                <input type="text" class="monitoring-input" value="0.6" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">系统压力:</label>
+                                <input type="text" class="monitoring-input" value="0.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">水位:</label>
+                                <input type="text" class="monitoring-input" value="85" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">流量:</label>
+                                <input type="text" class="monitoring-input" value="120" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">频率1:</label>
+                                <input type="text" class="monitoring-input" value="50" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">频率2:</label>
+                                <input type="text" class="monitoring-input" value="50" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">频率3:</label>
+                                <input type="text" class="monitoring-input" value="50" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">运行状态:</label>
+                                <input type="text" class="monitoring-input" value="运行中" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">运行时间:</label>
+                                <input type="text" class="monitoring-input" value="1250" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">累计运行:</label>
+                                <input type="text" class="monitoring-input" value="3650" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">故障代码:</label>
+                                <input type="text" class="monitoring-input" value="无" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">报警状态:</label>
+                                <input type="text" class="monitoring-input" value="正常" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">能耗统计:</label>
+                                <input type="text" class="monitoring-input" value="1250.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">效率:</label>
+                                <input type="text" class="monitoring-input" value="95.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">PH值:</label>
+                                <input type="text" class="monitoring-input" value="7.2" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">电导率:</label>
+                                <input type="text" class="monitoring-input" value="1200" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">溶解氧:</label>
+                                <input type="text" class="monitoring-input" value="8.5" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">烟温:</label>
+                                <input type="text" class="monitoring-input" value="180" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">排烟温度:</label>
+                                <input type="text" class="monitoring-input" value="175" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">进风温度:</label>
+                                <input type="text" class="monitoring-input" value="20" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">出风温度:</label>
+                                <input type="text" class="monitoring-input" value="85" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">循环泵状态:</label>
+                                <input type="text" class="monitoring-input" value="运行" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">补水泵状态:</label>
+                                <input type="text" class="monitoring-input" value="停止" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">排污阀状态:</label>
+                                <input type="text" class="monitoring-input" value="关闭" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">安全阀状态:</label>
+                                <input type="text" class="monitoring-input" value="正常" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">燃烧器状态:</label>
+                                <input type="text" class="monitoring-input" value="运行" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">给水阀状态:</label>
+                                <input type="text" class="monitoring-input" value="开启" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">蒸汽压力:</label>
+                                <input type="text" class="monitoring-input" value="0.8" readonly>
+                            </div>
+                            <div class="monitoring-item">
+                                <label class="monitoring-label">蒸汽温度:</label>
+                                <input type="text" class="monitoring-input" value="120" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 组态页签内容 -->
+                    <div class="device-tab-content" id="configurationContent">
+                        <div class="tab-placeholder">
+                            <p>组态配置内容</p>
+                        </div>
+                    </div>
+
+                    <!-- 告警记录页签内容 -->
+                    <div class="device-tab-content" id="alarmContent">
+                        <div class="tab-placeholder">
+                            <p>告警记录内容</p>
+                        </div>
+                    </div>
+
+                    <!-- 数据分析页签内容 -->
+                    <div class="device-tab-content" id="analysisContent">
+                        <div class="tab-placeholder">
+                            <p>数据分析内容</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            豫ICP备05010380号-5 | 河南平高电气股份有限公司
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 设备检测页面专用脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 页签切换
+            const deviceTabs = document.querySelectorAll('.device-tab');
+            const tabContents = document.querySelectorAll('.device-tab-content');
+            
+            deviceTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // 移除所有激活状态
+                    deviceTabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // 激活当前页签
+                    this.classList.add('active');
+                    document.getElementById(targetTab + 'Content').classList.add('active');
+                });
+            });
+            
+            // 项目展开/收起
+            const projectHeaders = document.querySelectorAll('.device-project-header');
+            projectHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const projectItem = this.closest('.device-project-item');
+                    const toggle = this.querySelector('.device-project-toggle');
+                    const children = projectItem.querySelector('.device-project-children');
+                    
+                    if (projectItem.classList.contains('expanded')) {
+                        projectItem.classList.remove('expanded');
+                        toggle.textContent = '▶';
+                        if (children) {
+                            children.style.display = 'none';
+                        }
+                    } else {
+                        projectItem.classList.add('expanded');
+                        toggle.textContent = '▼';
+                        if (children) {
+                            children.style.display = 'block';
+                        }
+                    }
+                });
+            });
+            
+            // 设备项点击
+            const deviceItems = document.querySelectorAll('.device-device-item');
+            deviceItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    deviceItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 更新标题
+                    const projectName = this.closest('.device-project-item').querySelector('.device-project-name').textContent;
+                    const deviceName = this.textContent;
+                    document.getElementById('deviceTitle').textContent = projectName + '——' + deviceName;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

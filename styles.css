@@ -1320,6 +1320,198 @@ body {
     background-color: #40a9ff;
 }
 
+/* 设备检测页面样式 */
+.device-page-header {
+    padding: 16px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.device-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.device-tabs {
+    display: flex;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 20px;
+}
+
+.device-tab {
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    position: relative;
+    top: 1px;
+}
+
+.device-tab:hover {
+    color: #1890ff;
+}
+
+.device-tab.active {
+    color: #1890ff;
+    border-bottom-color: #1890ff;
+    font-weight: 500;
+}
+
+.device-content-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.device-sidebar {
+    width: 240px;
+    background-color: #fafafa;
+    border-right: 1px solid #e8e8e8;
+    overflow-y: auto;
+    padding: 16px 0;
+}
+
+.device-sidebar-title {
+    padding: 0 16px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 8px;
+}
+
+.device-project-list {
+    padding: 0 8px;
+}
+
+.device-project-item {
+    margin-bottom: 4px;
+}
+
+.device-project-header {
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.device-project-header:hover {
+    background-color: #f0f0f0;
+}
+
+.device-project-toggle {
+    font-size: 12px;
+    color: #999;
+    width: 16px;
+    display: inline-block;
+}
+
+.device-project-name {
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+}
+
+.device-project-children {
+    padding-left: 24px;
+    margin-top: 4px;
+    display: none;
+}
+
+.device-project-item.expanded .device-project-children {
+    display: block;
+}
+
+.device-device-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    transition: all 0.3s;
+    margin-bottom: 2px;
+}
+
+.device-device-item:hover {
+    background-color: #e6f7ff;
+    color: #1890ff;
+}
+
+.device-device-item.active {
+    background-color: #1890ff;
+    color: #fff;
+}
+
+.device-main-content {
+    flex: 1;
+    background-color: #fff;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.device-tab-content {
+    display: none;
+}
+
+.device-tab-content.active {
+    display: block;
+}
+
+.monitoring-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 24px;
+}
+
+.monitoring-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.monitoring-label {
+    font-size: 14px;
+    color: #333;
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.monitoring-input {
+    flex: 1;
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    min-width: 100px;
+}
+
+.monitoring-input:focus {
+    outline: none;
+    border-color: #1890ff;
+}
+
+.monitoring-input[readonly] {
+    background-color: #f5f5f5;
+    cursor: default;
+}
+
+.tab-placeholder {
+    padding: 40px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
 /* 响应式设计 */
 @media (max-width: 1200px) {
     .search-filters {
