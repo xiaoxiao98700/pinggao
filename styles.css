@@ -3948,6 +3948,36 @@ body {
     flex: 1;
 }
 
+/* 弹窗内省份选择器 */
+.modal-province-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.modal-province-label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.modal-province-select {
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.modal-province-select:focus {
+    outline: none;
+    border-color: #1890ff;
+}
+
 /* 弹窗表格 */
 .modal-table {
     width: 100%;
