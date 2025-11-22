@@ -379,6 +379,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化分页
     updatePagination();
     
+    // 选型报表页面 - 开关切换
+    const toggleSwitches = document.querySelectorAll('.toggle-switch input');
+    toggleSwitches.forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const row = this.closest('tr');
+            const selectionName = row.querySelector('td:nth-child(8)').textContent;
+            const isChecked = this.checked;
+            console.log(`选型 ${selectionName} 采用状态: ${isChecked ? '已采用' : '未采用'}`);
+            // 这里可以添加实际的更新逻辑
+        });
+    });
+    
+    // 选型报表页面 - 新建电极热水简版按钮
+    const addSimpleBtn = document.querySelector('.btn-add-simple');
+    if (addSimpleBtn) {
+        addSimpleBtn.addEventListener('click', function() {
+            alert('新建电极热水简版');
+            // 这里可以添加跳转逻辑
+        });
+    }
+    
     // 新增项目页面表单验证
     const projectForm = document.getElementById('projectForm');
     if (projectForm) {
