@@ -1495,11 +1495,14 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .monitoring-item {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
