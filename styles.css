@@ -308,12 +308,15 @@ body {
     display: flex;
     gap: 16px;
     flex: 1;
+    flex-wrap: nowrap;
+    align-items: flex-end;
 }
 
 .filter-item {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    flex-shrink: 0;
 }
 
 .filter-item label {
@@ -1655,11 +1658,11 @@ body {
 /* 响应式设计 */
 @media (max-width: 1200px) {
     .search-filters {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
     
     .filter-input {
-        width: 180px;
+        width: 160px;
     }
 }
 
