@@ -45,10 +45,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (resetBtn) {
         resetBtn.addEventListener('click', function() {
+            // 清除筛选输入框
             filterInputs.forEach(input => {
                 input.value = '';
             });
-            // 重置后重新加载数据
+            // 清除客户选中状态
+            const customerItems = document.querySelectorAll('.customer-item');
+            customerItems.forEach(item => item.classList.remove('active'));
+            selectedCustomer = null;
+            
+            // 显示所有表格行
+            const tableRows = document.querySelectorAll('#projectTable tbody tr');
+            tableRows.forEach(row => {
+                row.style.display = '';
+            });
+            
+            // 更新分页信息
+            updatePaginationInfo();
             console.log('重置筛选条件');
         });
     }
@@ -215,6 +228,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 客户列表搜索
     const customersInput = document.querySelector('.customers-input');
     const customerItems = document.querySelectorAll('.customer-item');
+    const tableRows = document.querySelectorAll('#projectTable tbody tr');
+    let selectedCustomer = null;
     
     if (customersInput) {
         customersInput.addEventListener('input', function() {
@@ -230,13 +245,77 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 客户项点击（仅用于筛选，不添加额外样式）
+    // 客户项点击 - 筛选项目列表
     customerItems.forEach(item => {
         item.addEventListener('click', function() {
-            // 这里可以添加筛选项目的逻辑
-            console.log('选中客户:', this.textContent);
+            // 移除其他项的选中状态
+            customerItems.forEach(i => i.classList.remove('active'));
+            // 添加当前项的选中状态
+            this.classList.add('active');
+            
+            // 获取选中的客户名称
+            selectedCustomer = this.getAttribute('data-customer');
+            
+            // 筛选表格行
+            filterTableByCustomer(selectedCustomer);
+            
+            console.log('选中客户:', selectedCustomer);
         });
     });
+    
+    // 根据客户筛选表格
+    function filterTableByCustomer(customerName) {
+        if (!customerName) {
+            // 如果没有选中客户，显示所有行
+            tableRows.forEach(row => {
+                row.style.display = '';
+            });
+            return;
+        }
+        
+        // 筛选表格行
+        tableRows.forEach(row => {
+            // 获取该行的所属客户（第5列，索引为4）
+            const customerCell = row.querySelector('td:nth-child(5)');
+            if (customerCell) {
+                const rowCustomer = customerCell.textContent.trim();
+                if (rowCustomer === customerName) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+        
+        // 更新分页信息
+        updatePaginationInfo();
+    }
+    
+    // 更新分页信息
+    function updatePaginationInfo() {
+        const visibleRows = Array.from(tableRows).filter(row => row.style.display !== 'none');
+        const paginationInfo = document.querySelector('.pagination-info span');
+        if (paginationInfo) {
+            paginationInfo.textContent = `共${visibleRows.length}条`;
+        }
+    }
+    
+    // 重置按钮 - 清除客户筛选
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            // 清除客户选中状态
+            customerItems.forEach(item => item.classList.remove('active'));
+            selectedCustomer = null;
+            
+            // 显示所有表格行
+            tableRows.forEach(row => {
+                row.style.display = '';
+            });
+            
+            // 更新分页信息
+            updatePaginationInfo();
+        });
+    }
     
     // 标签页切换
     const tabs = document.querySelectorAll('.tab');

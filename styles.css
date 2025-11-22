@@ -150,11 +150,14 @@ body {
 
 /* 我的客户部分 */
 .customers-section {
-    margin: 16px;
+    width: 250px;
+    flex-shrink: 0;
     padding: 16px;
     background-color: #fafafa;
-    border: 1px solid #e8e8e8;
-    border-radius: 4px;
+    border-right: 1px solid #e8e8e8;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .customers-title {
@@ -189,7 +192,7 @@ body {
 }
 
 .customers-list {
-    max-height: 400px;
+    flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -201,11 +204,18 @@ body {
     color: #666;
     cursor: pointer;
     line-height: 1.5;
+    border-radius: 4px;
+    margin-bottom: 2px;
 }
 
 .customer-item:hover {
     background-color: #e6f7ff;
     color: #1890ff;
+}
+
+.customer-item.active {
+    background-color: #1890ff;
+    color: #fff;
 }
 
 /* 主内容区域 */
@@ -215,6 +225,13 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+
+/* 内容包装器：左侧客户列表 + 右侧项目列表 */
+.content-wrapper {
+    flex: 1;
+    display: flex;
     overflow: hidden;
 }
 
@@ -258,12 +275,20 @@ body {
     color: #ff4d4f;
 }
 
+/* 右侧项目列表区域 */
+.projects-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 /* 搜索筛选区域 */
 .search-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin: 0 16px 16px;
+    margin: 16px;
     padding: 16px;
     background-color: #fafafa;
     border-radius: 4px;
