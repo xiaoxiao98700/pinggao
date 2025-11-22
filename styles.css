@@ -3806,51 +3806,35 @@ body {
     background-color: #fff;
 }
 
-/* 按钮基础样式 */
+/* 按钮基础样式 - 白色背景，黑色边框 */
 .price-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 7px 15px;
-    border: none;
-    border-radius: 4px;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
-    transition: opacity 0.2s;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.2s;
 }
 
 .price-btn:hover {
-    opacity: 0.85;
+    border-color: #40a9ff;
+    color: #40a9ff;
 }
 
 .price-btn .btn-icon {
     font-size: 14px;
+    color: #333;
 }
 
-/* 新建按钮 - 深蓝色 */
-.price-btn-new {
-    background-color: #1890ff;
-    color: #fff;
-}
-
-/* 引用按钮 - 深蓝色 */
-.price-btn-reference {
-    background-color: #1890ff;
-    color: #fff;
-}
-
-/* 编辑按钮 - 浅蓝色 */
-.price-btn-edit {
-    background-color: #91d5ff;
-    color: #fff;
-}
-
-/* 删除按钮 - 粉红色 */
-.price-btn-delete {
-    background-color: #ffadd2;
-    color: #fff;
+.price-btn:hover .btn-icon {
+    color: #40a9ff;
 }
 
 /* 表格样式 */
