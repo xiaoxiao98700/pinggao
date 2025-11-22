@@ -1017,9 +1017,50 @@
         </div>
     </footer>
 
-    <!-- ECharts 图表库 -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <script src="script.js"></script>
+    <!-- ECharts 图表库 - 多CDN备用加载 -->
+    <script>
+        // 多个CDN源备选
+        var echartsUrls = [
+            'https://registry.npmmirror.com/echarts/5.4.3/files/dist/echarts.min.js',
+            'https://unpkg.com/echarts@5.4.3/dist/echarts.min.js',
+            'https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js'
+        ];
+        
+        var currentUrlIndex = 0;
+        
+        function loadECharts() {
+            if (currentUrlIndex >= echartsUrls.length) {
+                console.error('所有ECharts CDN源都加载失败');
+                return;
+            }
+            
+            var script = document.createElement('script');
+            script.src = echartsUrls[currentUrlIndex];
+            
+            script.onload = function() {
+                console.log('✓ ECharts加载成功:', echartsUrls[currentUrlIndex]);
+                loadMainScript();
+            };
+            
+            script.onerror = function() {
+                console.warn('✗ ECharts加载失败:', echartsUrls[currentUrlIndex]);
+                currentUrlIndex++;
+                loadECharts();
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        function loadMainScript() {
+            var script = document.createElement('script');
+            script.src = 'script.js';
+            document.body.appendChild(script);
+        }
+        
+        // 开始加载
+        loadECharts();
+    </script>
     <script>
         // 设备检测页面专用脚本
         document.addEventListener('DOMContentLoaded', function() {
