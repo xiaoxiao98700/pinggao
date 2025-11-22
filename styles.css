@@ -1904,6 +1904,8 @@ body {
     margin-bottom: 20px;
     width: 100%;
     justify-content: space-between;
+    z-index: 20;
+    position: relative;
 }
 
 .header-group {
@@ -2077,6 +2079,7 @@ body {
     align-items: flex-start;
     gap: 4px;
     font-size: 11px;
+    z-index: 20;
 }
 
 .level-tag.top {
@@ -2105,6 +2108,7 @@ body {
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #333;
+    z-index: 20;
 }
 
 /* 压力显示 */
@@ -2116,6 +2120,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    z-index: 20;
 }
 
 /* 底部排污阀 */
@@ -2125,6 +2130,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    z-index: 20;
+    position: relative;
 }
 
 /* 通用标签样式 */
@@ -2151,6 +2158,8 @@ body {
     font-size: 11px;
     color: #333;
     font-weight: 500;
+    position: relative;
+    z-index: 20;
 }
 
 .tag-label.small {
@@ -2161,6 +2170,8 @@ body {
     font-size: 13px;
     font-weight: 600;
     color: #000;
+    position: relative;
+    z-index: 20;
 }
 
 .tag-value.green {
@@ -2174,6 +2185,8 @@ body {
 .tag-text {
     font-size: 10px;
     color: #666;
+    position: relative;
+    z-index: 20;
 }
 
 .tag-text.small {
@@ -2275,6 +2288,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    z-index: 15;
 }
 
 .temp-sensor {
@@ -2306,6 +2320,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    z-index: 15;
 }
 
 /* 流量指示器 */
@@ -2365,6 +2380,7 @@ body {
     right: 50px;
     display: flex;
     justify-content: space-between;
+    z-index: 15;
 }
 
 .nitrogen-system,
@@ -2427,6 +2443,26 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+}
+
+/* 组态图文字标注 */
+.diagram-label {
+    position: absolute;
+    font-size: 11px;
+    color: #000;
+    font-weight: 700;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 3px 8px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.diagram-label.small {
+    font-size: 10px;
+    padding: 2px 6px;
 }
 
 /* 管道系统 */
