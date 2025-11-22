@@ -226,7 +226,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    max-height: calc(100vh - 60px - 50px);
+    height: calc(100vh - 60px - 50px);
+    min-height: 0;
 }
 
 /* 表单页面的主内容区域（允许滚动） */
@@ -240,6 +241,7 @@ body {
     flex: 1;
     display: flex;
     overflow: hidden;
+    min-height: 0;
 }
 
 /* 标签页 */
