@@ -302,14 +302,16 @@ body {
     background-color: #fafafa;
     border-radius: 4px;
     flex-shrink: 0;
+    min-width: 0;
 }
 
 .search-filters {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     flex: 1;
     flex-wrap: nowrap;
     align-items: flex-end;
+    min-width: 0;
 }
 
 .filter-item {
@@ -329,9 +331,13 @@ body {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     font-size: 14px;
-    width: 200px;
+    width: 160px;
+    min-width: 140px;
+    max-width: 180px;
     height: 32px;
     transition: all 0.3s;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .filter-input:focus {
