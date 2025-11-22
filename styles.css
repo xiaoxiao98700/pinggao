@@ -653,6 +653,8 @@ body {
 .selection-form {
     padding: 32px 24px;
     background-color: #fff;
+    display: flex;
+    justify-content: center;
 }
 
 .selection-form .form-row-single {
@@ -660,6 +662,7 @@ body {
     flex-direction: column;
     gap: 24px;
     max-width: 600px;
+    width: 100%;
 }
 
 .selection-form .form-group {
