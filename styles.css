@@ -310,9 +310,10 @@ body {
     display: flex;
     gap: 12px;
     flex: 1;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
     align-items: flex-end;
     min-width: 0;
+    overflow: hidden;
 }
 
 .filter-item {
@@ -320,6 +321,7 @@ body {
     flex-direction: column;
     gap: 6px;
     flex-shrink: 0;
+    min-width: 0;
 }
 
 .filter-item label {
@@ -1669,11 +1671,12 @@ body {
 /* 响应式设计 */
 @media (max-width: 1200px) {
     .search-filters {
-        flex-wrap: nowrap;
+        flex-wrap: nowrap !important;
     }
     
     .filter-input {
-        width: 160px;
+        width: 150px;
+        min-width: 120px;
     }
 }
 
@@ -1697,11 +1700,13 @@ body {
     }
     
     .search-filters {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: nowrap;
     }
     
     .filter-input {
         width: 100%;
+        min-width: 0;
     }
     
     .table-container {
