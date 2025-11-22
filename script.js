@@ -88,9 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.querySelector('.btn-add');
     if (addBtn) {
         addBtn.addEventListener('click', function() {
-            alert('跳转到新增项目页面');
-            // 这里可以添加跳转逻辑
-            // window.location.href = 'add-project.html';
+            window.location.href = 'add-project.html';
         });
     }
     
@@ -360,4 +358,57 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化分页
     updatePagination();
+    
+    // 新增项目页面表单验证
+    const projectForm = document.getElementById('projectForm');
+    if (projectForm) {
+        const requiredFields = projectForm.querySelectorAll('.required input, .required select');
+        const confirmBtn = document.querySelector('.btn-confirm');
+        
+        // 表单提交处理
+        projectForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#ff4d4f';
+                } else {
+                    field.style.borderColor = '#d9d9d9';
+                }
+            });
+            
+            if (isValid) {
+                alert('项目创建成功！');
+                // 这里可以添加实际的提交逻辑
+                // window.location.href = 'index.html';
+            } else {
+                alert('请填写所有必填字段！');
+            }
+        });
+        
+        // 确定按钮点击
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', function() {
+                projectForm.dispatchEvent(new Event('submit'));
+            });
+        }
+        
+        // 输入框焦点事件
+        const inputs = projectForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#1890ff';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value && this.closest('.required')) {
+                    this.style.borderColor = '#ff4d4f';
+                } else {
+                    this.style.borderColor = '#d9d9d9';
+                }
+            });
+        });
+    }
 });
