@@ -9,12 +9,17 @@
 页面已配置 GitHub Pages 自动部署，访问地址：
 **https://xiaoxiao98700.github.io/pinggao/**
 
-> **启用 GitHub Pages 的步骤：**
+> **已配置 GitHub Actions 自动部署：**
+> - ✅ 已创建 `.github/workflows/deploy.yml` 工作流文件
+> - ✅ 每次推送到 `main` 分支会自动触发部署
+> 
+> **首次启用 GitHub Pages 的步骤：**
 > 1. 进入仓库：https://github.com/xiaoxiao98700/pinggao
-> 2. 点击 Settings（设置）
-> 3. 在左侧菜单找到 Pages
-> 4. 在 Source 下选择 "GitHub Actions"
-> 5. 保存后，每次推送到 main 分支会自动部署
+> 2. 点击 **Settings（设置）**
+> 3. 在左侧菜单找到 **Pages**
+> 4. 在 **Source** 下选择 **"GitHub Actions"**
+> 5. 保存后，工作流会自动运行并部署页面
+> 6. 部署完成后，访问地址：https://xiaoxiao98700.github.io/pinggao/
 
 ### 方式一：直接打开（最简单）
 1. 双击 `index.html` 文件
@@ -60,6 +65,11 @@ http-server
 - ✅ 表单验证功能
 - ✅ 响应式设计
 - ✅ 现代化UI界面
+- ✅ 设备检测数据分析功能
+  - 支持多参数类型查询（温度、压力、液位、电流、电压、功率、流量、频率）
+  - 实时数据折线图（实时值实线，上限/下限/均值虚线）
+  - 实时数据表格展示
+  - 时间范围查询
 
 ## 页面结构
 
