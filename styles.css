@@ -465,31 +465,32 @@ body {
 }
 
 .data-table th {
-    padding: 12px 8px;
+    padding: 8px 8px;
     text-align: left;
     font-weight: 500;
     color: #333;
     border-bottom: 1px solid #e8e8e8;
     white-space: nowrap;
     font-size: 14px;
-    height: 44px;
+    height: 32px;
     box-sizing: border-box;
 }
 
 .data-table td {
-    padding: 12px 8px;
+    padding: 8px 8px;
     border-bottom: 1px solid #f0f0f0;
     color: #666;
     font-size: 14px;
-    height: 44px;
+    height: 32px;
     box-sizing: border-box;
-    word-wrap: break-word;
-    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .data-table tbody tr {
     background-color: #fff;
-    height: 44px;
+    height: 32px;
 }
 
 .data-table tbody tr:hover {

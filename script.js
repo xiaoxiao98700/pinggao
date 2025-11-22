@@ -1,6 +1,28 @@
 // 页面交互功能
 
 document.addEventListener('DOMContentLoaded', function() {
+    // 限制单元格文本显示长度（20个字符）
+    function truncateTableCellText() {
+        const tableCells = document.querySelectorAll('.data-table td');
+        tableCells.forEach(cell => {
+            // 跳过复选框、操作列和状态标签
+            if (cell.querySelector('input[type="checkbox"]') || 
+                cell.classList.contains('actions') || 
+                cell.querySelector('.status-badge')) {
+                return;
+            }
+            
+            const text = cell.textContent.trim();
+            if (text.length > 20) {
+                cell.textContent = text.substring(0, 20) + '...';
+                cell.title = text; // 添加完整文本到title属性，鼠标悬停可查看
+            }
+        });
+    }
+    
+    // 页面加载时执行文本截断
+    truncateTableCellText();
+    
     // 全选/取消全选
     const selectAllCheckbox = document.querySelector('.select-all');
     const rowCheckboxes = document.querySelectorAll('.row-checkbox');
