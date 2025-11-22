@@ -1073,8 +1073,127 @@
                     // 激活当前页签
                     this.classList.add('active');
                     document.getElementById(targetTab + 'Content').classList.add('active');
+                    
+                    // 如果切换到数据分析页签，初始化图表
+                    if (targetTab === 'analysis') {
+                        setTimeout(() => {
+                            // 检查ECharts是否已加载
+                            if (typeof echarts === 'undefined') {
+                                console.warn('ECharts未加载，等待加载...');
+                                const checkECharts = setInterval(() => {
+                                    if (typeof echarts !== 'undefined') {
+                                        clearInterval(checkECharts);
+                                        initAnalysisChart();
+                                    }
+                                }, 100);
+                                // 10秒后停止检查
+                                setTimeout(() => clearInterval(checkECharts), 10000);
+                            } else {
+                                initAnalysisChart();
+                            }
+                        }, 300);
+                    }
                 });
             });
+            
+            // 初始化数据分析图表的函数
+            function initAnalysisChart() {
+                console.log('开始初始化数据分析图表...');
+                
+                // 检查图表容器是否存在
+                const chartElement = document.getElementById('dataChart');
+                if (!chartElement) {
+                    console.error('图表容器未找到！');
+                    return;
+                }
+                
+                // 初始化图表（如果还未初始化）
+                if (typeof window.dataChart === 'undefined' || !window.dataChart) {
+                    try {
+                        window.dataChart = echarts.init(chartElement);
+                        window.chartInitialized = true;
+                        console.log('✓ 图表初始化成功');
+                    } catch(error) {
+                        console.error('图表初始化失败:', error);
+                        return;
+                    }
+                }
+                
+                // 设置默认时间
+                const startTimeInput = document.getElementById('startTime');
+                const endTimeInput = document.getElementById('endTime');
+                const paramTypeSelect = document.getElementById('paramType');
+                
+                if (startTimeInput && endTimeInput && paramTypeSelect) {
+                    const end = new Date();
+                    const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
+                    
+                    const formatDateTime = (date) => {
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const hours = String(date.getHours()).padStart(2, '0');
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        return `${year}-${month}-${day}T${hours}:${minutes}`;
+                    };
+                    
+                    if (!startTimeInput.value) {
+                        startTimeInput.value = formatDateTime(start);
+                    }
+                    if (!endTimeInput.value) {
+                        endTimeInput.value = formatDateTime(end);
+                    }
+                    
+                    // 触发查询（调用script.js中的函数）
+                    if (typeof window.renderChart === 'function' && 
+                        typeof window.updateStats === 'function' && 
+                        typeof window.fillTableData === 'function') {
+                        const paramType = paramTypeSelect.value || 'temperature';
+                        const startTime = startTimeInput.value;
+                        const endTime = endTimeInput.value;
+                        
+                        if (startTime && endTime) {
+                            window.renderChart(paramType, startTime, endTime);
+                            window.updateStats(paramType);
+                            window.fillTableData(paramType, startTime, endTime);
+                        }
+                    } else {
+                        console.warn('图表渲染函数未加载，等待script.js加载...');
+                        // 等待script.js加载
+                        setTimeout(() => {
+                            if (typeof window.renderChart === 'function') {
+                                const paramType = paramTypeSelect.value || 'temperature';
+                                const startTime = startTimeInput.value;
+                                const endTime = endTimeInput.value;
+                                if (startTime && endTime) {
+                                    window.renderChart(paramType, startTime, endTime);
+                                    window.updateStats(paramType);
+                                    window.fillTableData(paramType, startTime, endTime);
+                                }
+                            }
+                        }, 500);
+                    }
+                }
+            }
+            
+            // 如果页面加载时就在数据分析页签，也初始化
+            setTimeout(() => {
+                const analysisTab = document.querySelector('.device-tab[data-tab="analysis"]');
+                if (analysisTab && analysisTab.classList.contains('active')) {
+                    console.log('页面加载时在数据分析页签，初始化图表');
+                    if (typeof echarts !== 'undefined') {
+                        initAnalysisChart();
+                    } else {
+                        const checkECharts = setInterval(() => {
+                            if (typeof echarts !== 'undefined') {
+                                clearInterval(checkECharts);
+                                initAnalysisChart();
+                            }
+                        }, 100);
+                        setTimeout(() => clearInterval(checkECharts), 10000);
+                    }
+                }
+            }, 1000);
             
             // 项目展开/收起
             const projectHeaders = document.querySelectorAll('.device-project-header');

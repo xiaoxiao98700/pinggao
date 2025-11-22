@@ -555,8 +555,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('ECharts加载状态:', typeof echarts !== 'undefined' ? '已加载' : '未加载');
     
     // 初始化图表（延迟初始化，在页签切换时触发）
-    let dataChart = null;
-    let chartInitialized = false;
+    window.dataChart = null;
+    window.chartInitialized = false;
     
     // 生成模拟数据函数（移到外部作用域）
     function generateMockData(paramType, startTime, endTime) {
@@ -689,9 +689,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-    // 绘制图表函数（移到外部作用域）
-    function renderChart(paramType, startTime, endTime) {
-        if (!dataChart) {
+    // 绘制图表函数（移到外部作用域，暴露到window）
+    window.renderChart = function(paramType, startTime, endTime) {
+        if (!window.dataChart) {
             console.error('图表未初始化！');
             return;
         }
@@ -921,12 +921,12 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         try {
-            dataChart.setOption(option);
+            window.dataChart.setOption(option);
             console.log('✓ 图表渲染成功');
         } catch(error) {
             console.error('图表渲染失败:', error);
         }
-    }
+    };
     
     function initDataChart() {
         if (chartInitialized) {
@@ -1124,8 +1124,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500);
         
-    // 更新统计数据函数（移到外部作用域）
-    function updateStats(paramType) {
+    // 更新统计数据函数（移到外部作用域，暴露到window）
+    window.updateStats = function(paramType) {
             // 根据参数类型设置单位和基础值
             const paramConfig = {
                 temperature: { base: 118, upper: 120, lower: 100, unit: '°C' },
@@ -1169,15 +1169,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (maxValueEl) maxValueEl.textContent = formatValue(max);
             if (minValueEl) minValueEl.textContent = formatValue(min);
         }
+    };
         
         
-    // 填充表格数据函数（移到外部作用域）
-    function fillTableData(paramType, startTime, endTime) {
-            const tbody = document.getElementById('dataTableBody');
-            if (!tbody) return;
-            
-            // 清空现有数据
-            tbody.innerHTML = '';
+    // 填充表格数据函数（移到外部作用域，暴露到window）
+    window.fillTableData = function(paramType, startTime, endTime) {
+        const tbody = document.getElementById('dataTableBody');
+        if (!tbody) return;
+        
+        // 清空现有数据
+        tbody.innerHTML = '';
             
             // 根据参数类型设置基础值和上下限
             const paramConfig = {
@@ -1291,27 +1292,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentTime = new Date(currentTime.getTime() + intervalMinutes * 60 * 1000);
                 index++;
             }
-        }
-        
-        // 导出按钮
-        const dataExportBtn = document.getElementById('exportBtn');
-        if (dataExportBtn) {
-            dataExportBtn.addEventListener('click', function() {
-                const paramType = paramTypeSelect ? paramTypeSelect.value : 'temperature';
-                const startTime = startTimeInput ? startTimeInput.value : '';
-                const endTime = endTimeInput ? endTimeInput.value : '';
-                
-                // 这里可以添加实际的导出逻辑
-                console.log('导出数据:', { paramType, startTime, endTime });
-                alert('导出功能：将导出 ' + paramType + ' 从 ' + startTime + ' 到 ' + endTime + ' 的数据');
-            });
-        }
-        
-        // 响应式调整
-        window.addEventListener('resize', function() {
-            if (dataChart) {
-                dataChart.resize();
-            }
+    };
+    
+    // 导出按钮事件（在initDataChart中绑定）
+    const dataExportBtn = document.getElementById('exportBtn');
+    if (dataExportBtn) {
+        dataExportBtn.addEventListener('click', function() {
+            const paramTypeSelect = document.getElementById('paramType');
+            const startTimeInput = document.getElementById('startTime');
+            const endTimeInput = document.getElementById('endTime');
+            const paramType = paramTypeSelect ? paramTypeSelect.value : 'temperature';
+            const startTime = startTimeInput ? startTimeInput.value : '';
+            const endTime = endTimeInput ? endTimeInput.value : '';
+            
+            // 这里可以添加实际的导出逻辑
+            console.log('导出数据:', { paramType, startTime, endTime });
+            alert('导出功能：将导出 ' + paramType + ' 从 ' + startTime + ' 到 ' + endTime + ' 的数据');
         });
     }
+    
+    // 响应式调整
+    window.addEventListener('resize', function() {
+        if (window.dataChart) {
+            window.dataChart.resize();
+        }
+    });
 });
