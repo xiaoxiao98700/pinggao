@@ -449,10 +449,12 @@ body {
 }
 
 .data-table {
-    width: 100%;
+    width: auto;
+    min-width: 100%;
     border-collapse: collapse;
     font-size: 14px;
     background-color: #fff;
+    table-layout: auto;
 }
 
 .data-table thead {
@@ -470,6 +472,8 @@ body {
     border-bottom: 1px solid #e8e8e8;
     white-space: nowrap;
     font-size: 14px;
+    height: 44px;
+    box-sizing: border-box;
 }
 
 .data-table td {
@@ -477,10 +481,15 @@ body {
     border-bottom: 1px solid #f0f0f0;
     color: #666;
     font-size: 14px;
+    height: 44px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .data-table tbody tr {
     background-color: #fff;
+    height: 44px;
 }
 
 .data-table tbody tr:hover {
