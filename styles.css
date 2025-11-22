@@ -655,17 +655,11 @@ body {
     background-color: #fff;
 }
 
-.selection-form .form-row {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-}
-
-.selection-form .form-col {
-    flex: 1;
+.selection-form .form-row-single {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    max-width: 600px;
 }
 
 .selection-form .form-group {
