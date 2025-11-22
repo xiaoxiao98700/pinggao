@@ -409,6 +409,8 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-add:hover {
@@ -514,6 +516,195 @@ body {
 
 .toggle-switch input:focus + .toggle-slider {
     box-shadow: 0 0 1px #52c41a;
+}
+
+/* 新增选型页面样式 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-back {
+    padding: 6px 12px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.3s;
+}
+
+.btn-back:hover {
+    color: #1890ff;
+}
+
+.page-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.page-header-right {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-next {
+    padding: 6px 20px;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-next:hover {
+    background-color: #40a9ff;
+}
+
+.btn-cancel {
+    padding: 6px 20px;
+    background-color: #fff;
+    color: #1890ff;
+    border: 1px solid #1890ff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #e6f7ff;
+    border-color: #40a9ff;
+}
+
+/* 进度指示器 */
+.progress-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.step-circle.active {
+    background-color: #1890ff;
+    color: #fff;
+}
+
+.step-label {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+    transition: color 0.3s;
+}
+
+.step-label.active {
+    color: #1890ff;
+}
+
+.step-line {
+    width: 120px;
+    height: 1px;
+    background-color: #d9d9d9;
+    margin: 0 8px;
+    margin-top: -16px;
+}
+
+/* 选型表单样式 */
+.selection-form {
+    padding: 24px;
+}
+
+.form-row {
+    display: flex;
+    gap: 32px;
+}
+
+.form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
+}
+
+.form-label.required::after {
+    content: ' *';
+    color: #ff4d4f;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+    height: 32px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #1890ff;
+}
+
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+    cursor: pointer;
 }
 
 /* 数据表格 */

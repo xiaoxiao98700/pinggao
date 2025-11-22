@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 新增选型</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item">客户档案</a>
+                <a href="index.html" class="nav-item">项目管理</a>
+                <a href="selection-report.html" class="nav-item active">选型报表</a>
+                <a href="#" class="nav-item">选型规则</a>
+                <a href="#" class="nav-item">电价时段配置</a>
+                <a href="#" class="nav-item">设备全景智控</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content form-page">
+            <!-- 页面头部 -->
+            <div class="page-header">
+                <div class="page-header-left">
+                    <button class="btn-back" onclick="history.back()">← 返回</button>
+                    <h1 class="page-title">新增选型</h1>
+                </div>
+                <div class="page-header-right">
+                    <button class="btn-next">下一步</button>
+                    <button class="btn-cancel">取消</button>
+                </div>
+            </div>
+
+            <!-- 进度指示器 -->
+            <div class="progress-steps">
+                <div class="step-item active">
+                    <div class="step-circle active">1</div>
+                    <div class="step-label active">第1步</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">第2步</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">第3步</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">第4步</div>
+                </div>
+            </div>
+
+            <!-- 表单内容 -->
+            <div class="form-container">
+                <form id="selectionForm" class="selection-form">
+                    <div class="form-row">
+                        <!-- 左列 -->
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label required">选型名称</label>
+                                <input type="text" class="form-input" placeholder="请填写选型名称" required>
+                            </div>
+                        </div>
+
+                        <!-- 右列 -->
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label required">项目地点</label>
+                                <select class="form-input form-select" required>
+                                    <option value="">请选择省市区地址</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">选型规则</label>
+                                <select class="form-input form-select" required>
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            豫ICP备05010380号-5 | 河南平高电气股份有限公司
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
