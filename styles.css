@@ -979,9 +979,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 16px;
-    padding-bottom: 16px;
+    margin: 16px auto;
+    padding: 0 40px 16px;
     border-bottom: 1px solid #e8e8e8;
+    max-width: 1400px;
 }
 
 .action-left {
@@ -1050,15 +1051,19 @@ body {
 
 /* 表单容器 */
 .form-container {
-    padding: 0;
+    padding: 24px 40px;
     background-color: #fff;
     min-height: calc(100vh - 60px - 50px - 200px);
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* 新增选型页面的表单容器 */
 .main-content.form-page .form-container {
     background-color: #fff;
-    padding: 0;
+    padding: 24px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .form-title {
@@ -1717,6 +1722,17 @@ body {
         flex-direction: column;
         gap: 12px;
         align-items: flex-start;
+    }
+    
+    .form-container,
+    .main-content.form-page .form-container {
+        padding: 16px 20px;
+        max-width: 100%;
+    }
+    
+    .action-bar {
+        margin: 16px 20px;
+        max-width: 100%;
     }
 }
 
