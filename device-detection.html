@@ -334,8 +334,247 @@
 
                     <!-- 组态页签内容 -->
                     <div class="device-tab-content" id="configurationContent" data-device="tianbang-heat-tank">
-                        <div class="tab-placeholder">
-                            <p>组态配置内容</p>
+                        <div class="configuration-container">
+                            <!-- 左侧控制面板 -->
+                            <div class="config-control-panel">
+                                <!-- 模式切换 -->
+                                <div class="control-mode-tabs">
+                                    <div class="control-mode-tab active">本地</div>
+                                    <div class="control-mode-tab">远程</div>
+                                </div>
+                                <div class="control-type-tabs">
+                                    <div class="control-type-tab">温度控制</div>
+                                    <div class="control-type-tab active">切换控制</div>
+                                </div>
+                                
+                                <!-- 状态列表 -->
+                                <div class="control-status-list">
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉安全</span>
+                                        <span class="status-indicator gray"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉停止/运行</span>
+                                        <span class="status-indicator green"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉启门/关风</span>
+                                        <span class="status-indicator gray"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉运行</span>
+                                        <span class="status-indicator green"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉停止/关火完成</span>
+                                        <span class="status-indicator gray"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉运行/中</span>
+                                        <span class="status-indicator gray"></span>
+                                    </div>
+                                    <div class="status-item highlight">
+                                        <span class="status-label">自动循环</span>
+                                        <div class="status-split">
+                                            <span class="status-indicator green"></span>
+                                            <span class="status-indicator red"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 实际值和设定值 -->
+                                <div class="control-values">
+                                    <div class="value-item">
+                                        <span class="value-label">实际区域循环泵设定值</span>
+                                        <span class="value-display">68.9</span>
+                                    </div>
+                                    <div class="value-item">
+                                        <span class="value-label">锅炉实际功率</span>
+                                        <span class="value-display">0</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 控制模式状态 -->
+                                <div class="control-status-list">
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉停止/运行控制模式</span>
+                                        <span class="status-indicator gray"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉手+温度控制模式</span>
+                                        <span class="status-indicator green"></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">锅炉停止/功率控制</span>
+                                        <span class="status-indicator green"></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 停止按钮 -->
+                                <button class="btn-stop-boiler">停止锅炉</button>
+                            </div>
+                            
+                            <!-- 右侧组态图 -->
+                            <div class="config-diagram-area">
+                                <!-- 组态图SVG容器 -->
+                                <div class="diagram-container">
+                                    <!-- 主锅炉容器 -->
+                                    <div class="boiler-main">
+                                        <div class="boiler-header">
+                                            <div class="header-group">
+                                                <div class="tag-box">主断路器</div>
+                                                <div class="tag-item">
+                                                    <span>已连接</span>
+                                                    <div class="indicator-circle red"></div>
+                                                </div>
+                                                <div class="tag-box">OBBA10G S001</div>
+                                            </div>
+                                            <div class="tag-label">排气阀</div>
+                                            <div class="tag-item">
+                                                <span>当前闸位</span>
+                                                <div class="valve-icon"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 锅炉压力 -->
+                                        <div class="boiler-pressure">
+                                            <div class="tag-label">锅炉压力</div>
+                                            <div class="tag-box">BE10CP0017</div>
+                                            <div class="tag-value">1.1Bar</div>
+                                            <div class="tag-text">10千伏</div>
+                                        </div>
+                                        
+                                        <!-- 锅炉主体 -->
+                                        <div class="boiler-body">
+                                            <div class="boiler-top">
+                                                <div class="boiler-power-label">锅炉耗电量</div>
+                                                <div class="heating-elements">
+                                                    <div class="element">电热<br>L1</div>
+                                                    <div class="element">电热<br>L2</div>
+                                                    <div class="element">电热<br>L3</div>
+                                                </div>
+                                                <div class="indicator-circle red large"></div>
+                                                <div class="indicator-circle red large"></div>
+                                            </div>
+                                            
+                                            <!-- 水位指示器 -->
+                                            <div class="water-level-container">
+                                                <div class="water-level" style="height: 84.4%;">
+                                                    <div class="water-surface"></div>
+                                                </div>
+                                                
+                                                <!-- 水位标签 -->
+                                                <div class="level-tag top">
+                                                    <div class="tag-box">BE10CL003</div>
+                                                    <div class="tag-value">-0.1%</div>
+                                                    <div class="tag-text">锅炉上液位</div>
+                                                </div>
+                                                <div class="level-tag middle">
+                                                    <div class="tag-value">41.6%</div>
+                                                    <div class="tag-text">锅炉总水位</div>
+                                                </div>
+                                                <div class="level-tag bottom">
+                                                    <div class="tag-box">BE10CL0017/2</div>
+                                                    <div class="tag-value">84.4%</div>
+                                                    <div class="tag-text">锅炉下液位</div>
+                                                </div>
+                                                
+                                                <!-- 中间测量点 -->
+                                                <div class="measure-point">
+                                                    <div class="tag-label small">Bati</div>
+                                                    <div class="tag-text small">锅炉功耗控制与限值</div>
+                                                    <div class="tag-value green">14.7%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 底部排污阀 -->
+                                        <div class="boiler-bottom">
+                                            <div class="tag-label">排污阀</div>
+                                            <div class="valve-icon"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 左侧温度控制区域 -->
+                                    <div class="temp-control-left">
+                                        <div class="temp-sensor">
+                                            <div class="tag-box">NDB63CT001</div>
+                                            <div class="flow-indicator">
+                                                <div class="arrow-right"></div>
+                                                <div class="flow-label">锅炉三通阀<br>设定值</div>
+                                                <div class="flow-percent green">0%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="temp-box">
+                                            <div class="tag-label">区域供温度</div>
+                                            <div class="tag-box">NDB63CT001/</div>
+                                            <div class="tag-value">10.2°C</div>
+                                        </div>
+                                        
+                                        <div class="flow-indicator">
+                                            <div class="arrow-left"></div>
+                                            <div class="flow-label">锅炉三通阀<br>反馈值</div>
+                                            <div class="flow-percent blue">100%</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 右上温度区域 -->
+                                    <div class="temp-control-right">
+                                        <div class="temp-sensor">
+                                            <div class="tag-box">DHG10CT001</div>
+                                            <div class="tag-value">11.2°C</div>
+                                        </div>
+                                        
+                                        <div class="temp-box">
+                                            <div class="tag-label">锅炉温度</div>
+                                            <div class="tag-box">DHG10CT001/2</div>
+                                            <div class="tag-value">11°C</div>
+                                            <div class="tag-text">锅炉温度环1运行</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 底部参数区域 -->
+                                    <div class="bottom-params">
+                                        <!-- 氮气系统 -->
+                                        <div class="nitrogen-system">
+                                            <div class="tag-label">加氢系统行</div>
+                                            <div class="valve-icon large"></div>
+                                            <div class="tag-label">氮气化物</div>
+                                            <div class="tag-box">LAB10AA301</div>
+                                            <div class="tank-icon"></div>
+                                            <div class="tag-text">给水箱</div>
+                                        </div>
+                                        
+                                        <!-- 功率控制 -->
+                                        <div class="power-control">
+                                            <div class="tag-box">LFN10AP001</div>
+                                            <div class="tag-text">锅炉功耗控制限定值</div>
+                                            
+                                            <div class="tag-box green">GHG10 CP501</div>
+                                            <div class="tag-label">锅炉电导率</div>
+                                            
+                                            <div class="tag-box green">GHG10 AP001</div>
+                                            <div class="tag-value green">0%</div>
+                                            <div class="tag-text">15Hz</div>
+                                            <div class="tag-label">锅炉循环泵2运行</div>
+                                            
+                                            <div class="tag-box">GHG10AP002</div>
+                                            <div class="tag-value">15%</div>
+                                            <div class="tag-text blue">0.1Hz</div>
+                                            
+                                            <div class="tag-box">GHG10 CQ001</div>
+                                            <div class="tag-value">55.5μS</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- W2槽充阀 -->
+                                    <div class="w2-valve">
+                                        <div class="tag-label">W2槽充阀（氮气）</div>
+                                        <div class="valve-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
