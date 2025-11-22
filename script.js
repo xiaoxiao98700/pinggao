@@ -149,6 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 操作链接
     const actionLinks = document.querySelectorAll('.action-link');
     actionLinks.forEach(link => {
+        // 跳过禁用的链接
+        if (link.classList.contains('action-link-disabled')) {
+            return;
+        }
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const action = this.textContent.trim();
