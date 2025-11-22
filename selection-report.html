@@ -379,6 +379,38 @@
         </div>
     </footer>
 
+    <!-- 信息补充弹窗 -->
+    <div class="modal-overlay" id="infoSupplementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">信息补充</h3>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="infoSupplementForm">
+                    <div class="modal-form-group">
+                        <label class="modal-form-label">客户名称</label>
+                        <div class="modal-input-group">
+                            <input type="text" class="modal-input" placeholder="请输入客户名称">
+                            <button type="button" class="btn-add-customer">新增客户</button>
+                        </div>
+                    </div>
+                    <div class="modal-form-group">
+                        <label class="modal-form-label">项目名称</label>
+                        <div class="modal-input-group">
+                            <input type="text" class="modal-input" placeholder="请输入项目名称">
+                            <button type="button" class="btn-add-project">新增项目</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel-modal">取消</button>
+                <button type="button" class="btn-confirm-modal">确定</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
