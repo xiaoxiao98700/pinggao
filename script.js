@@ -551,12 +551,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // 数据分析页面功能
     // ============================================
     
-    // 初始化图表
-    let dataChart = null;
-    const chartElement = document.getElementById('dataChart');
+    // 检测ECharts是否加载
+    console.log('ECharts加载状态:', typeof echarts !== 'undefined' ? '已加载' : '未加载');
     
-    if (chartElement && typeof echarts !== 'undefined') {
-        dataChart = echarts.init(chartElement);
+    // 初始化图表（延迟初始化，在页签切换时触发）
+    let dataChart = null;
+    let chartInitialized = false;
+    
+    function initDataChart() {
+        if (chartInitialized) {
+            console.log('图表已初始化，跳过');
+            return;
+        }
+        
+        const chartElement = document.getElementById('dataChart');
+        if (!chartElement) {
+            console.error('图表容器未找到！');
+            return;
+        }
+        
+        if (typeof echarts === 'undefined') {
+            console.error('ECharts库未加载！请检查CDN连接');
+            // 尝试重新加载
+            setTimeout(() => {
+                if (typeof echarts !== 'undefined') {
+                    initDataChart();
+                }
+            }, 1000);
+            return;
+        }
+        
+        console.log('✓ 开始初始化图表...');
+        try {
+            dataChart = echarts.init(chartElement);
+            chartInitialized = true;
+            console.log('✓ 图表初始化成功');
+        } catch(error) {
+            console.error('图表初始化失败:', error);
+            return;
+        }
         
         // 生成模拟数据
         function generateMockData(timeRange = '24h') {
@@ -632,7 +665,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 绘制图表
         function renderChart(paramType, timeRange) {
+            if (!dataChart) {
+                console.error('图表未初始化！');
+                return;
+            }
+            
+            console.log('开始绘制图表...', { paramType, timeRange });
             const data = generateMockData(timeRange);
+            console.log('生成数据点数:', data.times.length);
             
             // 根据参数类型设置单位和标题
             const paramConfig = {
@@ -846,15 +886,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 animationEasing: 'cubicOut'
             };
             
-            dataChart.setOption(option);
+            try {
+                dataChart.setOption(option);
+                console.log('✓ 图表渲染成功');
+            } catch(error) {
+                console.error('图表渲染失败:', error);
+            }
         }
         
-        // 初始渲染（确保图表在页面加载时立即显示）
-        setTimeout(() => {
-            renderChart('temperature', '24h');
-        }, 100);
-        
-        // 查询按钮
+        // 查询按钮事件
         const queryBtn = document.getElementById('queryBtn');
         const paramTypeSelect = document.getElementById('paramType');
         const timeRangeSelect = document.getElementById('timeRange');
@@ -864,12 +904,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 const paramType = paramTypeSelect.value;
                 const timeRange = timeRangeSelect.value;
                 
-                console.log('查询参数:', paramType, timeRange); // 调试输出
+                console.log('查询参数:', paramType, timeRange);
                 
                 renderChart(paramType, timeRange);
                 updateStats(paramType);
             });
         }
+        
+        // 初始渲染
+        console.log('准备渲染图表...');
+        renderChart('temperature', '24h');
+    }
+    
+    // 监听页签切换，初始化数据分析图表
+    const deviceTabs = document.querySelectorAll('.device-tab');
+    deviceTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            console.log('切换页签:', tabName);
+            
+            if (tabName === 'analysis') {
+                setTimeout(() => {
+                    console.log('初始化数据分析图表');
+                    initDataChart();
+                }, 300);
+            }
+        });
+    });
+    
+    // 如果页面加载时就在数据分析页签，直接初始化
+    setTimeout(() => {
+        const analysisContent = document.getElementById('analysisContent');
+        if (analysisContent && analysisContent.classList.contains('active')) {
+            console.log('页面加载时初始化图表');
+            initDataChart();
+        }
+    }, 500);
         
         // 更新统计数据
         function updateStats(paramType) {
