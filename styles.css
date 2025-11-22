@@ -295,8 +295,9 @@ body {
 /* 搜索筛选区域 */
 .search-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-end;
+    gap: 16px;
     margin: 16px;
     padding: 16px;
     background-color: #fafafa;
@@ -349,10 +350,11 @@ body {
 .search-actions {
     display: flex;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .btn-query {
-    padding: 6px 16px;
+    padding: 6px 12px;
     height: 32px;
     background-color: #1890ff;
     color: #fff;
@@ -361,6 +363,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    white-space: nowrap;
 }
 
 .btn-query:hover {
@@ -368,7 +371,7 @@ body {
 }
 
 .btn-reset {
-    padding: 6px 16px;
+    padding: 6px 12px;
     height: 32px;
     background-color: #fff;
     color: #666;
@@ -377,6 +380,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: all 0.3s;
+    white-space: nowrap;
 }
 
 .btn-reset:hover {
@@ -385,7 +389,7 @@ body {
 }
 
 .btn-expand {
-    padding: 6px 16px;
+    padding: 6px 12px;
     height: 32px;
     background-color: #fff;
     color: #666;
@@ -394,6 +398,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: all 0.3s;
+    white-space: nowrap;
 }
 
 .btn-expand:hover {
