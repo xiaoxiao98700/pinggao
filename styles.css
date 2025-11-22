@@ -869,13 +869,6 @@ body {
     color: #40a9ff;
 }
 
-.action-link-disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-    color: #bfbfbf !important;
-    text-decoration: none;
-}
-
 /* 分页 */
 .pagination {
     display: flex;
