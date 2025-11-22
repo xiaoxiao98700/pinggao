@@ -230,13 +230,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 客户项点击
+    // 客户项点击（仅用于筛选，不添加额外样式）
     customerItems.forEach(item => {
         item.addEventListener('click', function() {
-            // 移除其他项的选中状态
-            customerItems.forEach(i => i.classList.remove('active'));
-            // 添加当前项的选中状态
-            this.classList.add('active');
             // 这里可以添加筛选项目的逻辑
             console.log('选中客户:', this.textContent);
         });
