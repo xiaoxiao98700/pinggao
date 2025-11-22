@@ -1891,6 +1891,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 10;
 }
 
 .boiler-header {
@@ -2130,7 +2131,7 @@ body {
     height: 30px;
 }
 
-/* 阀门图标 */
+/* 阀门图标（简化版，用于说明） */
 .valve-icon {
     width: 30px;
     height: 30px;
@@ -2138,6 +2139,7 @@ body {
     border: 2px solid #333;
     border-radius: 4px;
     position: relative;
+    display: inline-block;
 }
 
 .valve-icon::before {
@@ -2146,6 +2148,17 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+}
+
+.valve-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
     width: 20px;
     height: 2px;
     background-color: #fff;
@@ -2296,4 +2309,288 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+}
+
+/* 管道系统 */
+.pipe {
+    position: absolute;
+    background-color: #555;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.pipe-horizontal {
+    height: 6px;
+    background: linear-gradient(180deg, #666 0%, #444 50%, #666 100%);
+}
+
+.pipe-vertical {
+    width: 6px;
+    background: linear-gradient(90deg, #666 0%, #444 50%, #666 100%);
+}
+
+.pipe-thick {
+    background-color: #000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.pipe-horizontal.pipe-thick {
+    height: 10px;
+    background: linear-gradient(180deg, #555 0%, #222 50%, #555 100%);
+}
+
+.pipe-vertical.pipe-thick {
+    width: 10px;
+    background: linear-gradient(90deg, #555 0%, #222 50%, #555 100%);
+}
+
+/* 管道流向箭头 */
+.pipe-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 3;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+}
+
+.pipe-arrow-right {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 14px solid #ff4d4f;
+}
+
+.pipe-arrow-left {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 14px solid #1890ff;
+}
+
+.pipe-arrow-down {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 14px solid #52c41a;
+}
+
+.pipe-arrow-up {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 14px solid #faad14;
+}
+
+/* 管道连接点 */
+.pipe-joint {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #333;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    border: 2px solid #555;
+    z-index: 4;
+}
+
+/* T型接头 */
+.pipe-t-joint {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #333;
+}
+
+.pipe-t-joint::before,
+.pipe-t-joint::after {
+    content: '';
+    position: absolute;
+    background-color: #333;
+}
+
+.pipe-t-joint.horizontal::before {
+    width: 20px;
+    height: 4px;
+    left: -8px;
+    top: 0;
+}
+
+.pipe-t-joint.horizontal::after {
+    width: 4px;
+    height: 20px;
+    left: 0;
+    top: -8px;
+}
+
+/* 阀门（改进版） */
+.valve-symbol {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-color: #fff;
+    border: 3px solid #333;
+    transform: translate(-50%, -50%) rotate(45deg);
+    z-index: 6;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.valve-symbol::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 3px;
+    background-color: #333;
+}
+
+.valve-symbol::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    width: 18px;
+    height: 3px;
+    background-color: #333;
+}
+
+.valve-symbol.open {
+    background-color: #52c41a;
+    border-color: #389e0d;
+    box-shadow: 0 3px 8px rgba(82, 196, 26, 0.6), 0 0 12px rgba(82, 196, 26, 0.3);
+}
+
+.valve-symbol.open::before,
+.valve-symbol.open::after {
+    background-color: #fff;
+}
+
+.valve-symbol.closed {
+    background-color: #ff4d4f;
+    border-color: #cf1322;
+    box-shadow: 0 3px 8px rgba(255, 77, 79, 0.6), 0 0 12px rgba(255, 77, 79, 0.3);
+}
+
+.valve-symbol.closed::before,
+.valve-symbol.closed::after {
+    background-color: #fff;
+}
+
+/* 泵符号 */
+.pump-symbol {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: radial-gradient(circle, #f0f0f0 0%, #d0d0d0 100%);
+    border: 3px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.pump-symbol.running {
+    background: radial-gradient(circle, #73d13d 0%, #52c41a 100%);
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(82, 196, 26, 0.6), 0 0 15px rgba(82, 196, 26, 0.4);
+}
+
+.pump-symbol.running::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: pumpRotate 1.5s linear infinite;
+}
+
+@keyframes pumpRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pump-symbol::before {
+    content: 'P';
+    font-size: 18px;
+    z-index: 1;
+}
+
+/* 连接线（细线用于信号） */
+.connection-line {
+    position: absolute;
+    background-color: #52c41a;
+    z-index: 2;
+}
+
+.connection-line.horizontal {
+    height: 3px;
+}
+
+.connection-line.vertical {
+    width: 3px;
+}
+
+.connection-line.signal {
+    background: repeating-linear-gradient(
+        90deg,
+        #1890ff 0px,
+        #1890ff 8px,
+        #69b1ff 8px,
+        #69b1ff 10px,
+        transparent 10px,
+        transparent 12px
+    );
+    animation: signalFlow 1s linear infinite;
+}
+
+@keyframes signalFlow {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 12px 0;
+    }
+}
+
+/* 管道弯头 */
+.pipe-elbow {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 6px solid #555;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pipe-elbow.top-right {
+    border-left: none;
+    border-bottom: none;
+}
+
+.pipe-elbow.top-left {
+    border-right: none;
+    border-bottom: none;
+}
+
+.pipe-elbow.bottom-right {
+    border-left: none;
+    border-top: none;
+}
+
+.pipe-elbow.bottom-left {
+    border-right: none;
+    border-top: none;
 }
