@@ -558,6 +558,104 @@ document.addEventListener('DOMContentLoaded', function() {
     let dataChart = null;
     let chartInitialized = false;
     
+    // 生成模拟数据函数（移到外部作用域）
+    function generateMockData(paramType, startTime, endTime) {
+        const data = {
+            times: [],
+            actual: [],
+            upper: [],
+            lower: [],
+            average: []
+        };
+        
+        // 根据参数类型设置基础值和上下限
+        const paramConfig = {
+            temperature: { base: 118, upper: 120, lower: 100, unit: '°C' },
+            pressure: { base: 1.5, upper: 1.6, lower: 1.3, unit: 'Bar' },
+            waterLevel: { base: 75, upper: 85, lower: 65, unit: '%' },
+            current: { base: 80, upper: 90, lower: 70, unit: 'A' },
+            voltage: { base: 380, upper: 400, lower: 360, unit: 'V' },
+            power: { base: 280, upper: 320, lower: 240, unit: 'kW' },
+            flow: { base: 120, upper: 150, lower: 100, unit: 'L/min' },
+            frequency: { base: 50, upper: 52, lower: 48, unit: 'Hz' }
+        };
+        
+        const config = paramConfig[paramType] || paramConfig.temperature;
+        const baseValue = config.base;
+        const upperLimit = config.upper;
+        const lowerLimit = config.lower;
+        
+        // 如果没有指定时间，默认使用最近24小时
+        let start, end;
+        if (startTime && endTime) {
+            start = new Date(startTime);
+            end = new Date(endTime);
+        } else {
+            end = new Date();
+            start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
+        }
+        
+        // 计算时间间隔（根据时间范围自动调整）
+        const timeDiff = end.getTime() - start.getTime();
+        const hours = timeDiff / (1000 * 60 * 60);
+        let intervalMinutes = 30; // 默认30分钟
+        
+        if (hours <= 1) {
+            intervalMinutes = 1; // 1小时内，每分钟一个点
+        } else if (hours <= 6) {
+            intervalMinutes = 5; // 6小时内，每5分钟一个点
+        } else if (hours <= 24) {
+            intervalMinutes = 30; // 24小时内，每30分钟一个点
+        } else if (hours <= 168) {
+            intervalMinutes = 60; // 7天内，每小时一个点
+        } else {
+            intervalMinutes = 360; // 超过7天，每6小时一个点
+        }
+        
+        // 格式化时间函数
+        const formatTime = (date) => {
+            if (hours <= 24) {
+                return date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+            } else if (hours <= 168) {
+                return (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
+            } else {
+                return (date.getMonth() + 1) + '月' + date.getDate() + '日';
+            }
+        };
+        
+        // 生成数据点
+        let currentTime = new Date(start);
+        let index = 0;
+        while (currentTime <= end) {
+            data.times.push(formatTime(currentTime));
+            
+            // 生成实时值（在上下限之间波动，有15%概率超标）
+            const random = Math.random();
+            const waveOffset = Math.sin(index / 5) * 5; // 添加波浪效果
+            let actualValue;
+            
+            if (random < 0.15) {
+                // 超标值
+                actualValue = upperLimit + Math.random() * (upperLimit * 0.1);
+            } else {
+                actualValue = baseValue + waveOffset + (Math.random() - 0.5) * (upperLimit - lowerLimit) * 0.3;
+            }
+            
+            data.actual.push(parseFloat(actualValue.toFixed(1)));
+            data.upper.push(upperLimit);
+            data.lower.push(lowerLimit);
+            
+            // 计算均值（更平滑）
+            const avgValue = (actualValue * 0.6 + baseValue * 0.4);
+            data.average.push(parseFloat(avgValue.toFixed(1)));
+            
+            currentTime = new Date(currentTime.getTime() + intervalMinutes * 60 * 1000);
+            index++;
+        }
+        
+        return data;
+    }
+    
     function initDataChart() {
         if (chartInitialized) {
             console.log('图表已初始化，跳过');
@@ -591,103 +689,36 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // 生成模拟数据
-        function generateMockData(timeRange = '24h') {
-            const now = new Date();
-            const data = {
-                times: [],
-                actual: [],
-                upper: [],
-                lower: [],
-                average: []
-            };
-            
-            const baseValue = 118;
-            const upperLimit = 120;
-            const lowerLimit = 100;
-            
-            // 根据时间范围确定数据点数量和时间间隔
-            let points, intervalMinutes, formatTime;
-            switch(timeRange) {
-                case '1h':
-                    points = 60;
-                    intervalMinutes = 1;
-                    formatTime = (date) => date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
-                    break;
-                case '6h':
-                    points = 72;
-                    intervalMinutes = 5;
-                    formatTime = (date) => date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
-                    break;
-                case '7d':
-                    points = 168;
-                    intervalMinutes = 60;
-                    formatTime = (date) => (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
-                    break;
-                case '30d':
-                    points = 120;
-                    intervalMinutes = 360;
-                    formatTime = (date) => (date.getMonth() + 1) + '月' + date.getDate() + '日';
-                    break;
-                default: // 24h
-                    points = 48;
-                    intervalMinutes = 30;
-                    formatTime = (date) => date.getHours() + ':' + (date.getMinutes() === 0 ? '00' : '30');
-            }
-            
-            for (let i = points; i >= 0; i--) {
-                const time = new Date(now.getTime() - i * intervalMinutes * 60 * 1000);
-                data.times.push(formatTime(time));
-                
-                // 生成实时值（在上下限之间波动，有15%概率超标）
-                const random = Math.random();
-                const waveOffset = Math.sin(i / 5) * 5; // 添加波浪效果
-                let actualValue;
-                
-                if (random < 0.15) {
-                    // 超标值
-                    actualValue = upperLimit + Math.random() * 8;
-                } else {
-                    actualValue = baseValue + waveOffset + (Math.random() - 0.5) * 8;
-                }
-                
-                data.actual.push(parseFloat(actualValue.toFixed(1)));
-                data.upper.push(upperLimit);
-                data.lower.push(lowerLimit);
-                
-                // 计算均值（更平滑）
-                const avgValue = (actualValue * 0.6 + baseValue * 0.4);
-                data.average.push(parseFloat(avgValue.toFixed(1)));
-            }
-            
-            return data;
+    // 绘制图表函数（移到外部作用域）
+    function renderChart(paramType, startTime, endTime) {
+        if (!dataChart) {
+            console.error('图表未初始化！');
+            return;
         }
         
-        // 绘制图表
-        function renderChart(paramType, timeRange) {
-            if (!dataChart) {
-                console.error('图表未初始化！');
-                return;
-            }
-            
-            console.log('开始绘制图表...', { paramType, timeRange });
-            const data = generateMockData(timeRange);
-            console.log('生成数据点数:', data.times.length);
-            
-            // 根据参数类型设置单位和标题
-            const paramConfig = {
-                temperature: { unit: '°C', title: '温度趋势分析' },
-                pressure: { unit: 'Bar', title: '压力趋势分析' },
-                current: { unit: 'A', title: '电流趋势分析' },
-                voltage: { unit: 'V', title: '电压趋势分析' },
-                waterLevel: { unit: '%', title: '水位趋势分析' },
-                power: { unit: 'kW', title: '功率趋势分析' }
-            };
-            
-            const config = paramConfig[paramType] || paramConfig.temperature;
-            document.querySelector('.chart-title').textContent = config.title;
-            
-            const option = {
+        console.log('开始绘制图表...', { paramType, startTime, endTime });
+        const data = generateMockData(paramType, startTime, endTime);
+        console.log('生成数据点数:', data.times.length);
+        
+        // 根据参数类型设置单位和标题
+        const paramConfig = {
+            temperature: { unit: '°C', title: '温度趋势分析' },
+            pressure: { unit: 'Bar', title: '压力趋势分析' },
+            waterLevel: { unit: '%', title: '液位趋势分析' },
+            current: { unit: 'A', title: '电流趋势分析' },
+            voltage: { unit: 'V', title: '电压趋势分析' },
+            power: { unit: 'kW', title: '功率趋势分析' },
+            flow: { unit: 'L/min', title: '流量趋势分析' },
+            frequency: { unit: 'Hz', title: '频率趋势分析' }
+        };
+        
+        const config = paramConfig[paramType] || paramConfig.temperature;
+        const chartTitle = document.querySelector('.chart-title');
+        if (chartTitle) {
+            chartTitle.textContent = config.title;
+        }
+        
+        const option = {
                 grid: {
                     left: '70px',
                     right: '50px',
@@ -784,14 +815,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         type: 'line',
                         data: data.actual,
                         smooth: true,
-                        showSymbol: true,
+                        showSymbol: false,
                         symbol: 'circle',
                         symbolSize: 4,
                         lineStyle: {
-                            width: 4,
+                            width: 3,
                             color: '#1890ff',
-                            shadowColor: 'rgba(24, 144, 255, 0.3)',
-                            shadowBlur: 10
+                            type: 'solid'  // 实线
                         },
                         itemStyle: {
                             color: '#1890ff',
@@ -814,8 +844,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         emphasis: {
                             focus: 'series',
                             lineStyle: {
-                                width: 5
-                            }
+                                width: 4
+                            },
+                            showSymbol: true,
+                            symbolSize: 6
                         }
                     },
                     {
@@ -824,10 +856,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         data: data.upper,
                         showSymbol: false,
                         lineStyle: {
-                            width: 3,
+                            width: 2,
                             color: '#ff4d4f',
-                            type: 'dashed',
-                            dashOffset: 5
+                            type: 'dashed',  // 虚线
+                            dashOffset: 0
                         },
                         itemStyle: {
                             color: '#ff4d4f'
@@ -835,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         emphasis: {
                             focus: 'series',
                             lineStyle: {
-                                width: 4
+                                width: 3
                             }
                         }
                     },
@@ -845,10 +877,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         data: data.lower,
                         showSymbol: false,
                         lineStyle: {
-                            width: 3,
+                            width: 2,
                             color: '#faad14',
-                            type: 'dashed',
-                            dashOffset: 5
+                            type: 'dashed',  // 虚线
+                            dashOffset: 0
                         },
                         itemStyle: {
                             color: '#faad14'
@@ -856,7 +888,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         emphasis: {
                             focus: 'series',
                             lineStyle: {
-                                width: 4
+                                width: 3
                             }
                         }
                     },
@@ -867,8 +899,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         smooth: true,
                         showSymbol: false,
                         lineStyle: {
-                            width: 3,
-                            color: '#52c41a'
+                            width: 2,
+                            color: '#52c41a',
+                            type: 'dashed',  // 虚线
+                            dashOffset: 0
                         },
                         itemStyle: {
                             color: '#52c41a'
@@ -876,44 +910,154 @@ document.addEventListener('DOMContentLoaded', function() {
                         emphasis: {
                             focus: 'series',
                             lineStyle: {
-                                width: 4
+                                width: 3
                             }
                         }
                     }
                 ],
                 animation: true,
                 animationDuration: 1000,
-                animationEasing: 'cubicOut'
-            };
-            
-            try {
-                dataChart.setOption(option);
-                console.log('✓ 图表渲染成功');
-            } catch(error) {
-                console.error('图表渲染失败:', error);
-            }
+            animationEasing: 'cubicOut'
+        };
+        
+        try {
+            dataChart.setOption(option);
+            console.log('✓ 图表渲染成功');
+        } catch(error) {
+            console.error('图表渲染失败:', error);
+        }
+    }
+    
+    function initDataChart() {
+        if (chartInitialized) {
+            console.log('图表已初始化，跳过');
+            return;
+        }
+        
+        const chartElement = document.getElementById('dataChart');
+        if (!chartElement) {
+            console.error('图表容器未找到！');
+            return;
+        }
+        
+        if (typeof echarts === 'undefined') {
+            console.error('ECharts库未加载！请检查CDN连接');
+            // 尝试重新加载
+            setTimeout(() => {
+                if (typeof echarts !== 'undefined') {
+                    initDataChart();
+                }
+            }, 1000);
+            return;
+        }
+        
+        console.log('✓ 开始初始化图表...');
+        try {
+            dataChart = echarts.init(chartElement);
+            chartInitialized = true;
+            console.log('✓ 图表初始化成功');
+        } catch(error) {
+            console.error('图表初始化失败:', error);
+            return;
         }
         
         // 查询按钮事件
         const queryBtn = document.getElementById('queryBtn');
+        const resetBtn = document.getElementById('resetBtn');
         const paramTypeSelect = document.getElementById('paramType');
-        const timeRangeSelect = document.getElementById('timeRange');
+        const startTimeInput = document.getElementById('startTime');
+        const endTimeInput = document.getElementById('endTime');
         
-        if (queryBtn && paramTypeSelect && timeRangeSelect) {
+        // 设置默认时间（最近24小时）
+        function setDefaultTime() {
+            const end = new Date();
+            const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
+            
+            const formatDateTime = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            };
+            
+            if (startTimeInput && !startTimeInput.value) {
+                startTimeInput.value = formatDateTime(start);
+            }
+            if (endTimeInput && !endTimeInput.value) {
+                endTimeInput.value = formatDateTime(end);
+            }
+        }
+        
+        if (queryBtn && paramTypeSelect) {
             queryBtn.addEventListener('click', function() {
                 const paramType = paramTypeSelect.value;
-                const timeRange = timeRangeSelect.value;
+                const startTime = startTimeInput ? startTimeInput.value : null;
+                const endTime = endTimeInput ? endTimeInput.value : null;
                 
-                console.log('查询参数:', paramType, timeRange);
+                console.log('查询参数:', { paramType, startTime, endTime });
                 
-                renderChart(paramType, timeRange);
+                if (!startTime || !endTime) {
+                    alert('请选择开始时间和结束时间');
+                    return;
+                }
+                
+                if (new Date(startTime) > new Date(endTime)) {
+                    alert('开始时间不能大于结束时间');
+                    return;
+                }
+                
+                renderChart(paramType, startTime, endTime);
                 updateStats(paramType);
+                fillTableData(paramType, startTime, endTime);
+            });
+        }
+        
+        // 重置按钮事件
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                if (paramTypeSelect) {
+                    paramTypeSelect.value = 'temperature';
+                }
+                setDefaultTime();
+                const startTime = startTimeInput ? startTimeInput.value : null;
+                const endTime = endTimeInput ? endTimeInput.value : null;
+                if (startTime && endTime) {
+                    renderChart('temperature', startTime, endTime);
+                    updateStats('temperature');
+                    fillTableData('temperature', startTime, endTime);
+                }
+            });
+        }
+        
+        // 参数项变化时自动更新
+        if (paramTypeSelect) {
+            paramTypeSelect.addEventListener('change', function() {
+                const paramType = this.value;
+                const startTime = startTimeInput ? startTimeInput.value : null;
+                const endTime = endTimeInput ? endTimeInput.value : null;
+                
+                if (startTime && endTime) {
+                    renderChart(paramType, startTime, endTime);
+                    updateStats(paramType);
+                    fillTableData(paramType, startTime, endTime);
+                }
             });
         }
         
         // 初始渲染
         console.log('准备渲染图表...');
-        renderChart('temperature', '24h');
+        setDefaultTime();
+        setTimeout(() => {
+            const startTime = startTimeInput ? startTimeInput.value : null;
+            const endTime = endTimeInput ? endTimeInput.value : null;
+            if (startTime && endTime) {
+                renderChart('temperature', startTime, endTime);
+                updateStats('temperature');
+                fillTableData('temperature', startTime, endTime);
+            }
+        }, 100);
     }
     
     // 监听页签切换，初始化数据分析图表
@@ -926,7 +1070,46 @@ document.addEventListener('DOMContentLoaded', function() {
             if (tabName === 'analysis') {
                 setTimeout(() => {
                     console.log('初始化数据分析图表');
-                    initDataChart();
+                    if (!chartInitialized) {
+                        initDataChart();
+                    } else {
+                        // 如果图表已初始化，重新设置默认时间并渲染
+                        const startTimeInput = document.getElementById('startTime');
+                        const endTimeInput = document.getElementById('endTime');
+                        const paramTypeSelect = document.getElementById('paramType');
+                        
+                        if (startTimeInput && endTimeInput && paramTypeSelect) {
+                            // 设置默认时间
+                            const end = new Date();
+                            const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
+                            
+                            const formatDateTime = (date) => {
+                                const year = date.getFullYear();
+                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const hours = String(date.getHours()).padStart(2, '0');
+                                const minutes = String(date.getMinutes()).padStart(2, '0');
+                                return `${year}-${month}-${day}T${hours}:${minutes}`;
+                            };
+                            
+                            if (!startTimeInput.value) {
+                                startTimeInput.value = formatDateTime(start);
+                            }
+                            if (!endTimeInput.value) {
+                                endTimeInput.value = formatDateTime(end);
+                            }
+                            
+                            const paramType = paramTypeSelect.value || 'temperature';
+                            const startTime = startTimeInput.value;
+                            const endTime = endTimeInput.value;
+                            
+                            if (startTime && endTime) {
+                                renderChart(paramType, startTime, endTime);
+                                updateStats(paramType);
+                                fillTableData(paramType, startTime, endTime);
+                            }
+                        }
+                    }
                 }, 300);
             }
         });
@@ -941,87 +1124,172 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500);
         
-        // 更新统计数据
-        function updateStats(paramType) {
-            // 模拟更新统计卡片数据
-            const stats = {
-                temperature: { current: '125.8°C', avg: '118.6°C', max: '128.4°C', min: '108.2°C' },
-                pressure: { current: '1.52Bar', avg: '1.45Bar', max: '1.68Bar', min: '1.32Bar' },
-                current: { current: '82.5A', avg: '78.3A', max: '88.2A', min: '72.1A' },
-                voltage: { current: '385V', avg: '380V', max: '392V', min: '375V' },
-                waterLevel: { current: '75.3%', avg: '72.8%', max: '84.5%', min: '65.2%' },
-                power: { current: '285kW', avg: '268kW', max: '312kW', min: '245kW' }
+    // 更新统计数据函数（移到外部作用域）
+    function updateStats(paramType) {
+            // 根据参数类型设置单位和基础值
+            const paramConfig = {
+                temperature: { base: 118, upper: 120, lower: 100, unit: '°C' },
+                pressure: { base: 1.5, upper: 1.6, lower: 1.3, unit: 'Bar' },
+                waterLevel: { base: 75, upper: 85, lower: 65, unit: '%' },
+                current: { base: 80, upper: 90, lower: 70, unit: 'A' },
+                voltage: { base: 380, upper: 400, lower: 360, unit: 'V' },
+                power: { base: 280, upper: 320, lower: 240, unit: 'kW' },
+                flow: { base: 120, upper: 150, lower: 100, unit: 'L/min' },
+                frequency: { base: 50, upper: 52, lower: 48, unit: 'Hz' }
             };
             
-            const stat = stats[paramType];
-            document.getElementById('currentValue').textContent = stat.current;
-            document.getElementById('avgValue').textContent = stat.avg;
-            document.getElementById('maxValue').textContent = stat.max;
-            document.getElementById('minValue').textContent = stat.min;
-        }
-        
-        // 时间范围变化
-        const timeRangeSelect = document.getElementById('timeRange');
-        const customTime = document.querySelector('.custom-time');
-        if (timeRangeSelect && customTime) {
-            timeRangeSelect.addEventListener('change', function() {
-                if (this.value === 'custom') {
-                    customTime.style.display = 'flex';
-                } else {
-                    customTime.style.display = 'none';
-                }
-            });
-        }
-        
-        // 表格展开/收起
-        const toggleTableBtn = document.getElementById('toggleTable');
-        const dataTableWrapper = document.querySelector('.data-table-wrapper');
-        if (toggleTableBtn && dataTableWrapper) {
-            toggleTableBtn.addEventListener('click', function() {
-                if (dataTableWrapper.style.display === 'none') {
-                    dataTableWrapper.style.display = 'block';
-                    this.textContent = '收起 ▲';
-                    
-                    // 填充表格数据
-                    fillTableData();
-                } else {
-                    dataTableWrapper.style.display = 'none';
-                    this.textContent = '展开 ▼';
-                }
-            });
-        }
-        
-        // 填充表格数据
-        function fillTableData() {
-            const tbody = document.getElementById('dataTableBody');
-            if (!tbody || tbody.children.length > 0) return;
+            const config = paramConfig[paramType] || paramConfig.temperature;
+            const baseValue = config.base;
+            const upperLimit = config.upper;
+            const lowerLimit = config.lower;
+            const unit = config.unit;
             
-            const now = new Date();
-            for (let i = 0; i < 24; i++) {
-                const time = new Date(now.getTime() - i * 60 * 60 * 1000);
-                const hour = time.getHours();
-                const timeStr = time.getFullYear() + '-' + 
-                               String(time.getMonth() + 1).padStart(2, '0') + '-' +
-                               String(time.getDate()).padStart(2, '0') + ' ' +
-                               String(hour).padStart(2, '0') + ':00';
+            // 生成模拟统计数据
+            const current = (baseValue + (Math.random() - 0.5) * (upperLimit - lowerLimit) * 0.3).toFixed(1);
+            const avg = (baseValue * 0.95 + parseFloat(current) * 0.05).toFixed(1);
+            const max = (upperLimit + Math.random() * (upperLimit * 0.05)).toFixed(1);
+            const min = (lowerLimit - Math.random() * (lowerLimit * 0.05)).toFixed(1);
+            
+            // 格式化数值
+            const formatValue = (val) => {
+                if (paramType === 'pressure') {
+                    return parseFloat(val).toFixed(2) + unit;
+                } else {
+                    return parseFloat(val).toFixed(1) + unit;
+                }
+            };
+            
+            const currentValueEl = document.getElementById('currentValue');
+            const avgValueEl = document.getElementById('avgValue');
+            const maxValueEl = document.getElementById('maxValue');
+            const minValueEl = document.getElementById('minValue');
+            
+            if (currentValueEl) currentValueEl.textContent = formatValue(current);
+            if (avgValueEl) avgValueEl.textContent = formatValue(avg);
+            if (maxValueEl) maxValueEl.textContent = formatValue(max);
+            if (minValueEl) minValueEl.textContent = formatValue(min);
+        }
+        
+        
+    // 填充表格数据函数（移到外部作用域）
+    function fillTableData(paramType, startTime, endTime) {
+            const tbody = document.getElementById('dataTableBody');
+            if (!tbody) return;
+            
+            // 清空现有数据
+            tbody.innerHTML = '';
+            
+            // 根据参数类型设置基础值和上下限
+            const paramConfig = {
+                temperature: { base: 118, upper: 120, lower: 100, unit: '°C' },
+                pressure: { base: 1.5, upper: 1.6, lower: 1.3, unit: 'Bar' },
+                waterLevel: { base: 75, upper: 85, lower: 65, unit: '%' },
+                current: { base: 80, upper: 90, lower: 70, unit: 'A' },
+                voltage: { base: 380, upper: 400, lower: 360, unit: 'V' },
+                power: { base: 280, upper: 320, lower: 240, unit: 'kW' },
+                flow: { base: 120, upper: 150, lower: 100, unit: 'L/min' },
+                frequency: { base: 50, upper: 52, lower: 48, unit: 'Hz' }
+            };
+            
+            const config = paramConfig[paramType] || paramConfig.temperature;
+            const baseValue = config.base;
+            const upperLimit = config.upper;
+            const lowerLimit = config.lower;
+            const unit = config.unit;
+            
+            // 如果没有指定时间，默认使用最近24小时
+            let start, end;
+            if (startTime && endTime) {
+                start = new Date(startTime);
+                end = new Date(endTime);
+            } else {
+                end = new Date();
+                start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
+            }
+            
+            // 计算时间间隔（根据时间范围自动调整）
+            const timeDiff = end.getTime() - start.getTime();
+            const hours = timeDiff / (1000 * 60 * 60);
+            let intervalMinutes = 30; // 默认30分钟
+            
+            if (hours <= 1) {
+                intervalMinutes = 1; // 1小时内，每分钟一个点
+            } else if (hours <= 6) {
+                intervalMinutes = 5; // 6小时内，每5分钟一个点
+            } else if (hours <= 24) {
+                intervalMinutes = 30; // 24小时内，每30分钟一个点
+            } else if (hours <= 168) {
+                intervalMinutes = 60; // 7天内，每小时一个点
+            } else {
+                intervalMinutes = 360; // 超过7天，每6小时一个点
+            }
+            
+            // 格式化时间函数
+            const formatTime = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day} ${hours}:${minutes}`;
+            };
+            
+            // 生成数据点（最多显示50条，避免表格过长）
+            let currentTime = new Date(start);
+            let index = 0;
+            const maxRows = 50;
+            
+            while (currentTime <= end && index < maxRows) {
+                // 生成实时值（在上下限之间波动，有15%概率超标）
+                const random = Math.random();
+                const waveOffset = Math.sin(index / 5) * 5; // 添加波浪效果
+                let actualValue;
                 
-                const actual = (118 + (Math.random() - 0.5) * 20).toFixed(1);
-                const upper = 120;
-                const lower = 100;
-                const avg = (118 + (Math.random() - 0.5) * 10).toFixed(1);
-                const status = actual > upper ? 'danger' : actual < lower ? 'warning' : 'normal';
-                const statusText = actual > upper ? '超上限' : actual < lower ? '超下限' : '正常';
+                if (random < 0.15) {
+                    // 超标值
+                    actualValue = upperLimit + Math.random() * (upperLimit * 0.1);
+                } else {
+                    actualValue = baseValue + waveOffset + (Math.random() - 0.5) * (upperLimit - lowerLimit) * 0.3;
+                }
+                
+                // 计算均值
+                const avgValue = (actualValue * 0.6 + baseValue * 0.4);
+                
+                // 格式化数值
+                const formatValue = (val) => {
+                    if (paramType === 'pressure') {
+                        return val.toFixed(2);
+                    } else if (paramType === 'waterLevel' || paramType === 'frequency') {
+                        return val.toFixed(1);
+                    } else {
+                        return val.toFixed(1);
+                    }
+                };
+                
+                const actual = formatValue(actualValue);
+                const upper = formatValue(upperLimit);
+                const lower = formatValue(lowerLimit);
+                const avg = formatValue(avgValue);
+                
+                // 判断状态
+                const status = parseFloat(actual) > parseFloat(upper) ? 'danger' : 
+                              parseFloat(actual) < parseFloat(lower) ? 'warning' : 'normal';
+                const statusText = parseFloat(actual) > parseFloat(upper) ? '超上限' : 
+                                   parseFloat(actual) < parseFloat(lower) ? '超下限' : '正常';
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${timeStr}</td>
-                    <td>${actual}°C</td>
-                    <td>${upper}°C</td>
-                    <td>${lower}°C</td>
-                    <td>${avg}°C</td>
+                    <td>${formatTime(currentTime)}</td>
+                    <td>${actual}${unit}</td>
+                    <td>${upper}${unit}</td>
+                    <td>${lower}${unit}</td>
+                    <td>${avg}${unit}</td>
                     <td class="status-${status}">${statusText}</td>
                 `;
                 tbody.appendChild(row);
+                
+                currentTime = new Date(currentTime.getTime() + intervalMinutes * 60 * 1000);
+                index++;
             }
         }
         
@@ -1029,7 +1297,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const dataExportBtn = document.getElementById('exportBtn');
         if (dataExportBtn) {
             dataExportBtn.addEventListener('click', function() {
-                alert('导出功能开发中...');
+                const paramType = paramTypeSelect ? paramTypeSelect.value : 'temperature';
+                const startTime = startTimeInput ? startTimeInput.value : '';
+                const endTime = endTimeInput ? endTimeInput.value : '';
+                
+                // 这里可以添加实际的导出逻辑
+                console.log('导出数据:', { paramType, startTime, endTime });
+                alert('导出功能：将导出 ' + paramType + ' 从 ' + startTime + ' 到 ' + endTime + ' 的数据');
             });
         }
         

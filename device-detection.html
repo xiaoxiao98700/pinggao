@@ -899,34 +899,29 @@
                             <!-- 筛选器 -->
                             <div class="analysis-filters">
                                 <div class="filter-group">
-                                    <label>参数类型：</label>
+                                    <label>参数项：</label>
                                     <select class="filter-select" id="paramType">
                                         <option value="temperature">温度</option>
                                         <option value="pressure">压力</option>
+                                        <option value="waterLevel">液位</option>
                                         <option value="current">电流</option>
                                         <option value="voltage">电压</option>
-                                        <option value="waterLevel">水位</option>
                                         <option value="power">功率</option>
+                                        <option value="flow">流量</option>
+                                        <option value="frequency">频率</option>
                                     </select>
                                 </div>
                                 <div class="filter-group">
-                                    <label>时间范围：</label>
-                                    <select class="filter-select" id="timeRange">
-                                        <option value="1h">近1小时</option>
-                                        <option value="6h">近6小时</option>
-                                        <option value="24h" selected>近24小时</option>
-                                        <option value="7d">近7天</option>
-                                        <option value="30d">近30天</option>
-                                        <option value="custom">自定义</option>
-                                    </select>
-                                </div>
-                                <div class="filter-group custom-time" style="display: none;">
+                                    <label>开始时间：</label>
                                     <input type="datetime-local" class="filter-input" id="startTime">
-                                    <span style="margin: 0 8px;">至</span>
+                                </div>
+                                <div class="filter-group">
+                                    <label>结束时间：</label>
                                     <input type="datetime-local" class="filter-input" id="endTime">
                                 </div>
                                 <button class="btn-filter" id="queryBtn">查询</button>
-                                <button class="btn-reset" id="exportBtn">导出数据</button>
+                                <button class="btn-reset" id="resetBtn">重置</button>
+                                <button class="btn-export" id="exportBtn">导出数据</button>
                             </div>
                             
                             <!-- 数据统计卡片 -->
@@ -979,13 +974,12 @@
                                 <div id="dataChart" style="width: 100%; height: 450px;"></div>
                             </div>
                             
-                            <!-- 数据表格 -->
+                            <!-- 实时数据表格 -->
                             <div class="data-table-section">
                                 <div class="section-header">
-                                    <h3>历史数据记录</h3>
-                                    <button class="btn-toggle" id="toggleTable">展开 ▼</button>
+                                    <h3>实时数据表</h3>
                                 </div>
-                                <div class="data-table-wrapper" style="display: none;">
+                                <div class="data-table-wrapper">
                                     <table class="data-history-table">
                                         <thead>
                                             <tr>
