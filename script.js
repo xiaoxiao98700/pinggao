@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 筛选表格行
         tableRows.forEach(row => {
-            // 获取该行的所属客户（第5列，索引为4）
+            // 获取该行的所属客户（第5列，索引为5，因为前面有复选框和序号）
             const customerCell = row.querySelector('td:nth-child(5)');
             if (customerCell) {
                 const rowCustomer = customerCell.textContent.trim();
