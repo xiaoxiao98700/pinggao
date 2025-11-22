@@ -45,22 +45,10 @@
         </aside>
 
         <!-- 主内容区域 -->
-        <main class="main-content">
-            <!-- 页面标题 -->
-            <div class="device-page-header">
-                <h2 class="device-title" id="deviceTitle">天邦酒业——天邦蓄热罐</h2>
-            </div>
-
-            <!-- 页签 -->
-            <div class="device-tabs">
-                <div class="device-tab active" data-tab="monitoring">实时监测</div>
-                <div class="device-tab" data-tab="configuration">组态</div>
-                <div class="device-tab" data-tab="alarm">告警记录</div>
-                <div class="device-tab" data-tab="analysis">数据分析</div>
-            </div>
-
-            <!-- 左侧项目导航 -->
+        <main class="main-content device-main-wrapper">
+            <!-- 内容区：左右两部分 -->
             <div class="device-content-wrapper">
+                <!-- 左侧：功能位置 -->
                 <aside class="device-sidebar">
                     <div class="device-sidebar-title">功能位置</div>
                     <div class="device-project-list">
@@ -70,8 +58,8 @@
                                 <span class="device-project-name">天邦酒业</span>
                             </div>
                             <div class="device-project-children">
-                                <div class="device-device-item">电极式蒸汽锅炉</div>
-                                <div class="device-device-item active">天邦蓄热罐</div>
+                                <div class="device-device-item" data-device-id="tianbang-boiler" data-device-name="电极式蒸汽锅炉">电极式蒸汽锅炉</div>
+                                <div class="device-device-item active" data-device-id="tianbang-heat-tank" data-device-name="天邦蓄热罐">天邦蓄热罐</div>
                             </div>
                         </div>
                         <div class="device-project-item">
@@ -155,10 +143,23 @@
                     </div>
                 </aside>
 
-                <!-- 主内容区域 -->
+                <!-- 右侧：页签内容 -->
                 <div class="device-main-content">
+                    <!-- 页面标题 -->
+                    <div class="device-page-header">
+                        <h2 class="device-title" id="deviceTitle">天邦酒业——天邦蓄热罐</h2>
+                    </div>
+
+                    <!-- 页签 -->
+                    <div class="device-tabs">
+                        <div class="device-tab active" data-tab="monitoring">实时监测</div>
+                        <div class="device-tab" data-tab="configuration">组态</div>
+                        <div class="device-tab" data-tab="alarm">告警记录</div>
+                        <div class="device-tab" data-tab="analysis">数据分析</div>
+                    </div>
+
                     <!-- 实时监测页签内容 -->
-                    <div class="device-tab-content active" id="monitoringContent">
+                    <div class="device-tab-content active" id="monitoringContent" data-device="tianbang-heat-tank">
                         <div class="monitoring-grid">
                             <div class="monitoring-item">
                                 <label class="monitoring-label">电流1:</label>
@@ -332,21 +333,21 @@
                     </div>
 
                     <!-- 组态页签内容 -->
-                    <div class="device-tab-content" id="configurationContent">
+                    <div class="device-tab-content" id="configurationContent" data-device="tianbang-heat-tank">
                         <div class="tab-placeholder">
                             <p>组态配置内容</p>
                         </div>
                     </div>
 
                     <!-- 告警记录页签内容 -->
-                    <div class="device-tab-content" id="alarmContent">
+                    <div class="device-tab-content" id="alarmContent" data-device="tianbang-heat-tank">
                         <div class="tab-placeholder">
                             <p>告警记录内容</p>
                         </div>
                     </div>
 
                     <!-- 数据分析页签内容 -->
-                    <div class="device-tab-content" id="analysisContent">
+                    <div class="device-tab-content" id="analysisContent" data-device="tianbang-heat-tank">
                         <div class="tab-placeholder">
                             <p>数据分析内容</p>
                         </div>
