@@ -3067,6 +3067,119 @@ body {
     animation: fadeInUp 0.6s ease-out;
 }
 
+/* 数据分析筛选器 */
+.analysis-filters {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.analysis-filters .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.analysis-filters .filter-group label {
+    font-size: 14px;
+    color: #262626;
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+.analysis-filters .filter-select,
+.analysis-filters .filter-input {
+    padding: 8px 12px;
+    border: 2px solid #e8e8e8;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #333;
+    min-width: 180px;
+}
+
+.analysis-filters .filter-select:hover,
+.analysis-filters .filter-input:hover {
+    border-color: #d9d9d9;
+}
+
+.analysis-filters .filter-select:focus,
+.analysis-filters .filter-input:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.1);
+}
+
+.analysis-filters .filter-select {
+    min-width: 120px;
+    cursor: pointer;
+}
+
+.analysis-filters .filter-input {
+    min-width: 200px;
+}
+
+.analysis-filters .btn-filter,
+.analysis-filters .btn-reset,
+.analysis-filters .btn-export {
+    padding: 8px 20px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    height: 38px;
+}
+
+.analysis-filters .btn-filter {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.analysis-filters .btn-filter:hover {
+    background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(24, 144, 255, 0.4);
+}
+
+.analysis-filters .btn-reset {
+    background-color: #fff;
+    color: #595959;
+    border: 2px solid #d9d9d9;
+}
+
+.analysis-filters .btn-reset:hover {
+    border-color: #1890ff;
+    color: #1890ff;
+    background-color: #f0f7ff;
+}
+
+.analysis-filters .btn-export {
+    background-color: #fff;
+    color: #1890ff;
+    border: 2px solid #1890ff;
+}
+
+.analysis-filters .btn-export:hover {
+    background-color: #e6f7ff;
+    border-color: #40a9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(24, 144, 255, 0.2);
+}
+
 /* 数据统计卡片 */
 .data-stats {
     display: grid;
