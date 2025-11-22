@@ -3722,13 +3722,11 @@ body {
     font-size: 14px;
     color: #333;
     background-color: #fff;
-    transition: all 0.3s;
 }
 
 .tree-search-input:focus {
     outline: none;
     border-color: #1890ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
 
 .tree-search-input::placeholder {
@@ -3752,7 +3750,6 @@ body {
     cursor: pointer;
     font-size: 14px;
     color: #333;
-    transition: background-color 0.2s;
     user-select: none;
 }
 
@@ -3763,25 +3760,15 @@ body {
 .tree-node-item.active {
     background-color: #e6f7ff;
     color: #1890ff;
-    font-weight: 500;
-}
-
-.tree-icon {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-    margin-right: 8px;
-    font-size: 14px;
 }
 
 .tree-arrow {
     display: inline-block;
     width: 16px;
     text-align: center;
-    margin-right: 4px;
+    margin-right: 8px;
     font-size: 12px;
     color: #666;
-    transition: transform 0.2s;
 }
 
 .tree-label {
@@ -3790,7 +3777,6 @@ body {
 
 .tree-children {
     display: none;
-    padding-left: 20px;
 }
 
 .tree-node-item.expanded + .tree-children,
@@ -3799,7 +3785,7 @@ body {
 }
 
 .tree-children .tree-node-item {
-    padding-left: 36px;
+    padding-left: 40px;
 }
 
 /* 右侧：电价时段配置主内容 */
@@ -3817,7 +3803,7 @@ body {
     gap: 12px;
     padding: 16px 20px;
     border-bottom: 1px solid #e8e8e8;
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 .btn-action {
@@ -3825,70 +3811,22 @@ body {
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #1890ff;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s;
-    background-color: #fff;
-    color: #333;
+    background-color: #1890ff;
+    color: #fff;
+    transition: background-color 0.2s;
 }
 
 .btn-action:hover {
-    border-color: #1890ff;
-    color: #1890ff;
+    background-color: #40a9ff;
+    border-color: #40a9ff;
 }
 
 .btn-action .btn-icon {
     font-size: 16px;
-}
-
-.btn-new {
-    background-color: #1890ff;
-    color: #fff;
-    border-color: #1890ff;
-}
-
-.btn-new:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
-    color: #fff;
-}
-
-.btn-reference {
-    background-color: #52c41a;
-    color: #fff;
-    border-color: #52c41a;
-}
-
-.btn-reference:hover {
-    background-color: #73d13d;
-    border-color: #73d13d;
-    color: #fff;
-}
-
-.btn-edit {
-    background-color: #1890ff;
-    color: #fff;
-    border-color: #1890ff;
-}
-
-.btn-edit:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
-    color: #fff;
-}
-
-.btn-delete {
-    background-color: #ff4d4f;
-    color: #fff;
-    border-color: #ff4d4f;
-}
-
-.btn-delete:hover {
-    background-color: #ff7875;
-    border-color: #ff7875;
-    color: #fff;
 }
 
 /* 表格样式 */
@@ -3929,7 +3867,6 @@ body {
 
 .price-config-table tbody tr {
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .price-config-table tbody tr:hover {
