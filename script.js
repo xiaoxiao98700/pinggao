@@ -160,12 +160,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert(`签约项目：${projectNumber}`);
                     break;
                 case '编辑':
-                    alert(`编辑项目：${projectNumber}`);
-                    // window.location.href = `edit-project.html?id=${projectNumber}`;
+                    window.location.href = `edit-project.html?id=${projectNumber}`;
                     break;
                 case '详情':
-                    alert(`查看项目详情：${projectNumber}`);
-                    // window.location.href = `project-detail.html?id=${projectNumber}`;
+                    window.location.href = `detail-project.html?id=${projectNumber}`;
                     break;
             }
         });

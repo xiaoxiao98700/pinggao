@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 编辑项目</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item">客户档案</a>
+                <a href="index.html" class="nav-item active">项目管理</a>
+                <a href="#" class="nav-item">选型报表</a>
+                <a href="#" class="nav-item">选型规则</a>
+                <a href="#" class="nav-item">电价时段配置</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 标签页 -->
+            <div class="tabs">
+                <div class="tab active">
+                    项目管理
+                    <span class="tab-close">×</span>
+                </div>
+                <div class="tab">选型报表</div>
+            </div>
+
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-left">
+                    <button class="btn-icon"><<</button>
+                    <button class="btn-back" onclick="window.location.href='index.html'">← 返回</button>
+                    <span class="page-title">编辑项目</span>
+                </div>
+                <div class="action-right">
+                    <button class="btn-confirm">确定</button>
+                    <button class="btn-cancel" onclick="window.location.href='index.html'">取消</button>
+                </div>
+            </div>
+
+            <!-- 项目信息表单 -->
+            <div class="form-container">
+                <h2 class="form-title">项目信息</h2>
+                <form class="project-form" id="projectForm">
+                    <!-- 第一行 -->
+                    <div class="form-row">
+                        <div class="form-group required">
+                            <label>项目编号</label>
+                            <input type="text" value="PE2025-09-2607" readonly>
+                        </div>
+                        <div class="form-group required">
+                            <label>所属客户</label>
+                            <select>
+                                <option value="">请选择所属客户</option>
+                                <option value="沙俄有限公司" selected>沙俄有限公司</option>
+                                <option value="正大化工有限公司">正大化工有限公司</option>
+                                <option value="新疆昌吉新能源有限公司">新疆昌吉新能源有限公司</option>
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label>项目名称</label>
+                            <input type="text" value="郑州高新区新能源发电项目">
+                        </div>
+                        <div class="form-group required">
+                            <label>项目地点</label>
+                            <select>
+                                <option value="">请选择省市区地址</option>
+                                <option value="河南省郑州市" selected>河南省郑州市</option>
+                                <option value="河南省新乡市">河南省新乡市</option>
+                                <option value="新疆昌吉州">新疆昌吉州</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 第二行 -->
+                    <div class="form-row">
+                        <div class="form-group required">
+                            <label>详细地址</label>
+                            <input type="text" value="高新区科学大道100号">
+                        </div>
+                        <div class="form-group">
+                            <label>项目负责人</label>
+                            <select>
+                                <option value="">请选择负责人</option>
+                                <option value="刘静" selected>刘静</option>
+                                <option value="王明">王明</option>
+                                <option value="赵强">赵强</option>
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label>项目开始日期</label>
+                            <input type="date" value="2025-09-26">
+                        </div>
+                        <div class="form-group required">
+                            <label>项目验收日期</label>
+                            <input type="date" value="2025-12-31">
+                        </div>
+                    </div>
+
+                    <!-- 第三行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>项目状态</label>
+                            <select>
+                                <option value="未签约" selected>未签约</option>
+                                <option value="已签约">已签约</option>
+                                <option value="进行中">进行中</option>
+                                <option value="已完成">已完成</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>业务员</label>
+                            <input type="text" value="张业务">
+                        </div>
+                        <div class="form-group">
+                            <label>联系人</label>
+                            <input type="text" value="张经理">
+                        </div>
+                        <div class="form-group">
+                            <label>联系电话</label>
+                            <input type="text" value="13800138000">
+                        </div>
+                    </div>
+
+                    <!-- 第四行 -->
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>备注</label>
+                            <textarea>项目初期阶段，待客户确认技术方案</textarea>
+                        </div>
+                    </div>
+
+                    <!-- 红色箭头指向的字段区域 -->
+                    <div class="additional-fields-section">
+                        <div class="section-divider"></div>
+                        <h3 class="section-title">合同信息</h3>
+                        
+                        <!-- 第五行 - 合同相关字段 -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>合同类型</label>
+                                <select>
+                                    <option value="">请选择合同类型</option>
+                                    <option value="框架合同">框架合同</option>
+                                    <option value="设备采购合同">设备采购合同</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>额定功率MW</label>
+                                <input type="number" placeholder="请输入额定功率" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>合计功率</label>
+                                <input type="number" placeholder="请输入合计功率" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>运行(合同) 功率MW</label>
+                                <input type="number" placeholder="请输入运行功率" step="0.01">
+                            </div>
+                        </div>
+
+                        <!-- 第六行 - 时间相关字段 -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>签订时间</label>
+                                <input type="date" placeholder="请选择签订时间">
+                            </div>
+                            <div class="form-group">
+                                <label>签订主体</label>
+                                <input type="text" placeholder="请输入签订主体">
+                            </div>
+                            <div class="form-group">
+                                <label>合同交货期</label>
+                                <input type="date" placeholder="请选择合同交货期">
+                            </div>
+                            <div class="form-group">
+                                <label>实际交货期</label>
+                                <input type="date" placeholder="请选择实际交货期">
+                            </div>
+                        </div>
+
+                        <!-- 第七行 - 完工和开工时间 -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>合同完工时间</label>
+                                <input type="date" placeholder="请选择合同完工时间">
+                            </div>
+                            <div class="form-group">
+                                <label>实际开工时间</label>
+                                <input type="date" placeholder="请选择实际开工时间">
+                            </div>
+                            <div class="form-group">
+                                <label>销售负责人</label>
+                                <input type="text" placeholder="请输入销售负责人">
+                            </div>
+                            <div class="form-group">
+                                <label>联系方式</label>
+                                <input type="text" placeholder="请输入联系方式">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            豫ICP备05010380号-5 | 河南平高电气股份有限公司
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
