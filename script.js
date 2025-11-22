@@ -1026,9 +1026,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // 导出按钮
-        const exportBtn = document.getElementById('exportBtn');
-        if (exportBtn) {
-            exportBtn.addEventListener('click', function() {
+        const dataExportBtn = document.getElementById('exportBtn');
+        if (dataExportBtn) {
+            dataExportBtn.addEventListener('click', function() {
                 alert('导出功能开发中...');
             });
         }
