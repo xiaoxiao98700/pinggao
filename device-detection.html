@@ -679,8 +679,253 @@
 
                     <!-- 告警记录页签内容 -->
                     <div class="device-tab-content" id="alarmContent" data-device="tianbang-heat-tank">
-                        <div class="tab-placeholder">
-                            <p>告警记录内容</p>
+                        <div class="alarm-container">
+                            <!-- 告警统计卡片 -->
+                            <div class="alarm-stats">
+                                <div class="stat-card critical">
+                                    <div class="stat-icon">⚠</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value">3</div>
+                                        <div class="stat-label">严重告警</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card warning">
+                                    <div class="stat-icon">⚡</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value">12</div>
+                                        <div class="stat-label">警告</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card info">
+                                    <div class="stat-icon">ℹ</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value">25</div>
+                                        <div class="stat-label">提示</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card resolved">
+                                    <div class="stat-icon">✓</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value">156</div>
+                                        <div class="stat-label">已处理</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 筛选器 -->
+                            <div class="alarm-filters">
+                                <div class="filter-group">
+                                    <label>告警级别：</label>
+                                    <select class="filter-select">
+                                        <option value="">全部</option>
+                                        <option value="critical">严重</option>
+                                        <option value="warning">警告</option>
+                                        <option value="info">提示</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>处理状态：</label>
+                                    <select class="filter-select">
+                                        <option value="">全部</option>
+                                        <option value="pending">待处理</option>
+                                        <option value="processing">处理中</option>
+                                        <option value="resolved">已处理</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>时间范围：</label>
+                                    <input type="date" class="filter-input" placeholder="开始时间">
+                                    <span style="margin: 0 8px;">至</span>
+                                    <input type="date" class="filter-input" placeholder="结束时间">
+                                </div>
+                                <button class="btn-filter">查询</button>
+                                <button class="btn-reset">重置</button>
+                            </div>
+                            
+                            <!-- 告警列表 -->
+                            <div class="alarm-table-container">
+                                <table class="alarm-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="60">序号</th>
+                                            <th width="80">级别</th>
+                                            <th width="150">告警时间</th>
+                                            <th width="120">设备名称</th>
+                                            <th width="150">告警类型</th>
+                                            <th>告警内容</th>
+                                            <th width="100">当前值</th>
+                                            <th width="100">阈值</th>
+                                            <th width="100">状态</th>
+                                            <th width="150">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="alarm-row critical">
+                                            <td>1</td>
+                                            <td><span class="alarm-badge critical">严重</span></td>
+                                            <td>2025-11-22 14:23:15</td>
+                                            <td>电锅炉#1</td>
+                                            <td>温度超限</td>
+                                            <td>锅炉温度超过安全阈值，存在爆炸风险</td>
+                                            <td class="value-danger">125.8°C</td>
+                                            <td>≤120°C</td>
+                                            <td><span class="status-badge pending">待处理</span></td>
+                                            <td>
+                                                <button class="btn-action">处理</button>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row critical">
+                                            <td>2</td>
+                                            <td><span class="alarm-badge critical">严重</span></td>
+                                            <td>2025-11-22 14:18:42</td>
+                                            <td>电锅炉#1</td>
+                                            <td>压力异常</td>
+                                            <td>锅炉内部压力超过最大工作压力</td>
+                                            <td class="value-danger">1.8Bar</td>
+                                            <td>≤1.6Bar</td>
+                                            <td><span class="status-badge processing">处理中</span></td>
+                                            <td>
+                                                <button class="btn-action">处理</button>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row warning">
+                                            <td>3</td>
+                                            <td><span class="alarm-badge warning">警告</span></td>
+                                            <td>2025-11-22 14:15:28</td>
+                                            <td>循环泵#2</td>
+                                            <td>设备异常</td>
+                                            <td>循环泵运行电流异常，可能存在堵塞</td>
+                                            <td class="value-warning">85A</td>
+                                            <td>≤75A</td>
+                                            <td><span class="status-badge pending">待处理</span></td>
+                                            <td>
+                                                <button class="btn-action">处理</button>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row warning">
+                                            <td>4</td>
+                                            <td><span class="alarm-badge warning">警告</span></td>
+                                            <td>2025-11-22 14:08:53</td>
+                                            <td>电锅炉#1</td>
+                                            <td>水位偏低</td>
+                                            <td>锅炉水位低于正常运行水位</td>
+                                            <td class="value-warning">35.2%</td>
+                                            <td>≥40%</td>
+                                            <td><span class="status-badge resolved">已处理</span></td>
+                                            <td>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row info">
+                                            <td>5</td>
+                                            <td><span class="alarm-badge info">提示</span></td>
+                                            <td>2025-11-22 13:55:17</td>
+                                            <td>温度传感器#3</td>
+                                            <td>参数波动</td>
+                                            <td>回水温度波动较大，建议检查</td>
+                                            <td class="value-normal">10.8°C</td>
+                                            <td>10±2°C</td>
+                                            <td><span class="status-badge resolved">已处理</span></td>
+                                            <td>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row warning">
+                                            <td>6</td>
+                                            <td><span class="alarm-badge warning">警告</span></td>
+                                            <td>2025-11-22 13:42:09</td>
+                                            <td>阀门#5</td>
+                                            <td>设备故障</td>
+                                            <td>排气阀响应时间超时，可能存在卡滞</td>
+                                            <td class="value-warning">8.5s</td>
+                                            <td>≤5s</td>
+                                            <td><span class="status-badge processing">处理中</span></td>
+                                            <td>
+                                                <button class="btn-action">处理</button>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row info">
+                                            <td>7</td>
+                                            <td><span class="alarm-badge info">提示</span></td>
+                                            <td>2025-11-22 13:28:34</td>
+                                            <td>电锅炉#1</td>
+                                            <td>维护提醒</td>
+                                            <td>设备已连续运行720小时，建议进行常规维护</td>
+                                            <td class="value-normal">720h</td>
+                                            <td>≥720h</td>
+                                            <td><span class="status-badge pending">待处理</span></td>
+                                            <td>
+                                                <button class="btn-action">处理</button>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row critical">
+                                            <td>8</td>
+                                            <td><span class="alarm-badge critical">严重</span></td>
+                                            <td>2025-11-22 13:15:48</td>
+                                            <td>电锅炉#1</td>
+                                            <td>电气故障</td>
+                                            <td>电热元件L2相电流为零，可能断路</td>
+                                            <td class="value-danger">0A</td>
+                                            <td>≥10A</td>
+                                            <td><span class="status-badge resolved">已处理</span></td>
+                                            <td>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row warning">
+                                            <td>9</td>
+                                            <td><span class="alarm-badge warning">警告</span></td>
+                                            <td>2025-11-22 12:58:22</td>
+                                            <td>给水箱</td>
+                                            <td>液位异常</td>
+                                            <td>给水箱液位接近下限，建议补水</td>
+                                            <td class="value-warning">18%</td>
+                                            <td>≥20%</td>
+                                            <td><span class="status-badge resolved">已处理</span></td>
+                                            <td>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="alarm-row info">
+                                            <td>10</td>
+                                            <td><span class="alarm-badge info">提示</span></td>
+                                            <td>2025-11-22 12:43:56</td>
+                                            <td>电锅炉#1</td>
+                                            <td>能耗提醒</td>
+                                            <td>今日能耗已超过日均值15%</td>
+                                            <td class="value-normal">2850kWh</td>
+                                            <td>≤2500kWh</td>
+                                            <td><span class="status-badge resolved">已处理</span></td>
+                                            <td>
+                                                <button class="btn-action secondary">详情</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- 分页 -->
+                            <div class="alarm-pagination">
+                                <div class="pagination-info">
+                                    共 196 条记录，当前第 1/20 页
+                                </div>
+                                <div class="pagination-controls">
+                                    <button class="page-btn" disabled>上一页</button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn">3</button>
+                                    <button class="page-btn">4</button>
+                                    <button class="page-btn">5</button>
+                                    <span class="page-ellipsis">...</span>
+                                    <button class="page-btn">20</button>
+                                    <button class="page-btn">下一页</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
