@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 电价时段配置</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">项目管理</a>
+                <a href="selection-report.html" class="nav-item">选型报表</a>
+                <a href="price-time-config.html" class="nav-item active">电价时段配置</a>
+                <a href="#" class="nav-item">设备全景智控</a>
+                <a href="device-detection.html" class="nav-item">设备检测</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content price-config-wrapper">
+            <!-- 内容区：左右两部分 -->
+            <div class="price-config-content">
+                <!-- 左侧：地理位置树形菜单 -->
+                <aside class="price-config-sidebar">
+                    <div class="tree-search">
+                        <input type="text" placeholder="请输入关键词查询" class="tree-search-input">
+                    </div>
+                    <div class="tree-menu" id="locationTree">
+                        <!-- 北京市 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item expanded" data-node="beijing">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▼</span>
+                                <span class="tree-label">北京市</span>
+                            </div>
+                            <div class="tree-children">
+                                <div class="tree-node-item active" data-node="beijing-districts">
+                                    <span class="tree-icon">📄</span>
+                                    <span class="tree-label">市辖区</span>
+                                </div>
+                                <div class="tree-node-item" data-node="beijing-counties">
+                                    <span class="tree-icon">📄</span>
+                                    <span class="tree-label">县</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 天津市 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="tianjin">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">天津市</span>
+                            </div>
+                        </div>
+                        <!-- 河北省 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="hebei">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">河北省</span>
+                            </div>
+                        </div>
+                        <!-- 山西省 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="shanxi">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">山西省</span>
+                            </div>
+                        </div>
+                        <!-- 内蒙古自治区 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="neimenggu">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">内蒙古自治区</span>
+                            </div>
+                        </div>
+                        <!-- 辽宁省 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="liaoning">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">辽宁省</span>
+                            </div>
+                        </div>
+                        <!-- 吉林省 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="jilin">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">吉林省</span>
+                            </div>
+                        </div>
+                        <!-- 黑龙江省 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="heilongjiang">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">黑龙江省</span>
+                            </div>
+                        </div>
+                        <!-- 上海市 -->
+                        <div class="tree-node">
+                            <div class="tree-node-item" data-node="shanghai">
+                                <span class="tree-icon folder">📁</span>
+                                <span class="tree-arrow">▶</span>
+                                <span class="tree-label">上海市</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- 右侧：电价时段配置表格 -->
+                <div class="price-config-main">
+                    <!-- 操作按钮栏 -->
+                    <div class="price-config-actions">
+                        <button class="btn-action btn-new">
+                            <span class="btn-icon">+</span>
+                            新建
+                        </button>
+                        <button class="btn-action btn-reference">
+                            <span class="btn-icon">📤</span>
+                            引用
+                        </button>
+                        <button class="btn-action btn-edit">
+                            <span class="btn-icon">✏️</span>
+                            编辑
+                        </button>
+                        <button class="btn-action btn-delete">
+                            <span class="btn-icon">🗑️</span>
+                            删除
+                        </button>
+                    </div>
+
+                    <!-- 数据表格 -->
+                    <div class="price-config-table-wrapper">
+                        <table class="price-config-table">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>名称</th>
+                                    <th>时段时长</th>
+                                    <th>电价（元）</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceConfigTableBody">
+                                <tr>
+                                    <td>1</td>
+                                    <td>尖峰</td>
+                                    <td>00:00-01:00</td>
+                                    <td>0.85</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>峰电</td>
+                                    <td>01:00-02:00</td>
+                                    <td>0.65</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>平电</td>
+                                    <td>02:00-00:00</td>
+                                    <td>0.45</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // 电价时段配置页面专用脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 树形菜单展开/折叠功能
+            const treeNodes = document.querySelectorAll('.tree-node-item[data-node]');
+            treeNodes.forEach(node => {
+                node.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const parentNode = this.closest('.tree-node');
+                    const children = parentNode.querySelector('.tree-children');
+                    
+                    if (children) {
+                        // 有子节点，切换展开/折叠
+                        if (this.classList.contains('expanded')) {
+                            this.classList.remove('expanded');
+                            this.querySelector('.tree-arrow').textContent = '▶';
+                            children.style.display = 'none';
+                        } else {
+                            this.classList.add('expanded');
+                            this.querySelector('.tree-arrow').textContent = '▼';
+                            children.style.display = 'block';
+                        }
+                    } else {
+                        // 没有子节点，选中该项
+                        document.querySelectorAll('.tree-node-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+            // 搜索功能
+            const searchInput = document.querySelector('.tree-search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const keyword = e.target.value.toLowerCase();
+                    const allNodes = document.querySelectorAll('.tree-node-item');
+                    
+                    allNodes.forEach(node => {
+                        const label = node.querySelector('.tree-label').textContent.toLowerCase();
+                        const treeNode = node.closest('.tree-node');
+                        
+                        if (keyword === '' || label.includes(keyword)) {
+                            treeNode.style.display = 'block';
+                        } else {
+                            treeNode.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // 表格行选中功能
+            const tableRows = document.querySelectorAll('#priceConfigTableBody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    tableRows.forEach(r => r.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // 操作按钮事件
+            const btnNew = document.querySelector('.btn-new');
+            const btnReference = document.querySelector('.btn-reference');
+            const btnEdit = document.querySelector('.btn-edit');
+            const btnDelete = document.querySelector('.btn-delete');
+
+            if (btnNew) {
+                btnNew.addEventListener('click', function() {
+                    alert('新建功能待实现');
+                });
+            }
+
+            if (btnReference) {
+                btnReference.addEventListener('click', function() {
+                    alert('引用功能待实现');
+                });
+            }
+
+            if (btnEdit) {
+                btnEdit.addEventListener('click', function() {
+                    const selectedRow = document.querySelector('#priceConfigTableBody tr.selected');
+                    if (selectedRow) {
+                        alert('编辑功能待实现');
+                    } else {
+                        alert('请先选择要编辑的行');
+                    }
+                });
+            }
+
+            if (btnDelete) {
+                btnDelete.addEventListener('click', function() {
+                    const selectedRow = document.querySelector('#priceConfigTableBody tr.selected');
+                    if (selectedRow) {
+                        if (confirm('确定要删除选中的记录吗？')) {
+                            selectedRow.remove();
+                            // 重新编号
+                            const rows = document.querySelectorAll('#priceConfigTableBody tr');
+                            rows.forEach((row, index) => {
+                                row.querySelector('td:first-child').textContent = index + 1;
+                            });
+                        }
+                    } else {
+                        alert('请先选择要删除的行');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
