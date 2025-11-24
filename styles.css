@@ -4197,3 +4197,235 @@ body {
     width: 150px;
     text-align: right;
 }
+
+/* ============================================
+   项目列表表格样式 - 重新设计
+   ============================================ */
+
+/* 项目列表表格专用样式 */
+.project-list-table {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.project-list-table thead {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 2px solid #dee2e6;
+}
+
+.project-list-table th {
+    padding: 14px 12px;
+    font-weight: 600;
+    color: #212529;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    text-transform: none;
+    white-space: nowrap;
+    border-bottom: 2px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.project-list-table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+}
+
+.project-list-table tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.001);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.project-list-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.project-list-table td {
+    padding: 14px 12px;
+    color: #495057;
+    font-size: 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* 列宽优化 */
+.project-list-table .col-checkbox {
+    width: 50px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.project-list-table .col-index {
+    width: 60px;
+    min-width: 60px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.project-list-table .col-code {
+    width: 150px;
+    min-width: 150px;
+    font-weight: 500;
+    color: #1890ff;
+}
+
+.project-list-table .col-name {
+    width: 220px;
+    min-width: 220px;
+    font-weight: 500;
+    color: #212529;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.project-list-table .col-customer {
+    width: 180px;
+    min-width: 180px;
+    color: #495057;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-list-table .col-location {
+    width: 140px;
+    min-width: 140px;
+    color: #6c757d;
+}
+
+.project-list-table .col-manager {
+    width: 100px;
+    min-width: 100px;
+}
+
+.project-list-table .col-contact {
+    width: 130px;
+    min-width: 130px;
+    color: #6c757d;
+    font-family: 'Courier New', monospace;
+}
+
+.project-list-table .col-date {
+    width: 110px;
+    min-width: 110px;
+    color: #6c757d;
+}
+
+.project-list-table .col-contract-type {
+    width: 120px;
+    min-width: 120px;
+}
+
+.project-list-table .col-power {
+    width: 120px;
+    min-width: 120px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.project-list-table .col-status {
+    width: 100px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.project-list-table .col-actions {
+    width: 140px;
+    min-width: 140px;
+    text-align: center;
+    position: sticky;
+    right: 0;
+    background-color: inherit;
+    z-index: 5;
+}
+
+.project-list-table tbody tr:hover .col-actions {
+    background-color: #f8f9fa;
+}
+
+/* 项目信息样式 */
+.project-code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #1890ff !important;
+}
+
+.project-name {
+    font-weight: 500;
+    color: #212529 !important;
+}
+
+.customer-name {
+    color: #495057 !important;
+}
+
+.power-value {
+    font-weight: 600;
+    color: #1890ff !important;
+    font-size: 14px;
+}
+
+.power-value:not(:contains('-')) {
+    color: #1890ff;
+}
+
+/* 改进的状态标签 */
+.project-list-table .status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+}
+
+.project-list-table .status-badge.status-unsigned {
+    background: linear-gradient(135deg, #fff1f0 0%, #ffe4e6 100%);
+    color: #cf1322;
+    border: 1px solid #ffccc7;
+    box-shadow: 0 2px 4px rgba(255, 77, 79, 0.15);
+}
+
+.project-list-table .status-badge.status-signed {
+    background: linear-gradient(135deg, #f6ffed 0%, #eaffe0 100%);
+    color: #389e0d;
+    border: 1px solid #b7eb8f;
+    box-shadow: 0 2px 4px rgba(82, 196, 26, 0.15);
+}
+
+.project-list-table tbody tr:hover .status-badge {
+    transform: scale(1.05);
+}
+
+/* 改进的操作链接 */
+.project-list-table .action-link {
+    padding: 4px 8px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.project-list-table .action-link:hover {
+    background-color: #e6f7ff;
+    color: #096dd9;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+/* 空值样式 */
+.project-list-table td:empty:not(:has(input)):not(:has(.status-badge)):not(:has(.actions)) {
+    color: #d9d9d9;
+}
+
+.project-list-table td:contains('-') {
+    color: #d9d9d9;
+}
