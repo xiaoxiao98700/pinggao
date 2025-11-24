@@ -761,6 +761,7 @@ body {
 
 .data-table {
     width: 100%;
+    min-width: max-content;
     border-collapse: collapse;
     font-size: 14px;
     background-color: #fff;
@@ -876,6 +877,7 @@ body {
     border-left: 1px solid #e8e8e8;
     box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
     padding: 8px 12px;
+    min-width: 200px;
 }
 
 .data-table tbody td:last-child {
@@ -886,6 +888,7 @@ body {
     border-left: 1px solid #e8e8e8;
     box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
     padding: 8px 12px;
+    min-width: 200px;
 }
 
 .data-table tbody tr:hover td:last-child {
