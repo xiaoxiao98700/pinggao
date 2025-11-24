@@ -760,8 +760,8 @@ body {
 }
 
 .data-table {
-    width: 100%;
-    min-width: max-content;
+    min-width: 100%;
+    width: max-content;
     border-collapse: collapse;
     font-size: 14px;
     background-color: #fff;
