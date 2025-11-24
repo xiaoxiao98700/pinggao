@@ -1159,6 +1159,13 @@ body {
     margin-bottom: 20px;
 }
 
+.role-hint {
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+    margin-left: 8px;
+}
+
 /* 页脚 */
 .footer {
     background-color: #fff;
