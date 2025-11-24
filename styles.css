@@ -787,12 +787,14 @@ body {
     vertical-align: middle;
 }
 
-.data-table th:first-child {
+.data-table th:first-child,
+.data-table td:first-child {
     width: 40px;
     min-width: 40px;
 }
 
-.data-table th:last-child {
+.data-table th:last-child,
+.data-table td:last-child {
     width: 120px;
     min-width: 120px;
 }
