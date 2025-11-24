@@ -795,8 +795,8 @@ body {
 
 .data-table th:last-child,
 .data-table td:last-child {
-    width: 120px;
-    min-width: 120px;
+    width: 200px;
+    min-width: 200px;
 }
 
 .data-table td {
