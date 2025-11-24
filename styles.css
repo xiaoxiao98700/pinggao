@@ -760,8 +760,7 @@ body {
 }
 
 .data-table {
-    width: auto;
-    min-width: 100%;
+    width: 100%;
     border-collapse: collapse;
     font-size: 14px;
     background-color: #fff;
@@ -785,6 +784,17 @@ body {
     font-size: 14px;
     height: 32px;
     box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.data-table th:first-child {
+    width: 40px;
+    min-width: 40px;
+}
+
+.data-table th:last-child {
+    width: 120px;
+    min-width: 120px;
 }
 
 .data-table td {
@@ -797,6 +807,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    vertical-align: middle;
 }
 
 .data-table tbody tr {
@@ -850,6 +861,9 @@ body {
 .actions {
     display: flex;
     gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
 }
 
 .data-table thead th:last-child {
@@ -859,6 +873,7 @@ body {
     background-color: #fafafa;
     border-left: 1px solid #e8e8e8;
     box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+    padding: 8px 12px;
 }
 
 .data-table tbody td:last-child {
@@ -868,6 +883,7 @@ body {
     background-color: #fff;
     border-left: 1px solid #e8e8e8;
     box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+    padding: 8px 12px;
 }
 
 .data-table tbody tr:hover td:last-child {
@@ -876,14 +892,20 @@ body {
 
 .action-link {
     color: #1890ff;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
     transition: color 0.3s;
     white-space: nowrap;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .action-link:hover {
     color: #40a9ff;
+    text-decoration: underline;
 }
 
 /* 分页 */
