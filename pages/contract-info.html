@@ -256,6 +256,14 @@
                             <input type="text" class="modal-input" id="salesPhone" placeholder="请输入联系电话">
                         </div>
                     </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-btn modal-btn-cancel" onclick="closeContractModal()">取消</button>
+                <button type="button" class="modal-btn modal-btn-confirm" onclick="saveContract()">确定</button>
+            </div>
+        </div>
+    </div>
 
 <!-- 合同详情查看弹窗 -->
 <div class="modal-overlay" id="contractDetailModal" style="display: none;">
@@ -271,15 +279,15 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>项目编号</label>
-                            <input type="text" class="modal-input" value="PE2025-09-2607" readonly>
+                            <input type="text" class="modal-input" data-field="projectNumber" readonly>
                         </div>
                         <div class="form-group">
                             <label>项目名称</label>
-                            <input type="text" class="modal-input" value="郑州高新区新能源发电项目" readonly>
+                            <input type="text" class="modal-input" data-field="projectName" readonly>
                         </div>
                         <div class="form-group">
                             <label>客户名称</label>
-                            <input type="text" class="modal-input" value="沙俄有限公司" readonly>
+                            <input type="text" class="modal-input" data-field="customerName" readonly>
                         </div>
                     </div>
                     
@@ -287,19 +295,19 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>签订时间</label>
-                            <input type="text" class="modal-input" value="2025-09-15" readonly>
+                            <input type="text" class="modal-input" data-field="signDate" readonly>
                         </div>
                         <div class="form-group">
                             <label>合同类型</label>
-                            <input type="text" class="modal-input" value="框架合同" readonly>
+                            <input type="text" class="modal-input" data-field="contractType" readonly>
                         </div>
                         <div class="form-group">
                             <label>额定功率 MW</label>
-                            <input type="text" class="modal-input" value="100.5" readonly>
+                            <input type="text" class="modal-input" data-field="ratedPower" readonly>
                         </div>
                         <div class="form-group">
                             <label>运行（合同）功率 MW</label>
-                            <input type="text" class="modal-input" value="90.0" readonly>
+                            <input type="text" class="modal-input" data-field="operatingPower" readonly>
                         </div>
                     </div>
                     
@@ -307,19 +315,19 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>数量</label>
-                            <input type="text" class="modal-input" value="1" readonly>
+                            <input type="text" class="modal-input" data-field="quantity" readonly>
                         </div>
                         <div class="form-group">
                             <label>合计功率 MW</label>
-                            <input type="text" class="modal-input" value="95.2" readonly>
+                            <input type="text" class="modal-input" data-field="totalPower" readonly>
                         </div>
                         <div class="form-group">
                             <label>产品型号</label>
-                            <input type="text" class="modal-input" value="EP-100" readonly>
+                            <input type="text" class="modal-input" data-field="productModel" readonly>
                         </div>
                         <div class="form-group">
                             <label>产品编号</label>
-                            <input type="text" class="modal-input" value="PN2025001" readonly>
+                            <input type="text" class="modal-input" data-field="productNumber" readonly>
                         </div>
                     </div>
                     
@@ -327,19 +335,19 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>签订主体</label>
-                            <input type="text" class="modal-input" value="河南平高电气股份有限公司" readonly>
+                            <input type="text" class="modal-input" data-field="signEntity" readonly>
                         </div>
                         <div class="form-group">
                             <label>合同交货期</label>
-                            <input type="text" class="modal-input" value="2026-01-31" readonly>
+                            <input type="text" class="modal-input" data-field="contractDelivery" readonly>
                         </div>
                         <div class="form-group">
                             <label>实际交货期</label>
-                            <input type="text" class="modal-input" value="2026-02-15" readonly>
+                            <input type="text" class="modal-input" data-field="actualDelivery" readonly>
                         </div>
                         <div class="form-group">
                             <label>是否交货</label>
-                            <input type="text" class="modal-input" value="是" readonly>
+                            <input type="text" class="modal-input" data-field="isDelivered" readonly>
                         </div>
                     </div>
                     
@@ -347,15 +355,15 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>合同完工时间</label>
-                            <input type="text" class="modal-input" value="2026-08-31" readonly>
+                            <input type="text" class="modal-input" data-field="completionDate" readonly>
                         </div>
                         <div class="form-group">
                             <label>销售负责人</label>
-                            <input type="text" class="modal-input" value="赵经理" readonly>
+                            <input type="text" class="modal-input" data-field="salesManager" readonly>
                         </div>
                         <div class="form-group">
                             <label>联系电话</label>
-                            <input type="text" class="modal-input" value="13600136000" readonly>
+                            <input type="text" class="modal-input" data-field="salesPhone" readonly>
                         </div>
                     </div>
                 </form>
@@ -367,49 +375,156 @@
     </div>
 </div>
 
-<script src="script.js"></script>
-
 <script>
-        // 查看合同详情
-        window.viewContractDetail = function(id) {
-            const modal = document.getElementById('contractDetailModal');
-            if (modal) {
-                modal.style.display = 'flex';
-                // 这里可以根据id加载对应的合同数据
-                console.log('查看合同详情 ID:', id);
+        (function() {
+            const contractData = [
+                {
+                    id: 1,
+                    projectNumber: 'PE2025-09-2607',
+                    projectName: '郑州高新区新能源发电项目',
+                    customerName: '沙俄有限公司',
+                    signDate: '2025-09-15',
+                    contractType: '框架合同',
+                    ratedPower: '100.5',
+                    operatingPower: '90.0',
+                    quantity: '1',
+                    totalPower: '95.2',
+                    productModel: 'EP-100',
+                    productNumber: 'PN2025001',
+                    signEntity: '河南平高电气股份有限公司',
+                    contractDelivery: '2026-01-31',
+                    actualDelivery: '2026-02-15',
+                    isDelivered: '是',
+                    completionDate: '2026-08-31',
+                    salesManager: '赵经理',
+                    salesPhone: '13600136000'
+                },
+                {
+                    id: 2,
+                    projectNumber: 'PE2025-09-2602',
+                    projectName: '沙俄有限公司生产基地供电项目',
+                    customerName: '沙俄有限公司',
+                    signDate: '2025-09-15',
+                    contractType: '设备采购合同',
+                    ratedPower: '200.0',
+                    operatingPower: '190.0',
+                    quantity: '2',
+                    totalPower: '195.5',
+                    productModel: 'EP-200',
+                    productNumber: 'PN2025002',
+                    signEntity: '河南平高电气股份有限公司',
+                    contractDelivery: '2026-01-31',
+                    actualDelivery: '2026-02-15',
+                    isDelivered: '是',
+                    completionDate: '2026-08-31',
+                    salesManager: '赵经理',
+                    salesPhone: '13600136000'
+                }
+            ];
+
+            const editModal = document.getElementById('contractEditModal');
+            const detailModal = document.getElementById('contractDetailModal');
+            const editForm = document.getElementById('contractEditForm');
+            const detailFields = detailModal ? detailModal.querySelectorAll('[data-field]') : [];
+            const editFieldMap = {
+                projectNumber: 'projectNumber',
+                projectName: 'projectName',
+                customerName: 'customerName',
+                signDate: 'signDate',
+                contractType: 'contractType',
+                ratedPower: 'ratedPower',
+                operatingPower: 'operatingPower',
+                quantity: 'quantity',
+                totalPower: 'totalPower',
+                productModel: 'productModel',
+                productNumber: 'productNumber',
+                signEntity: 'signEntity',
+                contractDelivery: 'contractDelivery',
+                actualDelivery: 'actualDelivery',
+                isDelivered: 'isDelivered',
+                completionDate: 'completionDate',
+                salesManager: 'salesManager',
+                salesPhone: 'salesPhone'
+            };
+
+            function findContract(id) {
+                return contractData.find(item => item.id === Number(id));
             }
-        };
-        
-        window.closeContractDetailModal = function() {
-            const modal = document.getElementById('contractDetailModal');
-            if (modal) {
-                modal.style.display = 'none';
+
+            function fillDetailModal(data) {
+                detailFields.forEach(field => {
+                    const key = field.getAttribute('data-field');
+                    field.value = typeof key === 'string' ? (data?.[key] ?? '') : '';
+                });
             }
-        };
-        
-        // 编辑合同信息
-        window.editContract = function(id) {
-            document.getElementById('contractEditModal').style.display = 'flex';
-            // 这里可以加载合同数据
-        }
-        
-        function closeContractModal() {
-            document.getElementById('contractEditModal').style.display = 'none';
-        }
-        
-        function saveContract() {
-            // 保存合同信息
-            alert('合同信息已保存');
-            closeContractModal();
-        }
-        
-        // 点击遮罩层关闭弹窗
-        document.addEventListener('click', function(e) {
-            if (e.target.id === 'contractEditModal') {
+
+            function fillEditForm(data) {
+                if (!editForm) return;
+                Object.entries(editFieldMap).forEach(([field, inputId]) => {
+                    const input = editForm.querySelector(`#${inputId}`);
+                    if (input) {
+                        input.value = data?.[field] ?? '';
+                    }
+                });
+            }
+
+            window.viewContractDetail = function(id) {
+                const data = findContract(id);
+                if (!detailModal || !data) return;
+                fillDetailModal(data);
+                detailModal.style.display = 'flex';
+            };
+
+            window.closeContractDetailModal = function() {
+                if (detailModal) {
+                    detailModal.style.display = 'none';
+                }
+            };
+
+            window.editContract = function(id) {
+                const data = findContract(id);
+                if (!editModal || !data) return;
+                fillEditForm(data);
+                editModal.dataset.contractId = String(id);
+                editModal.style.display = 'flex';
+            };
+
+            window.closeContractModal = function() {
+                if (editModal) {
+                    editModal.style.display = 'none';
+                }
+            };
+
+            window.saveContract = function() {
+                if (!editForm) return;
+                const formData = new FormData(editForm);
+                const payload = {};
+                formData.forEach((value, key) => {
+                    payload[key] = value;
+                });
+
+                const contractId = Number(editModal?.dataset.contractId);
+                const target = contractId ? findContract(contractId) : null;
+                if (target) {
+                    Object.keys(editFieldMap).forEach(key => {
+                        target[key] = payload[key] ?? target[key];
+                    });
+                }
+
+                alert('合同信息已保存');
                 window.closeContractModal();
+            };
+
+            if (!window.__contractModalOverlayListener) {
+                window.__contractModalOverlayListener = true;
+                document.addEventListener('click', function(e) {
+                    if (e.target.id === 'contractEditModal') {
+                        window.closeContractModal();
+                    }
+                    if (e.target.id === 'contractDetailModal') {
+                        window.closeContractDetailModal();
+                    }
+                });
             }
-            if (e.target.id === 'contractDetailModal') {
-                window.closeContractDetailModal();
-            }
-        });
+        })();
     </script>
