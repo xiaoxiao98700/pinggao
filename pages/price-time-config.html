@@ -146,11 +146,10 @@
             </div>
             <div class="modal-body">
                 <!-- 省份和城市选择 -->
-                <div class="modal-province-selector" style="margin-bottom: 20px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <label class="modal-province-label" style="font-weight: 500; color: #333;">省份：</label>
-                            <select class="modal-province-select" id="modalProvinceSelect" style="width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px;">
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px; padding: 15px; background: #fafafa; border-radius: 4px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="font-size: 14px; color: #333; white-space: nowrap;">省份：</label>
+                        <select id="modalProvinceSelect" style="min-width: 200px; padding: 6px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px;">
                                 <option value="">请选择省份</option>
                                 <option value="beijing">北京市</option>
                                 <option value="tianjin">天津市</option>
@@ -184,13 +183,12 @@
                                 <option value="ningxia">宁夏回族自治区</option>
                                 <option value="xinjiang">新疆维吾尔自治区</option>
                             </select>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <label class="modal-province-label" style="font-weight: 500; color: #333;">市/区：</label>
-                            <select class="modal-province-select" id="modalCitySelect" disabled style="width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px;">
-                                <option value="">请先选择省份</option>
-                            </select>
-                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="font-size: 14px; color: #333; white-space: nowrap;">市/区：</label>
+                        <select id="modalCitySelect" disabled style="min-width: 200px; padding: 6px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px;">
+                            <option value="">请先选择省份</option>
+                        </select>
                     </div>
                 </div>
                 
