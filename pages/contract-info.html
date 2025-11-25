@@ -94,6 +94,7 @@
                             <td>赵经理</td>
                             <td>13600136000</td>
                             <td class="actions">
+                                <a href="#" class="action-link" onclick="if(typeof viewContractDetail === 'function') viewContractDetail(1); else { const modal = document.getElementById('contractDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
                                 <a href="#" class="action-link" onclick="if(typeof editContract === 'function') editContract(1); else { const modal = document.getElementById('contractEditModal'); if(modal) modal.style.display = 'flex'; }">信息补充</a>
                             </td>
                         </tr>
@@ -119,6 +120,7 @@
                             <td>赵经理</td>
                             <td>13600136000</td>
                             <td class="actions">
+                                <a href="#" class="action-link" onclick="if(typeof viewContractDetail === 'function') viewContractDetail(2); else { const modal = document.getElementById('contractDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
                                 <a href="#" class="action-link" onclick="if(typeof editContract === 'function') editContract(2); else { const modal = document.getElementById('contractEditModal'); if(modal) modal.style.display = 'flex'; }">信息补充</a>
                             </td>
                         </tr>
@@ -181,10 +183,138 @@
                         </div>
                     </div>
 
+<!-- 合同详情查看弹窗 -->
+<div class="modal-overlay" id="contractDetailModal" style="display: none;">
+    <div class="modal-content" style="max-width: 900px;">
+        <div class="modal-header">
+            <h3>合同详情</h3>
+            <button class="modal-close" onclick="closeContractDetailModal()">&times;</button>
+        </div>
+        <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+            <div class="form-container" style="padding: 0;">
+                <form class="project-form">
+                    <!-- 第一行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>项目编号</label>
+                            <input type="text" class="modal-input" value="PE2025-09-2607" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>项目名称</label>
+                            <input type="text" class="modal-input" value="郑州高新区新能源发电项目" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>客户名称</label>
+                            <input type="text" class="modal-input" value="沙俄有限公司" readonly>
+                        </div>
+                    </div>
+                    
+                    <!-- 第二行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>签订时间</label>
+                            <input type="text" class="modal-input" value="2025-09-15" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>合同类型</label>
+                            <input type="text" class="modal-input" value="框架合同" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>额定功率 MW</label>
+                            <input type="text" class="modal-input" value="100.5" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>运行（合同）功率 MW</label>
+                            <input type="text" class="modal-input" value="90.0" readonly>
+                        </div>
+                    </div>
+                    
+                    <!-- 第三行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>数量</label>
+                            <input type="text" class="modal-input" value="1" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>合计功率 MW</label>
+                            <input type="text" class="modal-input" value="95.2" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>产品型号</label>
+                            <input type="text" class="modal-input" value="EP-100" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>产品编号</label>
+                            <input type="text" class="modal-input" value="PN2025001" readonly>
+                        </div>
+                    </div>
+                    
+                    <!-- 第四行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>签订主体</label>
+                            <input type="text" class="modal-input" value="河南平高电气股份有限公司" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>合同交货期</label>
+                            <input type="text" class="modal-input" value="2026-01-31" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>实际交货期</label>
+                            <input type="text" class="modal-input" value="2026-02-15" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>是否交货</label>
+                            <input type="text" class="modal-input" value="是" readonly>
+                        </div>
+                    </div>
+                    
+                    <!-- 第五行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>合同完工时间</label>
+                            <input type="text" class="modal-input" value="2026-08-31" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>销售负责人</label>
+                            <input type="text" class="modal-input" value="赵经理" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>联系电话</label>
+                            <input type="text" class="modal-input" value="13600136000" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn modal-btn-cancel" onclick="closeContractDetailModal()">关闭</button>
+        </div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 
 <script>
-        function editContract(id) {
+        // 查看合同详情
+        window.viewContractDetail = function(id) {
+            const modal = document.getElementById('contractDetailModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                // 这里可以根据id加载对应的合同数据
+                console.log('查看合同详情 ID:', id);
+            }
+        };
+        
+        window.closeContractDetailModal = function() {
+            const modal = document.getElementById('contractDetailModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        };
+        
+        // 编辑合同信息
+        window.editContract = function(id) {
             document.getElementById('contractEditModal').style.display = 'flex';
             // 这里可以加载合同数据
         }
@@ -200,9 +330,12 @@
         }
         
         // 点击遮罩层关闭弹窗
-        document.getElementById('contractEditModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeContractModal();
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'contractEditModal') {
+                window.closeContractModal();
+            }
+            if (e.target.id === 'contractDetailModal') {
+                window.closeContractDetailModal();
             }
         });
     </script>
