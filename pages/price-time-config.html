@@ -344,12 +344,14 @@
             }
         });
 
-        // 弹窗相关函数
-        function openNewPriceModal() {
-            document.getElementById('newPriceModal').style.display = 'flex';
-        }
+        // 弹窗相关函数 - 全部定义到全局作用域
+        window.openNewPriceModal = function() {
+            const modal = document.getElementById('newPriceModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        };
 
-        // 将函数定义到全局作用域
         window.closeNewPriceModal = function() {
             const modal = document.getElementById('newPriceModal');
             if (modal) {
@@ -363,7 +365,7 @@
             window.closeNewPriceModal();
         };
 
-        function addTimeRow(link) {
+        window.addTimeRow = function(link) {
             const row = link.closest('tr');
             const tbody = row.parentNode;
             const newRow = document.createElement('tr');
@@ -380,10 +382,10 @@
             `;
             
             tbody.insertBefore(newRow, row.nextSibling);
-        }
+        };
 
-        function removeTimeRow(link) {
+        window.removeTimeRow = function(link) {
             const row = link.closest('tr');
             row.remove();
-        }
+        };
     </script>
