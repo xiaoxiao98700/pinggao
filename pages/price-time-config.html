@@ -187,7 +187,7 @@
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <label style="font-size: 14px; color: #333; white-space: nowrap;">市/区：</label>
                         <select id="modalCitySelect" disabled style="min-width: 200px; padding: 6px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px;">
-                            <option value="">请先选择省份</option>
+                            <option value="">请选择市/区</option>
                         </select>
                     </div>
                 </div>
@@ -482,7 +482,7 @@
                         });
                     } else {
                         citySelect.disabled = true;
-                        citySelect.innerHTML = '<option value="">请先选择省份</option>';
+                        citySelect.innerHTML = '<option value="">请选择市/区</option>';
                     }
                 });
             }
