@@ -39,19 +39,29 @@
                 // 更新主内容区域
                 mainContent.innerHTML = bodyContent;
                 
+                // 根据页面类型设置滚动类
+                const formPages = ['add-project.html', 'edit-project.html', 'detail-project.html', 'add-selection.html'];
+                const isFormPage = formPages.some(page => pagePath.includes(page));
+                
+                if (isFormPage) {
+                    mainContent.classList.add('form-page');
+                } else {
+                    mainContent.classList.remove('form-page');
+                }
+                
                 // 更新当前页面
                 currentPage = pagePath;
                 
                 // 更新导航激活状态
                 updateActiveNav();
                 
-                // 初始化页面事件（重新绑定事件监听器）
-                if (window.initPageEvents) {
-                    window.initPageEvents(mainContent);
-                }
-                
                 // 执行页面特定的脚本（如果有）
                 executePageScripts(doc);
+                
+                // 初始化页面事件（重新绑定事件监听器）
+                if (window.initPageFunctions) {
+                    window.initPageFunctions();
+                }
             })
             .catch(error => {
                 console.error('加载页面失败:', error);
