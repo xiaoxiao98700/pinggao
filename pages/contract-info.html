@@ -1,0 +1,211 @@
+<!-- 标签页 -->
+            <div class="tabs">
+                <div class="tab active">
+                    合同信息
+                    <span class="tab-close">×</span>
+                </div>
+            </div>
+
+            <!-- 搜索筛选区域 -->
+            <div class="search-section">
+                <div class="search-filters">
+                    <div class="filter-item">
+                        <label>客户名称</label>
+                        <select class="filter-input">
+                            <option value="">请选择客户</option>
+                            <option value="沙俄有限公司">沙俄有限公司</option>
+                            <option value="正大化工有限公司">正大化工有限公司</option>
+                            <option value="新疆昌吉新能源有限公司">新疆昌吉新能源有限公司</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>项目名称</label>
+                        <input type="text" placeholder="输入项目名称" class="filter-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>合同类型</label>
+                        <select class="filter-input">
+                            <option value="">请选择合同类型</option>
+                            <option value="框架合同">框架合同</option>
+                            <option value="设备采购合同">设备采购合同</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-actions">
+                    <button class="btn-query">Q查询</button>
+                    <button class="btn-reset">C重置</button>
+                    <button class="btn-expand">展开</button>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="table-actions">
+                <button class="btn-delete">删除</button>
+                <button class="btn-export">导出</button>
+            </div>
+
+            <!-- 数据表格 -->
+            <div class="table-container">
+                <table class="data-table" id="contractTable">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="select-all"></th>
+                            <th>序号</th>
+                            <th>项目编号</th>
+                            <th>项目名称</th>
+                            <th>客户名称</th>
+                            <th>签订时间</th>
+                            <th>合同类型</th>
+                            <th>额定功率 MW</th>
+                            <th>运行（合同）功率 MW</th>
+                            <th>数量</th>
+                            <th>合计功率 MW</th>
+                            <th>产品型号</th>
+                            <th>产品编号</th>
+                            <th>签订主体</th>
+                            <th>合同交货期</th>
+                            <th>实际交货期</th>
+                            <th>是否交货</th>
+                            <th>合同完工时间</th>
+                            <th>销售负责人</th>
+                            <th>联系电话</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>1</td>
+                            <td>PE2025-09-2607</td>
+                            <td>郑州高新区新能源发电项目</td>
+                            <td>沙俄有限公司</td>
+                            <td>2025-09-15</td>
+                            <td>框架合同</td>
+                            <td>100.5</td>
+                            <td>90.0</td>
+                            <td>1</td>
+                            <td>95.2</td>
+                            <td>EP-100</td>
+                            <td>PN2025001</td>
+                            <td>河南平高电气股份有限公司</td>
+                            <td>2026-01-31</td>
+                            <td>2026-02-15</td>
+                            <td>是</td>
+                            <td>2026-08-31</td>
+                            <td>赵经理</td>
+                            <td>13600136000</td>
+                            <td class="actions">
+                                <a href="#" class="action-link" onclick="editContract(1)">编辑</a>
+                                <a href="#" class="action-link">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>2</td>
+                            <td>PE2025-09-2602</td>
+                            <td>沙俄有限公司生产基地供电项目</td>
+                            <td>沙俄有限公司</td>
+                            <td>2025-09-15</td>
+                            <td>设备采购合同</td>
+                            <td>200.0</td>
+                            <td>190.0</td>
+                            <td>2</td>
+                            <td>195.5</td>
+                            <td>EP-200</td>
+                            <td>PN2025002</td>
+                            <td>河南平高电气股份有限公司</td>
+                            <td>2026-01-31</td>
+                            <td>2026-02-15</td>
+                            <td>是</td>
+                            <td>2026-08-31</td>
+                            <td>赵经理</td>
+                            <td>13600136000</td>
+                            <td class="actions">
+                                <a href="#" class="action-link" onclick="editContract(2)">编辑</a>
+                                <a href="#" class="action-link">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    <span>共12条</span>
+                </div>
+                <div class="pagination-controls">
+                    <select class="page-size">
+                        <option value="20" selected>20条/页</option>
+                        <option value="50">50条/页</option>
+                        <option value="100">100条/页</option>
+                    </select>
+                    <div class="page-nav">
+                        <button class="page-btn" disabled><</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">></button>
+                    </div>
+                    <div class="page-jump">
+                        <span>前往</span>
+                        <input type="number" class="page-input" value="1" min="1">
+                        <span>页</span>
+                    </div>
+                </div>
+            </div>
+
+<div class="modal-overlay" id="contractEditModal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">编辑合同信息</h3>
+                <button class="modal-close" onclick="closeContractModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contractEditForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>签订时间</label>
+                            <input type="date" class="modal-input" id="signDate">
+                        </div>
+                        <div class="form-group">
+                            <label>合同类型</label>
+                            <select class="modal-input" id="contractType">
+                                <option value="">请选择合同类型</option>
+                                <option value="框架合同">框架合同</option>
+                                <option value="设备采购合同">设备采购合同</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>额定功率 MW</label>
+                            <input type="number" step="0.01" class="modal-input" id="ratedPower" placeholder="请输入额定功率">
+                        </div>
+                        <div class="form-group">
+                            <label>运行（合同）功率 MW</label>
+                            <input type="number" step="0.01" class="modal-input" id="operatingPower" placeholder="请输入运行功率">
+                        </div>
+                    </div>
+
+<script src="script.js"></script>
+
+<script>
+        function editContract(id) {
+            document.getElementById('contractEditModal').style.display = 'flex';
+            // 这里可以加载合同数据
+        }
+        
+        function closeContractModal() {
+            document.getElementById('contractEditModal').style.display = 'none';
+        }
+        
+        function saveContract() {
+            // 保存合同信息
+            alert('合同信息已保存');
+            closeContractModal();
+        }
+        
+        // 点击遮罩层关闭弹窗
+        document.getElementById('contractEditModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeContractModal();
+            }
+        });
+    </script>

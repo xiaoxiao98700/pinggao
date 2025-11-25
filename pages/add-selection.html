@@ -1,0 +1,60 @@
+<!-- 页面头部 -->
+            <div class="page-header">
+                <div class="page-header-left">
+                    <button class="btn-back" onclick="history.back()">← 返回</button>
+                    <h1 class="page-title">新增选型</h1>
+                </div>
+                <div class="page-header-right">
+                    <button class="btn-next">下一步</button>
+                    <button class="btn-cancel">取消</button>
+                </div>
+            </div>
+
+            <!-- 进度指示器 -->
+            <div class="progress-steps">
+                <div class="step-item active">
+                    <div class="step-circle active">1</div>
+                    <div class="step-label active">1 选型信息</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">2 方案配置</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">3 方案预览</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">4 完成</div>
+                </div>
+            </div>
+
+            <!-- 表单内容 -->
+            <div class="form-container">
+                <form id="selectionForm" class="selection-form">
+                    <div class="form-row-single">
+                        <div class="form-group">
+                            <label class="form-label required">选型名称</label>
+                            <input type="text" class="form-input" placeholder="请填写选型名称" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">项目地点</label>
+                            <select class="form-input form-select" required>
+                                <option value="">请选择省市区地址</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">选型规则</label>
+                            <select class="form-input form-select" required>
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+<script src="script.js"></script>
