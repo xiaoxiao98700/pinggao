@@ -54,6 +54,7 @@
                             <td></td>
                             <td class="actions">
                                 <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(1); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">补充信息</a>
+                                <a href="#" class="action-link" onclick="if(typeof viewImplementationDetail === 'function') viewImplementationDetail(1); else { const modal = document.getElementById('implementationDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
                             </td>
                         </tr>
                         <tr>
@@ -67,7 +68,8 @@
                             <td>是</td>
                             <td>1年</td>
                             <td class="actions">
-                                <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(2); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">编辑</a>
+                                <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(2); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">补充信息</a>
+                                <a href="#" class="action-link" onclick="if(typeof viewImplementationDetail === 'function') viewImplementationDetail(2); else { const modal = document.getElementById('implementationDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
                             </td>
                         </tr>
                         <tr>
@@ -82,6 +84,7 @@
                             <td></td>
                             <td class="actions">
                                 <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(3); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">补充信息</a>
+                                <a href="#" class="action-link" onclick="if(typeof viewImplementationDetail === 'function') viewImplementationDetail(3); else { const modal = document.getElementById('implementationDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
                             </td>
                         </tr>
                     </tbody>
@@ -122,6 +125,16 @@
                 <form id="implementationEditForm">
                     <div class="form-row">
                         <div class="form-group">
+                            <label>项目编号</label>
+                            <input type="text" class="modal-input" id="projectNumber" readonly style="background-color:#f5f5f5;">
+                        </div>
+                        <div class="form-group">
+                            <label>项目名称</label>
+                            <input type="text" class="modal-input" id="projectName" readonly style="background-color:#f5f5f5;">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
                             <label>实际开工时间</label>
                             <input type="date" class="modal-input" id="actualStartDate">
                         </div>
@@ -130,36 +143,217 @@
                             <input type="date" class="modal-input" id="actualEndDate">
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>验收时间</label>
+                            <input type="date" class="modal-input" id="acceptanceDate">
+                        </div>
+                        <div class="form-group">
+                            <label>是否验收</label>
+                            <select class="modal-input" id="isAccepted">
+                                <option value="">请选择</option>
+                                <option value="是">是</option>
+                                <option value="否">否</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>质保期</label>
+                            <input type="text" class="modal-input" id="warrantyPeriod" placeholder="如 1年">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-btn modal-btn-cancel" onclick="closeImplementationModal()">取消</button>
+                <button type="button" class="modal-btn modal-btn-confirm" onclick="saveImplementation()">确定</button>
+            </div>
+        </div>
+    </div>
 
-<script src="script.js"></script>
+<div class="modal-overlay" id="implementationDetailModal" style="display:none;">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title">实施详情</h3>
+                <button class="modal-close" onclick="closeImplementationDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container" style="padding:0;">
+                    <form class="project-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>项目编号</label>
+                                <input type="text" class="modal-input" data-field="projectNumber" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>项目名称</label>
+                                <input type="text" class="modal-input" data-field="projectName" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>客户名称</label>
+                                <input type="text" class="modal-input" data-field="customerName" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>实际开工时间</label>
+                                <input type="text" class="modal-input" data-field="actualStartDate" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>实际完工时间</label>
+                                <input type="text" class="modal-input" data-field="actualEndDate" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>验收时间</label>
+                                <input type="text" class="modal-input" data-field="acceptanceDate" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>是否验收</label>
+                                <input type="text" class="modal-input" data-field="isAccepted" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>质保期</label>
+                                <input type="text" class="modal-input" data-field="warrantyPeriod" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-btn modal-btn-cancel" onclick="closeImplementationDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // 将函数定义到全局作用域
-        window.editImplementation = function(id) {
-            const modal = document.getElementById('implementationEditModal');
-            if (modal) {
-                modal.style.display = 'flex';
-                // 这里可以加载实施数据
+        (function() {
+            const implementationData = [
+                {
+                    id: 1,
+                    projectNumber: 'PE2025-09-2607',
+                    projectName: '郑州高新区新能源发电项目',
+                    customerName: '沙俄有限公司',
+                    actualStartDate: '',
+                    actualEndDate: '',
+                    acceptanceDate: '',
+                    isAccepted: '',
+                    warrantyPeriod: ''
+                },
+                {
+                    id: 2,
+                    projectNumber: 'PE2025-09-2606',
+                    projectName: '正大化工园区配电改造项目',
+                    customerName: '正大化工有限公司',
+                    actualStartDate: '2026-03-01',
+                    actualEndDate: '2026-06-30',
+                    acceptanceDate: '2026-07-15',
+                    isAccepted: '是',
+                    warrantyPeriod: '1年'
+                },
+                {
+                    id: 3,
+                    projectNumber: 'PE2025-09-2602',
+                    projectName: '沙俄有限公司生产基地供电项目',
+                    customerName: '沙俄有限公司',
+                    actualStartDate: '2026-03-01',
+                    actualEndDate: '',
+                    acceptanceDate: '',
+                    isAccepted: '',
+                    warrantyPeriod: ''
+                }
+            ];
+
+            const editModal = document.getElementById('implementationEditModal');
+            const detailModal = document.getElementById('implementationDetailModal');
+            const editForm = document.getElementById('implementationEditForm');
+            const detailFields = detailModal ? detailModal.querySelectorAll('[data-field]') : [];
+            const editFieldMap = {
+                projectNumber: 'projectNumber',
+                projectName: 'projectName',
+                actualStartDate: 'actualStartDate',
+                actualEndDate: 'actualEndDate',
+                acceptanceDate: 'acceptanceDate',
+                isAccepted: 'isAccepted',
+                warrantyPeriod: 'warrantyPeriod'
+            };
+
+            function findImplementation(id) {
+                return implementationData.find(item => item.id === Number(id));
             }
-        };
-        
-        window.closeImplementationModal = function() {
-            const modal = document.getElementById('implementationEditModal');
-            if (modal) {
-                modal.style.display = 'none';
+
+            function fillEditForm(data) {
+                if (!editForm) return;
+                Object.entries(editFieldMap).forEach(([field, inputId]) => {
+                    const input = editForm.querySelector(`#${inputId}`);
+                    if (input) {
+                        input.value = data?.[field] ?? '';
+                    }
+                });
             }
-        };
-        
-        window.saveImplementation = function() {
-            // 保存实施信息
-            alert('实施信息已保存');
-            window.closeImplementationModal();
-        };
-        
-        // 点击遮罩层关闭弹窗 - 使用事件委托
-        document.addEventListener('click', function(e) {
-            if (e.target.id === 'implementationEditModal') {
+
+            function fillDetailModal(data) {
+                detailFields.forEach(field => {
+                    const key = field.getAttribute('data-field');
+                    field.value = typeof key === 'string' ? (data?.[key] ?? '') : '';
+                });
+            }
+
+            window.editImplementation = function(id) {
+                const data = findImplementation(id);
+                if (!editModal || !data) return;
+                fillEditForm(data);
+                editModal.dataset.implementationId = String(id);
+                editModal.style.display = 'flex';
+            };
+            
+            window.viewImplementationDetail = function(id) {
+                const data = findImplementation(id);
+                if (!detailModal || !data) return;
+                fillDetailModal(data);
+                detailModal.style.display = 'flex';
+            };
+            
+            window.closeImplementationModal = function() {
+                if (editModal) {
+                    editModal.style.display = 'none';
+                }
+            };
+            
+            window.closeImplementationDetailModal = function() {
+                if (detailModal) {
+                    detailModal.style.display = 'none';
+                }
+            };
+            
+            window.saveImplementation = function() {
+                if (!editForm) return;
+                const formData = new FormData(editForm);
+                const payload = {};
+                formData.forEach((value, key) => {
+                    payload[key] = value;
+                });
+                const recordId = Number(editModal?.dataset.implementationId);
+                const target = recordId ? findImplementation(recordId) : null;
+                if (target) {
+                    Object.keys(editFieldMap).forEach(key => {
+                        target[key] = payload[key] ?? target[key];
+                    });
+                }
+                alert('实施信息已保存');
                 window.closeImplementationModal();
+            };
+
+            if (!window.__implementationModalOverlayListener) {
+                window.__implementationModalOverlayListener = true;
+                document.addEventListener('click', function(e) {
+                    if (e.target.id === 'implementationEditModal') {
+                        window.closeImplementationModal();
+                    }
+                    if (e.target.id === 'implementationDetailModal') {
+                        window.closeImplementationDetailModal();
+                    }
+                });
             }
-        });
+        })();
     </script>
