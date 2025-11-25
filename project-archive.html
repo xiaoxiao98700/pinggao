@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 项目档案</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-item nav-parent active" data-submenu="project-management">
+                        项目管理 <span class="nav-arrow">▼</span>
+                    </div>
+                    <div class="nav-submenu show">
+                        <a href="project-info.html" class="nav-item nav-child">项目信息</a>
+                        <a href="contract-info.html" class="nav-item nav-child">合同信息</a>
+                        <a href="implementation-info.html" class="nav-item nav-child">实施信息</a>
+                        <a href="project-archive.html" class="nav-item nav-child active">项目档案</a>
+                    </div>
+                </div>
+                <a href="selection-report.html" class="nav-item">选型报表</a>
+                <a href="price-time-config.html" class="nav-item">电价时段配置</a>
+                <a href="device-detection.html" class="nav-item">设备检测</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 标签页 -->
+            <div class="tabs">
+                <div class="tab active">
+                    项目档案
+                    <span class="tab-close">×</span>
+                </div>
+            </div>
+
+            <!-- 搜索筛选区域 -->
+            <div class="search-section">
+                <div class="search-filters">
+                    <div class="filter-item">
+                        <label>项目名称</label>
+                        <input type="text" placeholder="输入项目名称" class="filter-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>项目编号</label>
+                        <input type="text" placeholder="输入项目编号" class="filter-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>客户名称</label>
+                        <input type="text" placeholder="输入客户名称" class="filter-input">
+                    </div>
+                </div>
+                <div class="search-actions">
+                    <button class="btn-query">Q查询</button>
+                    <button class="btn-reset">C重置</button>
+                    <button class="btn-expand">展开</button>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="table-actions">
+                <button class="btn-export">导出</button>
+            </div>
+
+            <!-- 数据表格 -->
+            <div class="table-container">
+                <table class="data-table" id="archiveTable">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="select-all"></th>
+                            <th>序号</th>
+                            <th>项目编号</th>
+                            <th>项目名称</th>
+                            <th>客户名称</th>
+                            <th>项目所在地</th>
+                            <th>项目负责人</th>
+                            <th>项目状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>1</td>
+                            <td>PE2025-09-2607</td>
+                            <td>郑州高新区新能源发电项目</td>
+                            <td>沙俄有限公司</td>
+                            <td>河南省郑州市</td>
+                            <td>刘静</td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td class="actions">
+                                <a href="detail-project.html" class="action-link">查看详情</a>
+                                <a href="#" class="action-link" onclick="exportProject(1)">导出</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>2</td>
+                            <td>PE2025-09-2606</td>
+                            <td>正大化工园区配电改造项目</td>
+                            <td>正大化工有限公司</td>
+                            <td>河南省新乡市</td>
+                            <td>王明</td>
+                            <td><span class="status-badge status-unsigned">未签约</span></td>
+                            <td class="actions">
+                                <a href="detail-project.html" class="action-link">查看详情</a>
+                                <a href="#" class="action-link" onclick="exportProject(2)">导出</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>3</td>
+                            <td>PE2025-09-2602</td>
+                            <td>沙俄有限公司生产基地供电项目</td>
+                            <td>沙俄有限公司</td>
+                            <td>河南省平顶山市</td>
+                            <td>刘静</td>
+                            <td><span class="status-badge status-signed">已签约</span></td>
+                            <td class="actions">
+                                <a href="detail-project.html" class="action-link">查看详情</a>
+                                <a href="#" class="action-link" onclick="exportProject(3)">导出</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    <span>共47条</span>
+                </div>
+                <div class="pagination-controls">
+                    <select class="page-size">
+                        <option value="20" selected>20条/页</option>
+                        <option value="50">50条/页</option>
+                        <option value="100">100条/页</option>
+                    </select>
+                    <div class="page-nav">
+                        <button class="page-btn" disabled><</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">></button>
+                    </div>
+                    <div class="page-jump">
+                        <span>前往</span>
+                        <input type="number" class="page-input" value="1" min="1">
+                        <span>页</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            豫ICP备05010380号-5 | 河南平高电气股份有限公司
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function exportProject(id) {
+            // 导出项目数据
+            alert('项目数据导出功能');
+            // 这里可以添加实际的导出逻辑
+        }
+    </script>
+</body>
+</html>
+

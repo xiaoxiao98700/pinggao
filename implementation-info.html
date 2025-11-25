@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 实施信息</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-item nav-parent active" data-submenu="project-management">
+                        项目管理 <span class="nav-arrow">▼</span>
+                    </div>
+                    <div class="nav-submenu show">
+                        <a href="project-info.html" class="nav-item nav-child">项目信息</a>
+                        <a href="contract-info.html" class="nav-item nav-child">合同信息</a>
+                        <a href="implementation-info.html" class="nav-item nav-child active">实施信息</a>
+                        <a href="project-archive.html" class="nav-item nav-child">项目档案</a>
+                    </div>
+                </div>
+                <a href="selection-report.html" class="nav-item">选型报表</a>
+                <a href="price-time-config.html" class="nav-item">电价时段配置</a>
+                <a href="device-detection.html" class="nav-item">设备检测</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 标签页 -->
+            <div class="tabs">
+                <div class="tab active">
+                    实施信息
+                    <span class="tab-close">×</span>
+                </div>
+            </div>
+
+            <!-- 搜索筛选区域 -->
+            <div class="search-section">
+                <div class="search-filters">
+                    <div class="filter-item">
+                        <label>项目名称</label>
+                        <input type="text" placeholder="输入项目名称" class="filter-input">
+                    </div>
+                    <div class="filter-item">
+                        <label>项目编号</label>
+                        <input type="text" placeholder="输入项目编号" class="filter-input">
+                    </div>
+                </div>
+                <div class="search-actions">
+                    <button class="btn-query">Q查询</button>
+                    <button class="btn-reset">C重置</button>
+                </div>
+            </div>
+
+            <!-- 数据表格 -->
+            <div class="table-container">
+                <table class="data-table" id="implementationTable">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>项目编号</th>
+                            <th>项目名称</th>
+                            <th>客户名称</th>
+                            <th>实际开工时间</th>
+                            <th>实际完工时间</th>
+                            <th>验收时间</th>
+                            <th>是否验收</th>
+                            <th>质保期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>PE2025-09-2607</td>
+                            <td>郑州高新区新能源发电项目</td>
+                            <td>沙俄有限公司</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link" onclick="editImplementation(1)">补充信息</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>PE2025-09-2606</td>
+                            <td>正大化工园区配电改造项目</td>
+                            <td>正大化工有限公司</td>
+                            <td>2026-03-01</td>
+                            <td>2026-06-30</td>
+                            <td>2026-07-15</td>
+                            <td>是</td>
+                            <td>1年</td>
+                            <td class="actions">
+                                <a href="#" class="action-link" onclick="editImplementation(2)">编辑</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>PE2025-09-2602</td>
+                            <td>沙俄有限公司生产基地供电项目</td>
+                            <td>沙俄有限公司</td>
+                            <td>2026-03-01</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="actions">
+                                <a href="#" class="action-link" onclick="editImplementation(3)">补充信息</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    <span>共15条</span>
+                </div>
+                <div class="pagination-controls">
+                    <select class="page-size">
+                        <option value="20" selected>20条/页</option>
+                        <option value="50">50条/页</option>
+                        <option value="100">100条/页</option>
+                    </select>
+                    <div class="page-nav">
+                        <button class="page-btn" disabled><</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">></button>
+                    </div>
+                    <div class="page-jump">
+                        <span>前往</span>
+                        <input type="number" class="page-input" value="1" min="1">
+                        <span>页</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 实施信息编辑弹窗 -->
+    <div class="modal-overlay" id="implementationEditModal" style="display: none;">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title">补充实施信息</h3>
+                <button class="modal-close" onclick="closeImplementationModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="implementationEditForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>实际开工时间</label>
+                            <input type="date" class="modal-input" id="actualStartDate">
+                        </div>
+                        <div class="form-group">
+                            <label>实际完工时间</label>
+                            <input type="date" class="modal-input" id="actualEndDate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>验收时间</label>
+                            <input type="date" class="modal-input" id="acceptanceDate">
+                        </div>
+                        <div class="form-group">
+                            <label>是否验收</label>
+                            <select class="modal-input" id="isAccepted">
+                                <option value="">请选择</option>
+                                <option value="是">是</option>
+                                <option value="否">否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>质保期</label>
+                            <input type="text" class="modal-input" id="warrantyPeriod" placeholder="请输入质保期，如：1年">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel-modal" onclick="closeImplementationModal()">取消</button>
+                <button type="button" class="btn-confirm-modal" onclick="saveImplementation()">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            豫ICP备05010380号-5 | 河南平高电气股份有限公司
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function editImplementation(id) {
+            document.getElementById('implementationEditModal').style.display = 'flex';
+            // 这里可以加载实施数据
+        }
+        
+        function closeImplementationModal() {
+            document.getElementById('implementationEditModal').style.display = 'none';
+        }
+        
+        function saveImplementation() {
+            // 保存实施信息
+            alert('实施信息已保存');
+            closeImplementationModal();
+        }
+        
+        // 点击遮罩层关闭弹窗
+        document.getElementById('implementationEditModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImplementationModal();
+            }
+        });
+    </script>
+</body>
+</html>
+
