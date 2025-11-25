@@ -45,6 +45,11 @@
                 // 更新导航激活状态
                 updateActiveNav();
                 
+                // 初始化页面事件（重新绑定事件监听器）
+                if (window.initPageEvents) {
+                    window.initPageEvents(mainContent);
+                }
+                
                 // 执行页面特定的脚本（如果有）
                 executePageScripts(doc);
             })
