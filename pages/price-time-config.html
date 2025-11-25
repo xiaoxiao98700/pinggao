@@ -349,15 +349,19 @@
             document.getElementById('newPriceModal').style.display = 'flex';
         }
 
-        function closeNewPriceModal() {
-            document.getElementById('newPriceModal').style.display = 'none';
-        }
+        // 将函数定义到全局作用域
+        window.closeNewPriceModal = function() {
+            const modal = document.getElementById('newPriceModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        };
 
-        function saveNewPrice() {
+        window.saveNewPrice = function() {
             // 保存逻辑待实现
             alert('保存成功');
-            closeNewPriceModal();
-        }
+            window.closeNewPriceModal();
+        };
 
         function addTimeRow(link) {
             const row = link.closest('tr');
