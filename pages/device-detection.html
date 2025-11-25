@@ -1000,7 +1000,7 @@
 
 <script>
         // 设备检测页面专用脚本
-        document.addEventListener('DOMContentLoaded', function() {
+        (function() {
             // 页签切换
             const deviceTabs = document.querySelectorAll('.device-tab');
             const tabContents = document.querySelectorAll('.device-tab-content');
@@ -1379,5 +1379,5 @@
                     });
                 });
             }
-        });
+        })();
     </script>
