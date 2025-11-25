@@ -140,9 +140,66 @@ body {
     color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
     border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .nav-item.active {
+    background-color: #1890ff;
+    color: #fff;
+    border-left-color: #40a9ff;
+}
+
+.nav-item:hover {
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #fff;
+}
+
+/* 导航组（带子菜单） */
+.nav-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-parent {
+    font-weight: 500;
+}
+
+.nav-arrow {
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.nav-group.active .nav-arrow {
+    transform: rotate(180deg);
+}
+
+/* 子菜单 */
+.nav-submenu {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+.nav-submenu.show {
+    display: flex;
+    max-height: 500px;
+}
+
+.nav-child {
+    padding-left: 40px;
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.nav-child.active {
     background-color: #1890ff;
     color: #fff;
     border-left-color: #40a9ff;

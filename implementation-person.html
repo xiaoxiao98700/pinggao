@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智选方案 - 实施信息</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-collapse">«</button>
+            <div class="logo">智选方案</div>
+        </div>
+        <div class="header-right">
+            <div class="company-info">河南平高电气股份有限公司</div>
+            <button class="btn-switch">切换企业工作台</button>
+            <div class="header-icons">
+                <span class="icon">🔍</span>
+                <span class="icon">💬</span>
+                <span class="icon">🔔</span>
+                <div class="dropdown">
+                    <span class="dropdown-trigger">平高 ▼</span>
+                </div>
+                <span class="icon">⋯</span>
+            </div>
+            <button class="btn-collapse">»</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-title">智选方案</div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-item nav-parent active" data-submenu="project-management">
+                        项目管理 <span class="nav-arrow">▼</span>
+                    </div>
+                    <div class="nav-submenu show">
+                        <a href="project-manager.html" class="nav-item nav-child">项目基本信息</a>
+                        <a href="sales-person.html" class="nav-item nav-child">合同信息</a>
+                        <a href="implementation-person.html" class="nav-item nav-child active">实施信息</a>
+                    </div>
+                </div>
+                <a href="selection-report.html" class="nav-item">选型报表</a>
+                <a href="price-time-config.html" class="nav-item">电价时段配置</a>
+                <a href="device-detection.html" class="nav-item">设备检测</a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content form-page">
+            <!-- 标签页 -->
+            <div class="tabs">
+                <div class="tab active">
+                    实施信息
+                    <span class="tab-close">×</span>
+                </div>
+            </div>
+
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-left">
+                    <button class="btn-back" onclick="window.location.href='index.html'">← 返回</button>
+                    <span class="page-title">实施信息 <span class="role-hint">（实施人员）</span></span>
+                </div>
+                <div class="action-right">
+                    <button class="btn-confirm">确定</button>
+                    <button class="btn-cancel" onclick="window.location.href='index.html'">取消</button>
+                </div>
+            </div>
+
+            <!-- 项目信息表单 -->
+            <div class="form-container">
+                <!-- 实施信息 - 实施人员可编辑 -->
+                <h2 class="form-title">实施信息 <span class="role-hint">（实施人员）</span></h2>
+                <form class="project-form" id="implementationForm" data-role="implementation-person">
+                    <!-- 第一行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>实际开工时间</label>
+                            <input type="date" placeholder="请选择实际开工时间" data-editable-by="implementation-person">
+                        </div>
+                        <div class="form-group">
+                            <label>实际完工时间</label>
+                            <input type="date" placeholder="请选择实际完工时间" data-editable-by="implementation-person">
+                        </div>
+                        <div class="form-group">
+                            <label>验收时间</label>
+                            <input type="date" placeholder="请选择验收时间" data-editable-by="implementation-person">
+                        </div>
+                        <div class="form-group">
+                            <label>是否验收</label>
+                            <select data-editable-by="implementation-person">
+                                <option value="">请选择</option>
+                                <option value="是">是</option>
+                                <option value="否">否</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 第二行 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>质保期</label>
+                            <input type="text" placeholder="请输入质保期" data-editable-by="implementation-person">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            豫ICP备05010380号-5 | 河南平高电气股份有限公司
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

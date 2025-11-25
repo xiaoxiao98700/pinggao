@@ -912,6 +912,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // 子菜单展开/收起功能
+    const navParents = document.querySelectorAll('.nav-parent');
+    navParents.forEach(parent => {
+        parent.addEventListener('click', function(e) {
+            // 如果点击的是箭头，阻止默认行为
+            if (e.target.classList.contains('nav-arrow') || e.target === this) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            const navGroup = this.closest('.nav-group');
+            const submenu = navGroup.querySelector('.nav-submenu');
+            
+            if (submenu) {
+                const isShow = submenu.classList.contains('show');
+                if (isShow) {
+                    submenu.classList.remove('show');
+                    navGroup.classList.remove('active');
+                } else {
+                    // 关闭其他展开的子菜单
+                    document.querySelectorAll('.nav-submenu.show').forEach(menu => {
+                        menu.classList.remove('show');
+                        menu.closest('.nav-group').classList.remove('active');
+                    });
+                    submenu.classList.add('show');
+                    navGroup.classList.add('active');
+                }
+            }
+        });
+    });
+    
+    // 子菜单项点击时，不触发父菜单的展开/收起
+    const navChildren = document.querySelectorAll('.nav-child');
+    navChildren.forEach(child => {
+        child.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+    
     // 初始化分页
     updatePagination();
     

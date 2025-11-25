@@ -34,7 +34,16 @@
         <aside class="sidebar">
             <div class="sidebar-title">智选方案</div>
             <nav class="sidebar-nav">
-                <a href="index.html" class="nav-item active">项目管理</a>
+                <div class="nav-group">
+                    <div class="nav-item nav-parent active" data-submenu="project-management">
+                        项目管理 <span class="nav-arrow">▼</span>
+                    </div>
+                    <div class="nav-submenu show">
+                        <a href="project-manager.html" class="nav-item nav-child">项目基本信息</a>
+                        <a href="sales-person.html" class="nav-item nav-child">合同信息</a>
+                        <a href="implementation-person.html" class="nav-item nav-child">实施信息</a>
+                    </div>
+                </div>
                 <a href="selection-report.html" class="nav-item">选型报表</a>
                 <a href="price-time-config.html" class="nav-item">电价时段配置</a>
                 <a href="device-detection.html" class="nav-item">设备检测</a>
@@ -158,8 +167,8 @@
                 </form>
 
                 <!-- 合同信息 - 销售人员可编辑 -->
-                <div class="additional-fields-section">
-                    <div class="section-divider"></div>
+                    <div class="additional-fields-section">
+                        <div class="section-divider"></div>
                     <h3 class="section-title">合同信息 <span class="role-hint">（销售人员）</span></h3>
                     <form class="project-form" id="contractForm" data-role="sales-person">
                         <!-- 第一行 -->
@@ -282,9 +291,9 @@
                             <div class="form-group">
                                 <label>质保期</label>
                                 <input type="text" placeholder="请输入质保期" data-editable-by="implementation-person">
-                            </div>
                         </div>
-                    </form>
+                    </div>
+                </form>
                 </div>
             </div>
         </main>
