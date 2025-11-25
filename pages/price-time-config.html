@@ -237,7 +237,7 @@
 
 <script>
         // 电价时段配置页面专用脚本
-        document.addEventListener('DOMContentLoaded', function() {
+        (function() {
             // 树形菜单展开/折叠功能
             const treeNodes = document.querySelectorAll('.tree-node-item[data-node]');
             treeNodes.forEach(node => {
