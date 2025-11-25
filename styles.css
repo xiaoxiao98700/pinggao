@@ -862,10 +862,10 @@ body {
 /* 操作链接 */
 .actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .data-table thead th:last-child {
@@ -876,7 +876,8 @@ body {
     border-left: 1px solid #e8e8e8;
     box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
     padding: 8px 12px;
-    min-width: 200px;
+    min-width: 280px;
+    width: 280px;
 }
 
 .data-table tbody td:last-child {
@@ -887,7 +888,8 @@ body {
     border-left: 1px solid #e8e8e8;
     box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
     padding: 8px 12px;
-    min-width: 200px;
+    min-width: 280px;
+    width: 280px;
 }
 
 .data-table tbody tr:hover td:last-child {
@@ -900,10 +902,10 @@ body {
     cursor: pointer;
     transition: color 0.3s;
     white-space: nowrap;
-    padding: 0;
+    padding: 2px 4px;
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.5;
 }
 
