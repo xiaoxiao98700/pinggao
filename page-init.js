@@ -153,7 +153,12 @@
         // 操作链接 - 使用事件委托
         scope.addEventListener('click', function(e) {
             const actionLink = e.target.closest('.action-link');
-            if (actionLink && !actionLink.hasAttribute('onclick')) {
+            if (actionLink) {
+                // 如果已经有 onclick 属性，不阻止默认行为，让它执行
+                if (actionLink.hasAttribute('onclick')) {
+                    return; // 让内联 onclick 执行
+                }
+                
                 e.preventDefault();
                 const action = actionLink.textContent.trim();
                 const row = actionLink.closest('tr');
@@ -182,6 +187,18 @@
                         if (modal) {
                             modal.style.display = 'flex';
                         }
+                        break;
+                    case '编辑':
+                        // 编辑操作通常有 onclick，这里作为备选
+                        break;
+                    case '详情':
+                        // 详情操作通常有 onclick，这里作为备选
+                        break;
+                    case '查看详情':
+                        // 查看详情操作通常有 onclick，这里作为备选
+                        break;
+                    case '导出':
+                        // 导出操作通常有 onclick，这里作为备选
                         break;
                 }
             }
@@ -314,6 +331,69 @@
                 }
             }
         });
+        
+        // 表单提交 - 确定按钮
+        scope.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-confirm') || e.target.closest('.btn-confirm')) {
+                e.preventDefault();
+                const btn = e.target.classList.contains('btn-confirm') ? e.target : e.target.closest('.btn-confirm');
+                const form = scope.querySelector('form');
+                if (form) {
+                    // 触发表单提交事件
+                    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                    form.dispatchEvent(submitEvent);
+                } else {
+                    // 如果没有表单，执行默认操作
+                    alert('操作已确认');
+                }
+            }
+        });
+        
+        // 表单提交处理
+        scope.addEventListener('submit', function(e) {
+            if (e.target.tagName === 'FORM') {
+                e.preventDefault();
+                const form = e.target;
+                
+                // 验证必填字段
+                const requiredFields = form.querySelectorAll('.required input, .required select, .required textarea');
+                let isValid = true;
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ff4d4f';
+                    } else {
+                        field.style.borderColor = '#d9d9d9';
+                    }
+                });
+                
+                if (isValid) {
+                    console.log('表单提交:', new FormData(form));
+                    alert('保存成功');
+                    // 这里可以添加实际的保存逻辑
+                } else {
+                    alert('请填写所有必填字段');
+                }
+            }
+        });
+        
+        // 输入框焦点事件
+        scope.addEventListener('focus', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+                e.target.style.borderColor = '#1890ff';
+            }
+        }, true);
+        
+        scope.addEventListener('blur', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+                const field = e.target;
+                if (!field.value && field.closest('.required')) {
+                    field.style.borderColor = '#ff4d4f';
+                } else {
+                    field.style.borderColor = '#d9d9d9';
+                }
+            }
+        }, true);
     };
     
     // 更新分页按钮状态

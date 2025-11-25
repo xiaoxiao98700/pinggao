@@ -95,7 +95,7 @@
                             <td>赵经理</td>
                             <td>13600136000</td>
                             <td class="actions">
-                                <a href="#" class="action-link" onclick="editContract(1)">编辑</a>
+                                <a href="#" class="action-link" onclick="if(typeof editContract === 'function') editContract(1); else { const modal = document.getElementById('contractEditModal'); if(modal) modal.style.display = 'flex'; }">编辑</a>
                                 <a href="#" class="action-link">删除</a>
                             </td>
                         </tr>
@@ -121,7 +121,7 @@
                             <td>赵经理</td>
                             <td>13600136000</td>
                             <td class="actions">
-                                <a href="#" class="action-link" onclick="editContract(2)">编辑</a>
+                                <a href="#" class="action-link" onclick="if(typeof editContract === 'function') editContract(2); else { const modal = document.getElementById('contractEditModal'); if(modal) modal.style.display = 'flex'; }">编辑</a>
                                 <a href="#" class="action-link">删除</a>
                             </td>
                         </tr>

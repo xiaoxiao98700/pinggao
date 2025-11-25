@@ -53,7 +53,7 @@
                             <td></td>
                             <td></td>
                             <td class="actions">
-                                <a href="#" class="action-link" onclick="editImplementation(1)">补充信息</a>
+                                <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(1); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">补充信息</a>
                             </td>
                         </tr>
                         <tr>
@@ -67,7 +67,7 @@
                             <td>是</td>
                             <td>1年</td>
                             <td class="actions">
-                                <a href="#" class="action-link" onclick="editImplementation(2)">编辑</a>
+                                <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(2); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">编辑</a>
                             </td>
                         </tr>
                         <tr>
@@ -81,7 +81,7 @@
                             <td></td>
                             <td></td>
                             <td class="actions">
-                                <a href="#" class="action-link" onclick="editImplementation(3)">补充信息</a>
+                                <a href="#" class="action-link" onclick="if(typeof editImplementation === 'function') editImplementation(3); else { const modal = document.getElementById('implementationEditModal'); if(modal) modal.style.display = 'flex'; }">补充信息</a>
                             </td>
                         </tr>
                     </tbody>
@@ -133,26 +133,33 @@
 
 <script src="script.js"></script>
 
-<script>
-        function editImplementation(id) {
-            document.getElementById('implementationEditModal').style.display = 'flex';
-            // 这里可以加载实施数据
-        }
+    <script>
+        // 将函数定义到全局作用域
+        window.editImplementation = function(id) {
+            const modal = document.getElementById('implementationEditModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                // 这里可以加载实施数据
+            }
+        };
         
-        function closeImplementationModal() {
-            document.getElementById('implementationEditModal').style.display = 'none';
-        }
+        window.closeImplementationModal = function() {
+            const modal = document.getElementById('implementationEditModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        };
         
-        function saveImplementation() {
+        window.saveImplementation = function() {
             // 保存实施信息
             alert('实施信息已保存');
-            closeImplementationModal();
-        }
+            window.closeImplementationModal();
+        };
         
-        // 点击遮罩层关闭弹窗
-        document.getElementById('implementationEditModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeImplementationModal();
+        // 点击遮罩层关闭弹窗 - 使用事件委托
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'implementationEditModal') {
+                window.closeImplementationModal();
             }
         });
     </script>

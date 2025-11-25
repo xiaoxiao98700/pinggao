@@ -147,9 +147,24 @@
             if (oldScript.src) {
                 newScript.src = oldScript.src;
             } else {
-                newScript.textContent = oldScript.textContent;
+                // 执行内联脚本
+                try {
+                    // 使用 Function 构造函数来执行脚本，确保在全局作用域
+                    const scriptContent = oldScript.textContent;
+                    if (scriptContent.trim()) {
+                        const func = new Function(scriptContent);
+                        func();
+                    }
+                } catch (error) {
+                    console.error('执行页面脚本失败:', error);
+                    // 如果 Function 构造函数失败，尝试直接 eval（不推荐但作为备选）
+                    try {
+                        eval(oldScript.textContent);
+                    } catch (e) {
+                        console.error('执行脚本失败:', e);
+                    }
+                }
             }
-            document.body.appendChild(newScript);
         });
     }
     

@@ -62,7 +62,7 @@
                             <td><span class="status-badge status-unsigned">未签约</span></td>
                             <td class="actions">
                                 <a href="#" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">查看详情</a>
-                                <a href="#" class="action-link" onclick="exportProject(1)">导出</a>
+                                <a href="#" class="action-link" onclick="if(typeof exportProject === 'function') exportProject(1); else alert('导出功能');">导出</a>
                             </td>
                         </tr>
                         <tr>
@@ -125,10 +125,11 @@
 
 <script src="script.js"></script>
 
-<script>
-        function exportProject(id) {
+    <script>
+        // 将函数定义到全局作用域
+        window.exportProject = function(id) {
             // 导出项目数据
             alert('项目数据导出功能');
             // 这里可以添加实际的导出逻辑
-        }
+        };
     </script>
