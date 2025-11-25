@@ -211,4 +211,15 @@
             </div>
 
 <script src="script.js"></script>
-
+    <script>
+        (function() {
+            const mainContent = window.parent
+                ? window.parent.document.getElementById('mainContent')
+                : document.getElementById('mainContent');
+            const fallback = document.getElementById('mainContent');
+            const target = mainContent || fallback;
+            if (target) {
+                target.classList.add('form-page');
+            }
+        })();
+    </script>
