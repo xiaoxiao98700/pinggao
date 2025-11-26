@@ -1309,6 +1309,12 @@ body {
     width: min(1100px, 90vw);
 }
 
+/* 大尺寸弹窗 - 用于表单较多的场景 */
+.modal-content.modal-lg {
+    width: min(1200px, 92vw);
+    max-width: 1200px;
+}
+
 .modal-header {
     display: flex;
     justify-content: space-between;
