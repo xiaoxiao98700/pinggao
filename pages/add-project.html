@@ -1,107 +1,205 @@
 <!-- 标签页 -->
-            <div class="tabs">
-                <div class="tab active">
-                    项目管理
-                    <span class="tab-close">×</span>
-                </div>
+<div class="tabs">
+    <div class="tab active">
+        新增项目
+        <span class="tab-close">×</span>
+    </div>
+</div>
+
+<!-- 操作栏 -->
+<div class="action-bar">
+    <div class="action-left">
+        <button class="btn-back" onclick="window.loadPage('pages/project-info.html')">← 返回</button>
+        <span class="page-title">新增项目</span>
+    </div>
+    <div class="action-right">
+        <button class="btn-confirm" onclick="saveProject()">保存</button>
+        <button class="btn-cancel" onclick="window.loadPage('pages/project-info.html')">取消</button>
+    </div>
+</div>
+
+<!-- 项目信息表单 -->
+<div class="form-container">
+    <h2 class="form-title">项目基本信息</h2>
+    <form class="project-form" id="projectForm">
+        <!-- 第一行 -->
+        <div class="form-row">
+            <div class="form-group required">
+                <label>项目编号</label>
+                <input type="text" id="projectNumber" value="PE2025-11-2601" readonly style="background-color: #f5f5f5;">
+                <span class="form-tip">系统自动生成</span>
             </div>
-
-            <!-- 操作栏 -->
-            <div class="action-bar">
-                <div class="action-left">
-                    <button class="btn-back" onclick="window.loadPage('pages/project-info.html')">← 返回</button>
-                    <span class="page-title">新建项目</span>
-                </div>
-                <div class="action-right">
-                    <button class="btn-confirm">确定</button>
-                    <button class="btn-cancel" onclick="window.loadPage('pages/project-info.html')">取消</button>
-                </div>
+            <div class="form-group required">
+                <label>客户名称</label>
+                <select id="customerName" required>
+                    <option value="">请选择客户</option>
+                    <option value="沙俄有限公司">沙俄有限公司</option>
+                    <option value="正大化工有限公司">正大化工有限公司</option>
+                    <option value="新疆昌吉新能源有限公司">新疆昌吉新能源有限公司</option>
+                    <option value="武汉迈瑞医疗设备有限公司">武汉迈瑞医疗设备有限公司</option>
+                    <option value="平顶山尼龙产业园管理有限公司">平顶山尼龙产业园管理有限公司</option>
+                </select>
             </div>
-
-            <!-- 项目信息表单 -->
-            <div class="form-container">
-                <!-- 项目基本信息 - 项目负责人可编辑 -->
-                <h2 class="form-title">项目基本信息 <span class="role-hint">（项目负责人）</span></h2>
-                <form class="project-form" id="projectForm" data-role="project-manager">
-                    <!-- 第一行 -->
-                    <div class="form-row">
-                        <div class="form-group required">
-                            <label>项目编号</label>
-                            <input type="text" value="PE2025-11-1301" readonly data-editable-by="project-manager">
-                        </div>
-                        <div class="form-group required">
-                            <label>客户名称</label>
-                            <select data-editable-by="project-manager">
-                                <option value="">请选择客户</option>
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <label>项目名称</label>
-                            <input type="text" placeholder="请输入项目名称" data-editable-by="project-manager">
-                        </div>
-                        <div class="form-group required">
-                            <label>项目所在地</label>
-                            <select data-editable-by="project-manager">
-                                <option value="">请选择省市区地址</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 第二行 -->
-                    <div class="form-row">
-                        <div class="form-group required">
-                            <label>详细地址</label>
-                            <input type="text" placeholder="请输入详细地址" data-editable-by="project-manager">
-                        </div>
-                        <div class="form-group">
-                            <label>项目负责人</label>
-                            <select data-editable-by="project-manager">
-                                <option value="">请选择负责人</option>
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <label>项目开始日期</label>
-                            <input type="date" placeholder="请选择项目开始日期" data-editable-by="project-manager">
-                        </div>
-                        <div class="form-group required">
-                            <label>项目验收日期</label>
-                            <input type="date" placeholder="请选择项目验收日期" data-editable-by="project-manager">
-                        </div>
-                    </div>
-
-                    <!-- 第三行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>项目状态</label>
-                            <select data-editable-by="project-manager">
-                                <option value="未签约" selected>未签约</option>
-                                <option value="已签约">已签约</option>
-                                <option value="进行中">进行中</option>
-                                <option value="已完成">已完成</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>业务员</label>
-                            <input type="text" value="业务员" data-editable-by="project-manager">
-                        </div>
-                        <div class="form-group">
-                            <label>联系人</label>
-                            <input type="text" placeholder="输入联系人" data-editable-by="project-manager">
-                        </div>
-                        <div class="form-group">
-                            <label>联系电话</label>
-                            <input type="text" placeholder="输入联系电话" data-editable-by="project-manager">
-                        </div>
-                    </div>
-
-                    <!-- 第四行 -->
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label>备注</label>
-                            <textarea placeholder="请输入备注" data-editable-by="project-manager"></textarea>
-                        </div>
-                    </div>
-                </form>
+            <div class="form-group required">
+                <label>项目名称</label>
+                <input type="text" id="projectName" placeholder="请输入项目名称" required>
             </div>
+        </div>
 
-<script src="script.js"></script>
+        <!-- 第二行 -->
+        <div class="form-row">
+            <div class="form-group required">
+                <label>项目所在地（省/市）</label>
+                <input type="text" id="projectLocation" placeholder="请输入省市，如：河南省郑州市" required>
+            </div>
+            <div class="form-group required">
+                <label>详细地址</label>
+                <input type="text" id="detailedAddress" placeholder="请输入详细地址" required>
+            </div>
+            <div class="form-group">
+                <label>项目负责人</label>
+                <select id="projectManager">
+                    <option value="">请选择负责人</option>
+                    <option value="刘静">刘静</option>
+                    <option value="王明">王明</option>
+                    <option value="赵强">赵强</option>
+                    <option value="孙伟">孙伟</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 第三行 -->
+        <div class="form-row">
+            <div class="form-group required">
+                <label>项目开始日期</label>
+                <input type="date" id="startDate" required>
+            </div>
+            <div class="form-group required">
+                <label>项目预计完工日期</label>
+                <input type="date" id="endDate" required>
+            </div>
+            <div class="form-group">
+                <label>项目状态</label>
+                <select id="projectStatus">
+                    <option value="未签约" selected>未签约</option>
+                    <option value="已签约">已签约</option>
+                    <option value="实施中">实施中</option>
+                    <option value="已完工">已完工</option>
+                    <option value="已验收">已验收</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 第四行 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>业务员</label>
+                <input type="text" id="salesman" placeholder="请输入业务员姓名">
+            </div>
+            <div class="form-group">
+                <label>联系人</label>
+                <input type="text" id="contactPerson" placeholder="请输入联系人">
+            </div>
+            <div class="form-group">
+                <label>联系电话</label>
+                <input type="text" id="contactPhone" placeholder="请输入联系电话">
+            </div>
+        </div>
+
+        <!-- 第五行 -->
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label>备注</label>
+                <textarea id="remark" rows="3" placeholder="请输入备注信息"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+// 新增项目表单功能
+(function() {
+    'use strict';
+    
+    // 自动生成项目编号
+    function generateProjectNumber() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const random = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+        return `PE${year}-${month}-${day}${random}`;
+    }
+    
+    // 页面加载时生成项目编号
+    document.addEventListener('DOMContentLoaded', function() {
+        const projectNumberInput = document.getElementById('projectNumber');
+        if (projectNumberInput && !projectNumberInput.value) {
+            projectNumberInput.value = generateProjectNumber();
+        }
+    });
+    
+    // 保存项目
+    window.saveProject = function() {
+        const form = document.getElementById('projectForm');
+        if (!form) return;
+        
+        // 验证必填项
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+        let firstInvalidField = null;
+        
+        requiredFields.forEach(field => {
+            if (!field.value || field.value.trim() === '') {
+                isValid = false;
+                field.style.borderColor = '#ff4d4f';
+                if (!firstInvalidField) {
+                    firstInvalidField = field;
+                }
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+        
+        if (!isValid) {
+            alert('请填写所有必填项');
+            if (firstInvalidField) {
+                firstInvalidField.focus();
+            }
+            return;
+        }
+        
+        // 收集表单数据
+        const formData = {
+            projectNumber: document.getElementById('projectNumber')?.value,
+            customerName: document.getElementById('customerName')?.value,
+            projectName: document.getElementById('projectName')?.value,
+            projectLocation: document.getElementById('projectLocation')?.value,
+            detailedAddress: document.getElementById('detailedAddress')?.value,
+            projectManager: document.getElementById('projectManager')?.value,
+            startDate: document.getElementById('startDate')?.value,
+            endDate: document.getElementById('endDate')?.value,
+            projectStatus: document.getElementById('projectStatus')?.value,
+            salesman: document.getElementById('salesman')?.value,
+            contactPerson: document.getElementById('contactPerson')?.value,
+            contactPhone: document.getElementById('contactPhone')?.value,
+            remark: document.getElementById('remark')?.value
+        };
+        
+        console.log('保存项目数据：', formData);
+        
+        // 这里应该发送到后端API
+        // fetch('/api/projects', { method: 'POST', body: JSON.stringify(formData) })
+        
+        alert('项目已保存');
+        window.loadPage('pages/project-info.html');
+    };
+    
+    // 实时验证必填项
+    document.addEventListener('input', function(e) {
+        if (e.target.hasAttribute('required') && e.target.value) {
+            e.target.style.borderColor = '';
+        }
+    });
+})();
+</script>
