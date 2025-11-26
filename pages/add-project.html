@@ -62,16 +62,6 @@
                 <label>详细地址</label>
                 <input type="text" id="detailedAddress" placeholder="请输入详细地址">
             </div>
-            <div class="form-group">
-                <label>预估项目规模</label>
-                <select id="projectScale">
-                    <option value="">请选择</option>
-                    <option value="小型（<100万）">小型（<100万）</option>
-                    <option value="中型（100-500万）">中型（100-500万）</option>
-                    <option value="大型（500-1000万）">大型（500-1000万）</option>
-                    <option value="特大型（>1000万）">特大型（>1000万）</option>
-                </select>
-            </div>
         </div>
 
         <!-- 第三行 -->
@@ -233,7 +223,6 @@
             projectName: document.getElementById('projectName')?.value,
             projectLocation: document.getElementById('projectLocation')?.value,
             detailedAddress: document.getElementById('detailedAddress')?.value,
-            projectScale: document.getElementById('projectScale')?.value,
             salesman: document.getElementById('salesman')?.value,
             contactPerson: document.getElementById('contactPerson')?.value,
             contactPhone: document.getElementById('contactPhone')?.value,
