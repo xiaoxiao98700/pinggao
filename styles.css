@@ -353,6 +353,13 @@ body {
     min-height: 0;
 }
 
+.contract-section {
+    padding: 24px 40px;
+    background-color: #fff;
+    border-top: 1px solid #e8e8e8;
+    margin: 0 8px 16px;
+}
+
 /* 搜索筛选区域 */
 .search-section {
     display: flex;
