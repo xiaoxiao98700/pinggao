@@ -281,7 +281,7 @@
                     </div>
                 </div>
                 
-                <div class="form-section-title">签约基本信息<span class="required">*</span></div>
+                <div class="form-section-title">合同基本信息<span class="required">*</span></div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>签订时间<span class="required">*</span></label>
@@ -299,6 +299,59 @@
                     <div class="form-group">
                         <label>合同金额（万元）<span class="required">*</span></label>
                         <input type="number" step="0.01" class="modal-input" id="contractAmount" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>签订主体<span class="required">*</span></label>
+                        <input type="text" class="modal-input" id="signEntity" placeholder="如：河南平高电气股份有限公司" required>
+                    </div>
+                    <div class="form-group">
+                        <label>合同交货期<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="contractDelivery" required>
+                    </div>
+                    <div class="form-group">
+                        <label>合同完工期<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="contractCompletion" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>质保期<span class="required">*</span></label>
+                        <input type="text" class="modal-input" id="warrantyPeriod" placeholder="如：2年" required>
+                    </div>
+                </div>
+                
+                <div class="form-section-title">产品信息<span class="required">*</span></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>产品名称<span class="required">*</span></label>
+                        <input type="text" class="modal-input" id="productName" placeholder="请输入产品名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label>产品编码<span class="required">*</span></label>
+                        <input type="text" class="modal-input" id="productCode" placeholder="请输入产品编码" required>
+                    </div>
+                    <div class="form-group">
+                        <label>产品型号<span class="required">*</span></label>
+                        <input type="text" class="modal-input" id="productModel" placeholder="如：EP-100" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>额定功率 MW<span class="required">*</span></label>
+                        <input type="number" step="0.01" class="modal-input" id="ratedPower" placeholder="请输入额定功率" required>
+                    </div>
+                    <div class="form-group">
+                        <label>运行（合同）功率 MW<span class="required">*</span></label>
+                        <input type="number" step="0.01" class="modal-input" id="operatingPower" placeholder="请输入运行功率" required>
+                    </div>
+                    <div class="form-group">
+                        <label>数量<span class="required">*</span></label>
+                        <input type="number" class="modal-input" id="quantity" placeholder="请输入数量" required>
                     </div>
                 </div>
                 
@@ -439,14 +492,31 @@
         
         const formData = {
             projectId: projectId,
+            // 合同基本信息
             signDate: document.getElementById('signDate')?.value,
             contractType: document.getElementById('contractType')?.value,
             contractAmount: document.getElementById('contractAmount')?.value,
+            signEntity: document.getElementById('signEntity')?.value,
+            contractDelivery: document.getElementById('contractDelivery')?.value,
+            contractCompletion: document.getElementById('contractCompletion')?.value,
+            warrantyPeriod: document.getElementById('warrantyPeriod')?.value,
+            // 产品信息
+            productName: document.getElementById('productName')?.value,
+            productCode: document.getElementById('productCode')?.value,
+            productModel: document.getElementById('productModel')?.value,
+            ratedPower: document.getElementById('ratedPower')?.value,
+            operatingPower: document.getElementById('operatingPower')?.value,
+            quantity: document.getElementById('quantity')?.value,
             signRemark: document.getElementById('signRemark')?.value
         };
         
-        if (!formData.signDate || !formData.contractType || !formData.contractAmount) {
-            alert('请填写所有必填项');
+        // 验证所有必填项
+        if (!formData.signDate || !formData.contractType || !formData.contractAmount || 
+            !formData.signEntity || !formData.contractDelivery || !formData.contractCompletion || 
+            !formData.warrantyPeriod || !formData.productName || !formData.productCode || 
+            !formData.productModel || !formData.ratedPower || !formData.operatingPower || 
+            !formData.quantity) {
+            alert('请填写所有必填项（标注*号的字段）');
             return;
         }
         
@@ -455,10 +525,11 @@
         alert('✅ 签约成功！\n\n' +
               '项目已移交给项目部\n' +
               '项目编号已更新为：PE' + formData.projectId + '\n\n' +
-              '项目部将负责：\n' +
-              '1. 分配项目负责人\n' +
-              '2. 确定项目时间\n' +
-              '3. 完善合同详细信息');
+              '合同信息已记录：\n' +
+              '- 合同金额：' + formData.contractAmount + '万元\n' +
+              '- 产品型号：' + formData.productModel + '\n' +
+              '- 质保期：' + formData.warrantyPeriod + '\n\n' +
+              '项目部将负责分配项目负责人和项目时间');
         
         modal.style.display = 'none';
         
