@@ -1,7 +1,7 @@
 <!-- 标签页 -->
 <div class="tabs">
     <div class="tab active">
-        新增项目
+        新增项目线索
         <span class="tab-close">×</span>
     </div>
 </div>
@@ -10,34 +10,40 @@
 <div class="action-bar">
     <div class="action-left">
         <button class="btn-back" onclick="window.loadPage('pages/project-info.html')">← 返回</button>
-        <span class="page-title">新增项目</span>
+        <span class="page-title">新增项目线索</span>
     </div>
     <div class="action-right">
-        <button class="btn-confirm" onclick="saveProject()">保存</button>
+        <button class="btn-confirm" onclick="saveProjectLead()">保存</button>
         <button class="btn-cancel" onclick="window.loadPage('pages/project-info.html')">取消</button>
     </div>
 </div>
 
-<!-- 项目信息表单 -->
+<!-- 项目线索表单 -->
 <div class="form-container">
+    <div class="form-header-tip">
+        <span class="tip-icon">ℹ️</span>
+        <span class="tip-text">市场线索阶段仅需填写项目基本信息，签约后系统会要求补充项目负责人、合同信息等详细资料</span>
+    </div>
+    
     <h2 class="form-title">项目基本信息</h2>
-    <form class="project-form" id="projectForm">
+    <form class="project-form" id="projectLeadForm">
         <!-- 第一行 -->
         <div class="form-row">
             <div class="form-group required">
                 <label>项目编号</label>
-                <input type="text" id="projectNumber" value="PE2025-11-2601" readonly style="background-color: #f5f5f5;">
-                <span class="form-tip">系统自动生成</span>
+                <input type="text" id="projectNumber" readonly style="background-color: #f5f5f5;">
+                <span class="form-tip">系统自动生成，PL表示Project Lead（项目线索）</span>
             </div>
             <div class="form-group required">
                 <label>客户名称</label>
                 <select id="customerName" required>
-                    <option value="">请选择客户</option>
+                    <option value="">请选择或搜索客户</option>
                     <option value="沙俄有限公司">沙俄有限公司</option>
                     <option value="正大化工有限公司">正大化工有限公司</option>
                     <option value="新疆昌吉新能源有限公司">新疆昌吉新能源有限公司</option>
                     <option value="武汉迈瑞医疗设备有限公司">武汉迈瑞医疗设备有限公司</option>
                     <option value="平顶山尼龙产业园管理有限公司">平顶山尼龙产业园管理有限公司</option>
+                    <option value="other">+ 新增客户</option>
                 </select>
             </div>
             <div class="form-group required">
@@ -52,18 +58,18 @@
                 <label>项目所在地（省/市）</label>
                 <input type="text" id="projectLocation" placeholder="请输入省市，如：河南省郑州市" required>
             </div>
-            <div class="form-group required">
+            <div class="form-group">
                 <label>详细地址</label>
-                <input type="text" id="detailedAddress" placeholder="请输入详细地址" required>
+                <input type="text" id="detailedAddress" placeholder="请输入详细地址">
             </div>
             <div class="form-group">
-                <label>项目负责人</label>
-                <select id="projectManager">
-                    <option value="">请选择负责人</option>
-                    <option value="刘静">刘静</option>
-                    <option value="王明">王明</option>
-                    <option value="赵强">赵强</option>
-                    <option value="孙伟">孙伟</option>
+                <label>预估项目规模</label>
+                <select id="projectScale">
+                    <option value="">请选择</option>
+                    <option value="小型（<100万）">小型（<100万）</option>
+                    <option value="中型（100-500万）">中型（100-500万）</option>
+                    <option value="大型（500-1000万）">大型（500-1000万）</option>
+                    <option value="特大型（>1000万）">特大型（>1000万）</option>
                 </select>
             </div>
         </div>
@@ -71,64 +77,92 @@
         <!-- 第三行 -->
         <div class="form-row">
             <div class="form-group required">
-                <label>项目开始日期</label>
-                <input type="date" id="startDate" required>
-            </div>
-            <div class="form-group required">
-                <label>项目预计完工日期</label>
-                <input type="date" id="endDate" required>
+                <label>市场人员</label>
+                <select id="salesman" required>
+                    <option value="">请选择市场人员</option>
+                    <option value="李明">李明</option>
+                    <option value="王芳">王芳</option>
+                    <option value="张伟">张伟</option>
+                    <option value="刘静">刘静</option>
+                    <option value="孙伟">孙伟</option>
+                </select>
+                <span class="form-tip">负责跟进此项目的市场人员</span>
             </div>
             <div class="form-group">
-                <label>项目状态</label>
-                <select id="projectStatus">
-                    <option value="未签约" selected>未签约</option>
-                    <option value="已签约">已签约</option>
-                    <option value="实施中">实施中</option>
-                    <option value="已完工">已完工</option>
-                    <option value="已验收">已验收</option>
-                </select>
+                <label>客户联系人</label>
+                <input type="text" id="contactPerson" placeholder="请输入客户联系人">
+            </div>
+            <div class="form-group">
+                <label>联系电话</label>
+                <input type="text" id="contactPhone" placeholder="请输入联系电话" pattern="[0-9\-]+">
             </div>
         </div>
 
         <!-- 第四行 -->
         <div class="form-row">
             <div class="form-group">
-                <label>业务员</label>
-                <input type="text" id="salesman" placeholder="请输入业务员姓名">
+                <label>线索来源</label>
+                <select id="leadSource">
+                    <option value="">请选择</option>
+                    <option value="客户推荐">客户推荐</option>
+                    <option value="展会">展会</option>
+                    <option value="网络营销">网络营销</option>
+                    <option value="电话营销">电话营销</option>
+                    <option value="合作伙伴">合作伙伴</option>
+                    <option value="其他">其他</option>
+                </select>
             </div>
             <div class="form-group">
-                <label>联系人</label>
-                <input type="text" id="contactPerson" placeholder="请输入联系人">
+                <label>预计签约时间</label>
+                <input type="month" id="expectedSignMonth" placeholder="请选择预计签约月份">
+                <span class="form-tip">选填，用于销售预测</span>
             </div>
             <div class="form-group">
-                <label>联系电话</label>
-                <input type="text" id="contactPhone" placeholder="请输入联系电话">
+                <label>线索优先级</label>
+                <select id="priority">
+                    <option value="中">中</option>
+                    <option value="高">高</option>
+                    <option value="低">低</option>
+                </select>
             </div>
         </div>
 
         <!-- 第五行 -->
         <div class="form-row">
             <div class="form-group full-width">
+                <label>项目需求描述</label>
+                <textarea id="projectDescription" rows="3" placeholder="请简要描述客户的项目需求、痛点、期望等信息"></textarea>
+            </div>
+        </div>
+        
+        <!-- 第六行 -->
+        <div class="form-row">
+            <div class="form-group full-width">
                 <label>备注</label>
-                <textarea id="remark" rows="3" placeholder="请输入备注信息"></textarea>
+                <textarea id="remark" rows="2" placeholder="其他备注信息"></textarea>
             </div>
         </div>
     </form>
+    
+    <div class="form-footer-tip">
+        <span class="tip-icon">💡</span>
+        <span class="tip-text"><strong>提示：</strong>项目负责人、项目时间、合同信息等将在签约环节补充，当前阶段无需填写</span>
+    </div>
 </div>
 
 <script>
-// 新增项目表单功能
+// 新增项目线索功能
 (function() {
     'use strict';
     
-    // 自动生成项目编号
+    // 自动生成项目编号（线索编号）
     function generateProjectNumber() {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
         const random = String(Math.floor(Math.random() * 100)).padStart(2, '0');
-        return `PE${year}-${month}-${day}${random}`;
+        return `PL${year}-${month}-${day}${random}`;  // PL = Project Lead
     }
     
     // 页面加载时生成项目编号
@@ -137,11 +171,34 @@
         if (projectNumberInput && !projectNumberInput.value) {
             projectNumberInput.value = generateProjectNumber();
         }
+        
+        // 默认选中当前用户为市场人员（实际应该从登录信息获取）
+        const salesmanSelect = document.getElementById('salesman');
+        if (salesmanSelect) {
+            // 这里可以设置默认值
+            // salesmanSelect.value = '当前登录用户';
+        }
     });
     
-    // 保存项目
-    window.saveProject = function() {
-        const form = document.getElementById('projectForm');
+    // 客户选择变化
+    document.getElementById('customerName')?.addEventListener('change', function() {
+        if (this.value === 'other') {
+            const newCustomer = prompt('请输入新客户名称：');
+            if (newCustomer) {
+                const option = document.createElement('option');
+                option.value = newCustomer;
+                option.textContent = newCustomer;
+                option.selected = true;
+                this.insertBefore(option, this.lastElementChild);
+            } else {
+                this.value = '';
+            }
+        }
+    });
+    
+    // 保存项目线索
+    window.saveProjectLead = function() {
+        const form = document.getElementById('projectLeadForm');
         if (!form) return;
         
         // 验证必填项
@@ -162,7 +219,7 @@
         });
         
         if (!isValid) {
-            alert('请填写所有必填项');
+            alert('请填写所有必填项（标注*号的字段）');
             if (firstInvalidField) {
                 firstInvalidField.focus();
             }
@@ -176,22 +233,29 @@
             projectName: document.getElementById('projectName')?.value,
             projectLocation: document.getElementById('projectLocation')?.value,
             detailedAddress: document.getElementById('detailedAddress')?.value,
-            projectManager: document.getElementById('projectManager')?.value,
-            startDate: document.getElementById('startDate')?.value,
-            endDate: document.getElementById('endDate')?.value,
-            projectStatus: document.getElementById('projectStatus')?.value,
+            projectScale: document.getElementById('projectScale')?.value,
             salesman: document.getElementById('salesman')?.value,
             contactPerson: document.getElementById('contactPerson')?.value,
             contactPhone: document.getElementById('contactPhone')?.value,
-            remark: document.getElementById('remark')?.value
+            leadSource: document.getElementById('leadSource')?.value,
+            expectedSignMonth: document.getElementById('expectedSignMonth')?.value,
+            priority: document.getElementById('priority')?.value,
+            projectDescription: document.getElementById('projectDescription')?.value,
+            remark: document.getElementById('remark')?.value,
+            stage: '市场线索',  // 默认阶段
+            createTime: new Date().toISOString().split('T')[0]
         };
         
-        console.log('保存项目数据：', formData);
+        console.log('保存项目线索数据：', formData);
         
         // 这里应该发送到后端API
-        // fetch('/api/projects', { method: 'POST', body: JSON.stringify(formData) })
+        // fetch('/api/projects/leads', { method: 'POST', body: JSON.stringify(formData) })
         
-        alert('项目已保存');
+        alert('项目线索已创建！\n\n' + 
+              '项目编号：' + formData.projectNumber + '\n' +
+              '当前阶段：市场线索\n\n' +
+              '后续可通过"商机跟进"推进项目，签约时系统将要求补充项目负责人和合同信息。');
+        
         window.loadPage('pages/project-info.html');
     };
     
@@ -199,6 +263,14 @@
     document.addEventListener('input', function(e) {
         if (e.target.hasAttribute('required') && e.target.value) {
             e.target.style.borderColor = '';
+        }
+    });
+    
+    // 电话号码格式验证
+    document.getElementById('contactPhone')?.addEventListener('blur', function() {
+        if (this.value && !this.checkValidity()) {
+            alert('请输入正确的电话号码格式');
+            this.focus();
         }
     });
 })();
