@@ -1,330 +1,460 @@
 <!-- 标签页 -->
-<div class="tabs">
-    <div class="tab active">
-        实施信息
-        <span class="tab-close">×</span>
-    </div>
+            <div class="tabs">
+                <div class="tab active">
+        实施信息 <span class="tab-badge">实施部</span>
+                    <span class="tab-close">×</span>
+                </div>
 </div>
 
-<!-- 实施信息列表区域 -->
+<!-- 实施部工作台 -->
 <div class="implementation-info-wrapper">
-    <!-- 搜索筛选区域 -->
-    <div class="search-section">
-        <div class="search-filters">
-            <div class="filter-item">
-                <label>项目名称</label>
-                <input type="text" placeholder="输入项目名称" class="filter-input" id="implFilterProjectName">
+    <div class="dept-header">
+        <h2 class="dept-title">⚙️ 实施部工作台</h2>
+        <p class="dept-desc">管理实施任务、跟踪施工进度、验收登记</p>
             </div>
+
+            <!-- 搜索筛选区域 -->
+            <div class="search-section">
+                <div class="search-filters">
             <div class="filter-item">
                 <label>项目编号</label>
-                <input type="text" placeholder="输入项目编号" class="filter-input" id="implFilterProjectNumber">
+                <input type="text" placeholder="输入项目编号" class="filter-input" id="filterProjectNumber">
+            </div>
+                    <div class="filter-item">
+                        <label>项目名称</label>
+                <input type="text" placeholder="输入项目名称" class="filter-input" id="filterProjectName">
             </div>
             <div class="filter-item">
-                <label>客户名称</label>
-                <input type="text" placeholder="输入客户名称" class="filter-input" id="implFilterCustomer">
-            </div>
-            <div class="filter-item">
+                <label>实施负责人</label>
+                <select class="filter-input" id="filterImplManager">
+                    <option value="">全部</option>
+                    <option value="张三">张三</option>
+                    <option value="李四">李四</option>
+                    <option value="王五">王五</option>
+                    <option value="赵六">赵六</option>
+                </select>
+                    </div>
+                    <div class="filter-item">
                 <label>实施状态</label>
-                <select class="filter-input" id="implFilterStatus">
-                    <option value="">全部状态</option>
-                    <option value="未开始">未开始</option>
+                <select class="filter-input" id="filterStatus">
+                    <option value="">全部</option>
+                    <option value="待开工">待开工</option>
                     <option value="实施中">实施中</option>
                     <option value="已完工">已完工</option>
                     <option value="已验收">已验收</option>
                 </select>
-            </div>
-            <div class="filter-item">
-                <label>实施负责人</label>
-                <input type="text" placeholder="输入实施负责人" class="filter-input" id="implFilterManager">
+                    </div>
+                </div>
+                <div class="search-actions">
+            <button class="btn-query" onclick="queryImplementations()">Q查询</button>
+            <button class="btn-reset" onclick="resetFilters()">C重置</button>
+            <button class="btn-expand" onclick="toggleFilters()">展开</button>
+        </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="stats-cards">
+        <div class="stat-card stat-card-waiting">
+            <div class="stat-icon">⏰</div>
+            <div class="stat-content">
+                <div class="stat-value">8</div>
+                <div class="stat-label">待开工</div>
             </div>
         </div>
-        <div class="search-actions">
-            <button class="btn-query" onclick="queryImplementations()">Q查询</button>
-            <button class="btn-reset" onclick="resetImplFilters()">C重置</button>
-            <button class="btn-expand" onclick="toggleImplFilters()">展开</button>
+        <div class="stat-card stat-card-working">
+            <div class="stat-icon">🔧</div>
+            <div class="stat-content">
+                <div class="stat-value">25</div>
+                <div class="stat-label">实施中</div>
+            </div>
+        </div>
+        <div class="stat-card stat-card-finished">
+            <div class="stat-icon">✔️</div>
+            <div class="stat-content">
+                <div class="stat-value">6</div>
+                <div class="stat-label">待验收</div>
+            </div>
+                </div>
+        <div class="stat-card stat-card-accepted">
+            <div class="stat-icon">🎉</div>
+            <div class="stat-content">
+                <div class="stat-value">48</div>
+                <div class="stat-label">已验收</div>
+            </div>
         </div>
     </div>
 
     <!-- 操作按钮 -->
     <div class="table-actions">
         <button class="btn-export" onclick="exportImplementations()">导出</button>
-        <button class="btn-refresh" onclick="refreshImplementations()">刷新</button>
-    </div>
+        <button class="btn-refresh" onclick="refreshData()">刷新</button>
+            </div>
 
-    <!-- 数据表格 -->
-    <div class="table-container">
+            <!-- 数据表格 -->
+            <div class="table-container">
         <table class="data-table implementation-list-table" id="implementationTable">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>项目编号</th>
-                    <th>项目名称</th>
-                    <th>客户名称</th>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>项目编号</th>
+                            <th>项目名称</th>
+                            <th>客户名称</th>
                     <th>项目负责人</th>
                     <th>实施负责人</th>
-                    <th>计划开工时间</th>
-                    <th>实际开工时间</th>
-                    <th>计划完工时间</th>
-                    <th>实际完工时间</th>
-                    <th>验收时间</th>
-                    <th>实施状态</th>
-                    <th>是否验收</th>
-                    <th>质保期</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-impl-id="1">
-                    <td>1</td>
-                    <td>PE2025-09-2607</td>
-                    <td>郑州高新区新能源发电项目</td>
-                    <td>沙俄有限公司</td>
-                    <td>刘静</td>
-                    <td>-</td>
-                    <td>2026-02-01</td>
-                    <td>-</td>
-                    <td>2026-07-31</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><span class="status-badge status-notstart">未开始</span></td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td class="actions">
-                        <a href="#" class="action-link" onclick="editImplInfo(1); return false;">补充信息</a>
-                        <a href="#" class="action-link" onclick="viewImplDetail(1); return false;">详情</a>
-                    </td>
-                </tr>
-                <tr data-impl-id="2">
-                    <td>2</td>
-                    <td>PE2025-09-2606</td>
+                    <th>计划开始</th>
+                    <th>实际开始</th>
+                    <th>计划完工</th>
+                    <th>实际完工</th>
+                    <th>实施进度</th>
+                    <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <!-- 待开工 - 项目部刚分配过来的 -->
+                <tr data-id="1" data-status="待开工">
+                            <td>1</td>
+                    <td>PE2025-11-2001</td>
                     <td>正大化工园区配电改造项目</td>
                     <td>正大化工有限公司</td>
                     <td>王明</td>
                     <td>张三</td>
-                    <td>2026-03-01</td>
-                    <td>2026-03-05</td>
-                    <td>2026-06-30</td>
+                    <td>2025-12-01</td>
+                    <td><span class="text-muted">未开工</span></td>
+                    <td>2026-05-31</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td><span class="status-badge status-implementation">实施中</span></td>
-                    <td>否</td>
-                    <td>1年</td>
-                    <td class="actions">
-                        <a href="#" class="action-link" onclick="editImplInfo(2); return false;">更新信息</a>
-                        <a href="#" class="action-link" onclick="viewImplDetail(2); return false;">详情</a>
-                        <a href="#" class="action-link" onclick="viewImplProgress(2); return false;">进度跟踪</a>
-                    </td>
-                </tr>
-                <tr data-impl-id="3">
-                    <td>3</td>
-                    <td>PE2025-09-2605</td>
+                    <td><div class="progress-bar-mini" style="width:0%"><span>0%</span></div></td>
+                    <td><span class="status-badge status-warning">待开工</span></td>
+                            <td class="actions">
+                        <a href="#" class="action-link action-primary" onclick="startImplementation(1); return false;">开工登记</a>
+                        <a href="#" class="action-link" onclick="viewProjectInfo(1); return false;">项目信息</a>
+                            </td>
+                        </tr>
+                
+                <!-- 实施中 -->
+                <tr data-id="2" data-status="实施中">
+                            <td>2</td>
+                    <td>PE2025-10-1501</td>
                     <td>新疆昌吉风电场并网项目</td>
                     <td>新疆昌吉新能源有限公司</td>
                     <td>赵强</td>
-                    <td>李四</td>
-                    <td>2026-02-15</td>
-                    <td>2026-02-20</td>
-                    <td>2026-05-30</td>
-                    <td>2026-05-25</td>
-                    <td>2026-06-10</td>
-                    <td><span class="status-badge status-acceptance">已验收</span></td>
-                    <td>是</td>
-                    <td>2年</td>
-                    <td class="actions">
-                        <a href="#" class="action-link" onclick="viewImplDetail(3); return false;">详情</a>
-                        <a href="#" class="action-link" onclick="viewImplProgress(3); return false;">进度记录</a>
-                        <a href="#" class="action-link" onclick="downloadImplReport(3); return false;">验收报告</a>
-                    </td>
-                </tr>
-                <tr data-impl-id="4">
-                    <td>4</td>
-                    <td>PE2025-09-2604</td>
+                    <td>张三</td>
+                    <td>2025-11-01</td>
+                    <td>2025-11-05</td>
+                            <td>2026-06-30</td>
+                    <td>-</td>
+                    <td><div class="progress-bar-mini" style="width:35%"><span>35%</span></div></td>
+                    <td><span class="status-badge status-implementation">实施中</span></td>
+                            <td class="actions">
+                        <a href="#" class="action-link" onclick="updateProgress(2); return false;">更新进度</a>
+                        <a href="#" class="action-link" onclick="viewProgressDetail(2); return false;">进度详情</a>
+                        <a href="#" class="action-link" onclick="completeImplementation(2); return false;">完工登记</a>
+                            </td>
+                        </tr>
+                
+                <tr data-id="3" data-status="实施中">
+                            <td>3</td>
+                    <td>PE2025-10-0801</td>
                     <td>武汉迈瑞医疗设备供电项目</td>
                     <td>武汉迈瑞医疗设备有限公司</td>
                     <td>刘静</td>
-                    <td>王五</td>
-                    <td>2026-03-10</td>
-                    <td>2026-03-12</td>
-                    <td>2026-06-30</td>
-                    <td>2026-06-28</td>
+                    <td>李四</td>
+                    <td>2025-11-15</td>
+                    <td>2025-11-18</td>
+                    <td>2026-03-31</td>
                     <td>-</td>
-                    <td><span class="status-badge status-complete">已完工</span></td>
-                    <td>否</td>
-                    <td>1年</td>
+                    <td><div class="progress-bar-mini" style="width:20%"><span>20%</span></div></td>
+                    <td><span class="status-badge status-implementation">实施中</span></td>
                     <td class="actions">
-                        <a href="#" class="action-link" onclick="editImplInfo(4); return false;">验收登记</a>
-                        <a href="#" class="action-link" onclick="viewImplDetail(4); return false;">详情</a>
-                        <a href="#" class="action-link" onclick="viewImplProgress(4); return false;">进度记录</a>
+                        <a href="#" class="action-link" onclick="updateProgress(3); return false;">更新进度</a>
+                        <a href="#" class="action-link" onclick="viewProgressDetail(3); return false;">进度详情</a>
+                        <a href="#" class="action-link" onclick="completeImplementation(3); return false;">完工登记</a>
                     </td>
                 </tr>
-                <tr data-impl-id="5">
+                
+                <tr data-id="4" data-status="实施中">
+                    <td>4</td>
+                    <td>PE2025-09-1801</td>
+                    <td>洛阳石化配电智能化改造</td>
+                    <td>洛阳石化集团</td>
+                    <td>孙伟</td>
+                    <td>王五</td>
+                    <td>2025-10-10</td>
+                    <td>2025-10-12</td>
+                    <td>2026-02-28</td>
+                    <td>-</td>
+                    <td><div class="progress-bar-mini" style="width:75%"><span>75%</span></div></td>
+                    <td><span class="status-badge status-implementation">实施中</span></td>
+                    <td class="actions">
+                        <a href="#" class="action-link" onclick="updateProgress(4); return false;">更新进度</a>
+                        <a href="#" class="action-link" onclick="viewProgressDetail(4); return false;">进度详情</a>
+                        <a href="#" class="action-link action-success" onclick="completeImplementation(4); return false;">完工登记</a>
+                    </td>
+                </tr>
+                
+                <!-- 已完工待验收 -->
+                <tr data-id="5" data-status="已完工">
                     <td>5</td>
-                    <td>PE2025-09-2603</td>
+                    <td>PE2025-09-2501</td>
                     <td>平顶山尼龙产业园配电工程</td>
                     <td>平顶山尼龙产业园管理有限公司</td>
                     <td>孙伟</td>
-                    <td>-</td>
-                    <td>2026-04-01</td>
-                    <td>-</td>
-                    <td>2026-08-31</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><span class="status-badge status-notstart">未开始</span></td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td class="actions">
-                        <a href="#" class="action-link" onclick="editImplInfo(5); return false;">补充信息</a>
-                        <a href="#" class="action-link" onclick="viewImplDetail(5); return false;">详情</a>
-                    </td>
-                </tr>
-                <tr data-impl-id="6">
-                    <td>6</td>
-                    <td>PE2025-09-2602</td>
-                    <td>沙俄有限公司生产基地供电项目</td>
-                    <td>沙俄有限公司</td>
-                    <td>刘静</td>
                     <td>赵六</td>
-                    <td>2026-03-01</td>
-                    <td>2026-03-03</td>
-                    <td>2026-07-31</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><span class="status-badge status-implementation">实施中</span></td>
-                    <td>否</td>
-                    <td>1年</td>
+                    <td>2025-10-20</td>
+                    <td>2025-10-22</td>
+                    <td>2026-04-30</td>
+                    <td>2026-04-25</td>
+                    <td><div class="progress-bar-mini complete" style="width:100%"><span>100%</span></div></td>
+                    <td><span class="status-badge status-complete">已完工</span></td>
                     <td class="actions">
-                        <a href="#" class="action-link" onclick="editImplInfo(6); return false;">更新信息</a>
-                        <a href="#" class="action-link" onclick="viewImplDetail(6); return false;">详情</a>
-                        <a href="#" class="action-link" onclick="viewImplProgress(6); return false;">进度跟踪</a>
+                        <a href="#" class="action-link" onclick="viewProgressDetail(5); return false;">进度详情</a>
+                        <a href="#" class="action-link action-success" onclick="registerAcceptance(5); return false;">验收登记</a>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
+                
+                <!-- 已验收 -->
+                <tr data-id="6" data-status="已验收">
+                    <td>6</td>
+                    <td>PE2025-08-0601</td>
+                    <td>开封制药厂供电系统升级</td>
+                    <td>开封制药股份有限公司</td>
+                    <td>刘静</td>
+                    <td>张三</td>
+                    <td>2025-09-01</td>
+                    <td>2025-09-03</td>
+                    <td>2026-01-31</td>
+                    <td>2026-01-28</td>
+                    <td><div class="progress-bar-mini complete" style="width:100%"><span>100%</span></div></td>
+                    <td><span class="status-badge status-acceptance">已验收</span></td>
+                            <td class="actions">
+                        <a href="#" class="action-link" onclick="viewProjectArchive(6); return false;">项目档案</a>
+                        <a href="#" class="action-link" onclick="downloadAcceptanceReport(6); return false;">验收报告</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <!-- 分页 -->
-    <div class="pagination">
-        <div class="pagination-info">
-            <span>共15条</span>
+            <!-- 分页 -->
+            <div class="pagination">
+                <div class="pagination-info">
+            <span>共87个实施任务</span>
+                </div>
+                <div class="pagination-controls">
+                    <select class="page-size">
+                        <option value="20" selected>20条/页</option>
+                        <option value="50">50条/页</option>
+                        <option value="100">100条/页</option>
+                    </select>
+                    <div class="page-nav">
+                        <button class="page-btn" disabled><</button>
+                        <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                        <button class="page-btn">></button>
+                    </div>
+                    <div class="page-jump">
+                        <span>前往</span>
+                        <input type="number" class="page-input" value="1" min="1">
+                        <span>页</span>
+            </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- 开工登记弹窗 -->
+<div class="modal-overlay" id="startImplModal" style="display:none;">
+    <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+            <h3 class="modal-title">🚀 项目开工登记</h3>
+            <button class="modal-close" type="button">×</button>
+            </div>
+            <div class="modal-body">
+            <form id="startImplForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>项目编号</label>
+                        <input type="text" class="modal-input" id="startProjectNumber" readonly style="background-color:#f5f5f5;">
+                        </div>
+                        <div class="form-group">
+                            <label>项目名称</label>
+                        <input type="text" class="modal-input" id="startProjectName" readonly style="background-color:#f5f5f5;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>实际开工时间<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="actualStartDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>施工队人数</label>
+                        <input type="number" class="modal-input" id="constructionTeamSize" min="1" placeholder="如：8">
+                    </div>
+                    <div class="form-group">
+                        <label>现场负责人</label>
+                        <input type="text" class="modal-input" id="siteManager" placeholder="现场负责人姓名">
+                    </div>
+                        </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>开工说明</label>
+                        <textarea class="modal-input" id="startRemark" rows="2" placeholder="请输入开工相关说明、准备情况等"></textarea>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="pagination-controls">
-            <select class="page-size">
-                <option value="20" selected>20条/页</option>
-                <option value="50">50条/页</option>
-                <option value="100">100条/页</option>
-            </select>
-            <div class="page-nav">
-                <button class="page-btn" disabled><</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">></button>
-            </div>
-            <div class="page-jump">
-                <span>前往</span>
-                <input type="number" class="page-input" value="1" min="1">
-                <span>页</span>
-            </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
+            <button type="button" class="modal-btn modal-btn-confirm">确认开工</button>
         </div>
     </div>
 </div>
 
-<!-- 实施信息编辑弹窗 -->
-<div class="modal-overlay" id="implEditModal" style="display: none;">
-    <div class="modal-content" style="max-width: 900px;">
+<!-- 更新进度弹窗 -->
+<div class="modal-overlay" id="updateProgressModal" style="display:none;">
+    <div class="modal-content" style="max-width: 800px;">
         <div class="modal-header">
-            <h3 class="modal-title">实施信息管理</h3>
+            <h3 class="modal-title">📊 更新实施进度</h3>
             <button class="modal-close" type="button">×</button>
         </div>
         <div class="modal-body">
-            <form id="implEditForm">
-                <!-- 项目基本信息（只读） -->
+            <form id="updateProgressForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                        <label>项目编号</label>
+                        <input type="text" class="modal-input" id="progressProjectNumber" readonly style="background-color:#f5f5f5;">
+                        </div>
+                        <div class="form-group">
+                        <label>项目名称</label>
+                        <input type="text" class="modal-input" id="progressProjectName" readonly style="background-color:#f5f5f5;">
+                    </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                        <label>当前进度（%）<span class="required">*</span></label>
+                        <input type="number" class="modal-input" id="progressPercent" min="0" max="100" required>
+                        </div>
+                        <div class="form-group">
+                        <label>实施阶段</label>
+                        <select class="modal-input" id="implPhase">
+                                <option value="">请选择</option>
+                            <option value="基础施工">基础施工</option>
+                            <option value="设备安装">设备安装</option>
+                            <option value="系统调试">系统调试</option>
+                            <option value="试运行">试运行</option>
+                            <option value="收尾工作">收尾工作</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        <label>更新日期</label>
+                        <input type="date" class="modal-input" id="progressDate" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>进度说明</label>
+                        <textarea class="modal-input" id="progressDescription" rows="3" placeholder="请描述当前实施进展、遇到的问题、下一步计划等"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
+            <button type="button" class="modal-btn modal-btn-confirm">提交进度</button>
+        </div>
+        </div>
+    </div>
+
+<!-- 完工登记弹窗 -->
+<div class="modal-overlay" id="completeImplModal" style="display:none;">
+    <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+            <h3 class="modal-title">✅ 项目完工登记</h3>
+            <button class="modal-close" type="button">×</button>
+            </div>
+            <div class="modal-body">
+            <form id="completeImplForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>项目编号</label>
+                        <input type="text" class="modal-input" id="completeProjectNumber" readonly style="background-color:#f5f5f5;">
+                            </div>
+                            <div class="form-group">
+                                <label>项目名称</label>
+                        <input type="text" class="modal-input" id="completeProjectName" readonly style="background-color:#f5f5f5;">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                        <label>实际完工时间<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="actualEndDate" required>
+                            </div>
+                            <div class="form-group">
+                        <label>工期对比</label>
+                        <input type="text" class="modal-input" id="scheduleComparison" readonly style="background-color:#f5f5f5;" placeholder="将自动计算">
+                            </div>
+                            <div class="form-group">
+                        <label>完工质量</label>
+                        <select class="modal-input" id="completionQuality">
+                            <option value="">请选择</option>
+                            <option value="优秀">优秀</option>
+                            <option value="良好">良好</option>
+                            <option value="合格">合格</option>
+                            <option value="需整改">需整改</option>
+                        </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>完工说明</label>
+                        <textarea class="modal-input" id="completionDescription" rows="3" placeholder="请描述完工情况、遗留问题、注意事项等"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
+            <button type="button" class="modal-btn modal-btn-confirm">确认完工</button>
+        </div>
+    </div>
+</div>
+
+<!-- 验收登记弹窗 -->
+<div class="modal-overlay" id="acceptanceModal" style="display:none;">
+    <div class="modal-content" style="max-width: 900px;">
+        <div class="modal-header">
+            <h3 class="modal-title">🎉 项目验收登记</h3>
+            <button class="modal-close" type="button">×</button>
+        </div>
+        <div class="modal-body">
+            <form id="acceptanceForm">
                 <div class="form-section-title">项目基本信息</div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>项目编号</label>
-                        <input type="text" class="modal-input" id="implEditProjectNumber" readonly style="background-color:#f5f5f5;">
+                        <input type="text" class="modal-input" id="acceptProjectNumber" readonly style="background-color:#f5f5f5;">
                     </div>
                     <div class="form-group">
                         <label>项目名称</label>
-                        <input type="text" class="modal-input" id="implEditProjectName" readonly style="background-color:#f5f5f5;">
-                    </div>
-                    <div class="form-group">
-                        <label>客户名称</label>
-                        <input type="text" class="modal-input" id="implEditCustomerName" readonly style="background-color:#f5f5f5;">
+                        <input type="text" class="modal-input" id="acceptProjectName" readonly style="background-color:#f5f5f5;">
                     </div>
                 </div>
                 
-                <!-- 实施时间信息 -->
-                <div class="form-section-title">实施时间</div>
+                <div class="form-section-title">验收信息<span class="required">*</span></div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>计划开工时间</label>
-                        <input type="date" class="modal-input" id="planStartDate">
+                        <label>验收时间<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="acceptanceDate" required>
                     </div>
+                            <div class="form-group">
+                        <label>验收人<span class="required">*</span></label>
+                        <input type="text" class="modal-input" id="acceptancePerson" required>
+                            </div>
                     <div class="form-group">
-                        <label>实际开工时间<span class="required">*</span></label>
-                        <input type="date" class="modal-input" id="implActualStartDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label>计划完工时间</label>
-                        <input type="date" class="modal-input" id="planEndDate">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>实际完工时间</label>
-                        <input type="date" class="modal-input" id="implActualEndDate">
-                    </div>
-                    <div class="form-group">
-                        <label>验收时间</label>
-                        <input type="date" class="modal-input" id="implAcceptanceDate">
-                    </div>
-                    <div class="form-group">
-                        <label>质保期</label>
-                        <input type="text" class="modal-input" id="implWarrantyPeriod" placeholder="如：1年、2年">
-                    </div>
-                </div>
-                
-                <!-- 实施人员信息 -->
-                <div class="form-section-title">实施人员</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>实施负责人</label>
-                        <select class="modal-input" id="implManagerSelect">
-                            <option value="">请选择实施负责人</option>
-                            <option value="张三">张三</option>
-                            <option value="李四">李四</option>
-                            <option value="王五">王五</option>
-                            <option value="赵六">赵六</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>实施团队人数</label>
-                        <input type="number" class="modal-input" id="teamSize" min="1">
-                    </div>
-                    <div class="form-group">
-                        <label>联系电话</label>
-                        <input type="text" class="modal-input" id="implContactPhone">
-                    </div>
-                </div>
-                
-                <!-- 验收信息 -->
-                <div class="form-section-title">验收信息</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>是否验收</label>
-                        <select class="modal-input" id="implIsAccepted">
-                            <option value="">请选择</option>
-                            <option value="是">是</option>
-                            <option value="否">否</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>验收人</label>
-                        <input type="text" class="modal-input" id="acceptancePerson">
-                    </div>
-                    <div class="form-group">
-                        <label>验收结果</label>
-                        <select class="modal-input" id="acceptanceResult">
+                        <label>验收结果<span class="required">*</span></label>
+                        <select class="modal-input" id="acceptanceResult" required>
                             <option value="">请选择</option>
                             <option value="合格">合格</option>
                             <option value="不合格">不合格</option>
@@ -333,334 +463,183 @@
                     </div>
                 </div>
                 
-                <!-- 备注信息 -->
+                <div class="form-section-title">质保信息</div>
+                <div class="form-row">
+                            <div class="form-group">
+                                <label>质保期</label>
+                        <input type="text" class="modal-input" id="warrantyPeriod" placeholder="如：2年">
+                    </div>
+                    <div class="form-group">
+                        <label>质保开始日期</label>
+                        <input type="date" class="modal-input" id="warrantyStartDate">
+                    </div>
+                    <div class="form-group">
+                        <label>质保结束日期</label>
+                        <input type="date" class="modal-input" id="warrantyEndDate">
+                    </div>
+                </div>
+                
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label>实施备注</label>
-                        <textarea class="modal-input" id="implEditRemark" rows="3" placeholder="请输入实施过程中的备注信息"></textarea>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
+                        <label>验收说明</label>
+                        <textarea class="modal-input" id="acceptanceRemark" rows="3" placeholder="请输入验收相关说明、客户反馈等"></textarea>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
             <button type="button" class="modal-btn modal-btn-cancel">取消</button>
-            <button type="button" class="modal-btn modal-btn-confirm">保存</button>
+            <button type="button" class="modal-btn modal-btn-confirm">确认验收</button>
+        </div>
         </div>
     </div>
-</div>
 
-<!-- 实施详情查看弹窗 -->
-<div class="modal-overlay" id="implDetailModal" style="display:none;">
-    <div class="modal-content" style="max-width: 900px;">
-        <div class="modal-header">
-            <h3 class="modal-title">实施详情</h3>
-            <button class="modal-close" type="button">×</button>
-        </div>
-        <div class="modal-body">
-            <div class="detail-section">
-                <h4 class="detail-section-title">项目基本信息</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">项目编号：</span>
-                        <span class="detail-value" id="detailProjectNumber">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">项目名称：</span>
-                        <span class="detail-value" id="detailProjectName">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">客户名称：</span>
-                        <span class="detail-value" id="detailCustomerName">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">项目负责人：</span>
-                        <span class="detail-value" id="detailProjectManager">-</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="detail-section">
-                <h4 class="detail-section-title">实施时间</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">计划开工时间：</span>
-                        <span class="detail-value" id="detailPlanStart">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">实际开工时间：</span>
-                        <span class="detail-value" id="detailActualStart">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">计划完工时间：</span>
-                        <span class="detail-value" id="detailPlanEnd">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">实际完工时间：</span>
-                        <span class="detail-value" id="detailActualEnd">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">验收时间：</span>
-                        <span class="detail-value" id="detailAcceptanceDate">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">质保期：</span>
-                        <span class="detail-value" id="detailWarranty">-</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="detail-section">
-                <h4 class="detail-section-title">实施人员</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">实施负责人：</span>
-                        <span class="detail-value" id="detailImplManager">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">实施团队人数：</span>
-                        <span class="detail-value" id="detailTeamSize">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">联系电话：</span>
-                        <span class="detail-value" id="detailContactPhone">-</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="detail-section">
-                <h4 class="detail-section-title">验收信息</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">是否验收：</span>
-                        <span class="detail-value" id="detailIsAccepted">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">验收人：</span>
-                        <span class="detail-value" id="detailAcceptancePerson">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">验收结果：</span>
-                        <span class="detail-value" id="detailAcceptanceResult">-</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="detail-section">
-                <h4 class="detail-section-title">实施备注</h4>
-                <div class="detail-remark" id="detailRemark">-</div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="modal-btn modal-btn-cancel" type="button">关闭</button>
-        </div>
-    </div>
-</div>
-
-<!-- 实施进度跟踪弹窗 -->
-<div class="modal-overlay" id="implProgressModal" style="display:none;">
-    <div class="modal-content" style="max-width: 1000px;">
-        <div class="modal-header">
-            <h3 class="modal-title">实施进度跟踪</h3>
-            <button class="modal-close" type="button">×</button>
-        </div>
-        <div class="modal-body">
-            <div class="progress-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot timeline-dot-complete"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">项目开工</div>
-                        <div class="timeline-time">2026-03-05</div>
-                        <div class="timeline-desc">项目正式开工，实施团队进场</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot timeline-dot-complete"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">基础施工</div>
-                        <div class="timeline-time">2026-03-15</div>
-                        <div class="timeline-desc">完成基础设施施工</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot timeline-dot-active"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">设备安装（进行中）</div>
-                        <div class="timeline-time">2026-04-10</div>
-                        <div class="timeline-desc">正在进行主要设备安装</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">调试测试</div>
-                        <div class="timeline-time">预计 2026-05-20</div>
-                        <div class="timeline-desc">设备调试与系统测试</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">项目验收</div>
-                        <div class="timeline-time">预计 2026-06-30</div>
-                        <div class="timeline-desc">项目最终验收</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="progress-summary">
-                <div class="progress-item">
-                    <span class="progress-label">整体进度：</span>
-                    <div class="progress-bar-wrapper">
-                        <div class="progress-bar" style="width: 60%"></div>
-                        <span class="progress-percent">60%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="modal-btn modal-btn-cancel" type="button">关闭</button>
-        </div>
-    </div>
-</div>
-
-<script>
-// 实施信息管理相关函数
-(function() {
+    <script>
+// 实施部工作台功能
+        (function() {
     'use strict';
     
-    // 查询实施信息
     window.queryImplementations = function() {
-        const projectName = document.getElementById('implFilterProjectName')?.value || '';
-        const projectNumber = document.getElementById('implFilterProjectNumber')?.value || '';
-        const customer = document.getElementById('implFilterCustomer')?.value || '';
-        const status = document.getElementById('implFilterStatus')?.value || '';
-        const manager = document.getElementById('implFilterManager')?.value || '';
-        
-        console.log('查询实施信息：', { projectName, projectNumber, customer, status, manager });
         alert('查询功能开发中...');
     };
     
-    // 重置筛选条件
-    window.resetImplFilters = function() {
-        document.getElementById('implFilterProjectName').value = '';
-        document.getElementById('implFilterProjectNumber').value = '';
-        document.getElementById('implFilterCustomer').value = '';
-        document.getElementById('implFilterStatus').value = '';
-        document.getElementById('implFilterManager').value = '';
+    window.resetFilters = function() {
+        document.getElementById('filterProjectNumber').value = '';
+        document.getElementById('filterProjectName').value = '';
+        document.getElementById('filterImplManager').value = '';
+        document.getElementById('filterStatus').value = '';
     };
     
-    // 切换筛选器展开/收起
-    window.toggleImplFilters = function() {
+    window.toggleFilters = function() {
         const filters = document.querySelector('.search-filters');
         filters?.classList.toggle('expanded');
     };
     
-    // 导出实施信息
     window.exportImplementations = function() {
         alert('导出功能开发中...');
     };
     
-    // 刷新实施信息
-    window.refreshImplementations = function() {
-        alert('刷新成功');
+    window.refreshData = function() {
+        alert('数据已刷新');
     };
     
-    // 编辑实施信息
-    window.editImplInfo = function(id) {
-        console.log('编辑实施信息：', id);
-        const row = document.querySelector(`tr[data-impl-id="${id}"]`);
+    // 查看项目信息
+    window.viewProjectInfo = function(id) {
+        alert('查看项目信息功能开发中...');
+    };
+    
+    // 开工登记
+    window.startImplementation = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
         if (!row) return;
         
-        const modal = document.getElementById('implEditModal');
+        const modal = document.getElementById('startImplModal');
         if (!modal) return;
         
-        // 填充基本信息
-        document.getElementById('implEditProjectNumber').value = row.cells[1]?.textContent || '';
-        document.getElementById('implEditProjectName').value = row.cells[2]?.textContent || '';
-        document.getElementById('implEditCustomerName').value = row.cells[3]?.textContent || '';
+        document.getElementById('startProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('startProjectName').value = row.cells[2]?.textContent || '';
         
-        // 填充时间信息
-        document.getElementById('planStartDate').value = row.cells[6]?.textContent || '';
-        document.getElementById('implActualStartDate').value = row.cells[7]?.textContent !== '-' ? row.cells[7]?.textContent : '';
-        document.getElementById('planEndDate').value = row.cells[8]?.textContent || '';
-        document.getElementById('implActualEndDate').value = row.cells[9]?.textContent !== '-' ? row.cells[9]?.textContent : '';
-        document.getElementById('implAcceptanceDate').value = row.cells[10]?.textContent !== '-' ? row.cells[10]?.textContent : '';
-        document.getElementById('implWarrantyPeriod').value = row.cells[13]?.textContent !== '-' ? row.cells[13]?.textContent : '';
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('actualStartDate').value = today;
         
-        // 填充人员信息
-        document.getElementById('implManagerSelect').value = row.cells[5]?.textContent !== '-' ? row.cells[5]?.textContent : '';
-        
-        // 填充验收信息
-        document.getElementById('implIsAccepted').value = row.cells[12]?.textContent !== '-' ? row.cells[12]?.textContent : '';
-        
-        modal.dataset.implId = id;
+        modal.dataset.projectId = id;
         modal.style.display = 'flex';
     };
     
-    // 查看实施详情
-    window.viewImplDetail = function(id) {
-        console.log('查看实施详情：', id);
-        const row = document.querySelector(`tr[data-impl-id="${id}"]`);
+    // 更新进度
+    window.updateProgress = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
         if (!row) return;
         
-        const modal = document.getElementById('implDetailModal');
+        const modal = document.getElementById('updateProgressModal');
         if (!modal) return;
         
-        // 填充详情信息
-        document.getElementById('detailProjectNumber').textContent = row.cells[1]?.textContent || '-';
-        document.getElementById('detailProjectName').textContent = row.cells[2]?.textContent || '-';
-        document.getElementById('detailCustomerName').textContent = row.cells[3]?.textContent || '-';
-        document.getElementById('detailProjectManager').textContent = row.cells[4]?.textContent || '-';
-        document.getElementById('detailPlanStart').textContent = row.cells[6]?.textContent || '-';
-        document.getElementById('detailActualStart').textContent = row.cells[7]?.textContent || '-';
-        document.getElementById('detailPlanEnd').textContent = row.cells[8]?.textContent || '-';
-        document.getElementById('detailActualEnd').textContent = row.cells[9]?.textContent || '-';
-        document.getElementById('detailAcceptanceDate').textContent = row.cells[10]?.textContent || '-';
-        document.getElementById('detailWarranty').textContent = row.cells[13]?.textContent || '-';
-        document.getElementById('detailImplManager').textContent = row.cells[5]?.textContent || '-';
-        document.getElementById('detailIsAccepted').textContent = row.cells[12]?.textContent || '-';
+        document.getElementById('progressProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('progressProjectName').value = row.cells[2]?.textContent || '';
         
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('progressDate').value = today;
+        
+        modal.dataset.projectId = id;
         modal.style.display = 'flex';
     };
     
-    // 查看实施进度
-    window.viewImplProgress = function(id) {
-        console.log('查看实施进度：', id);
-        const modal = document.getElementById('implProgressModal');
-        if (modal) {
-            modal.style.display = 'flex';
-        }
+    // 查看进度详情
+    window.viewProgressDetail = function(id) {
+        alert('进度详情查看功能开发中...');
+    };
+    
+    // 完工登记
+    window.completeImplementation = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        if (!row) return;
+        
+        const modal = document.getElementById('completeImplModal');
+        if (!modal) return;
+        
+        document.getElementById('completeProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('completeProjectName').value = row.cells[2]?.textContent || '';
+        
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('actualEndDate').value = today;
+        
+        modal.dataset.projectId = id;
+        modal.style.display = 'flex';
+    };
+    
+    // 验收登记
+    window.registerAcceptance = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        if (!row) return;
+        
+        const modal = document.getElementById('acceptanceModal');
+        if (!modal) return;
+        
+        document.getElementById('acceptProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('acceptProjectName').value = row.cells[2]?.textContent || '';
+        
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('acceptanceDate').value = today;
+        document.getElementById('warrantyStartDate').value = today;
+        
+        modal.dataset.projectId = id;
+        modal.style.display = 'flex';
+    };
+    
+    // 查看项目档案
+    window.viewProjectArchive = function(id) {
+        window.loadPage('pages/project-archive.html', {id: id});
     };
     
     // 下载验收报告
-    window.downloadImplReport = function(id) {
-        console.log('下载验收报告：', id);
+    window.downloadAcceptanceReport = function(id) {
         alert('验收报告下载功能开发中...');
     };
     
     // 弹窗关闭事件
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal-close')) {
-            const modal = e.target.closest('.modal-overlay');
-            if (modal) {
+        if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal-overlay')) {
+            const modal = e.target.closest('.modal-overlay') || e.target;
+            if (modal && modal.classList.contains('modal-overlay')) {
                 modal.style.display = 'none';
             }
         }
         
-        // 点击遮罩层关闭
-        if (e.target.classList.contains('modal-overlay')) {
-            e.target.style.display = 'none';
-        }
-        
-        // 确定/保存按钮
         if (e.target.classList.contains('modal-btn-confirm')) {
             const modal = e.target.closest('.modal-overlay');
-            if (modal && modal.id === 'implEditModal') {
-                saveImplInfo();
+            if (modal) {
+                if (modal.id === 'startImplModal') {
+                    saveStartImpl();
+                } else if (modal.id === 'updateProgressModal') {
+                    saveProgress();
+                } else if (modal.id === 'completeImplModal') {
+                    saveComplete();
+                } else if (modal.id === 'acceptanceModal') {
+                    saveAcceptance();
+                }
             }
         }
         
-        // 取消按钮
         if (e.target.classList.contains('modal-btn-cancel')) {
             const modal = e.target.closest('.modal-overlay');
             if (modal) {
@@ -669,58 +648,91 @@
         }
     });
     
-    // 保存实施信息
-    function saveImplInfo() {
-        const modal = document.getElementById('implEditModal');
-        const implId = modal?.dataset.implId;
+    // 保存开工信息
+    function saveStartImpl() {
+        const modal = document.getElementById('startImplModal');
+        const projectId = modal?.dataset.projectId;
         
-        const formData = {
-            implId: implId,
-            planStartDate: document.getElementById('planStartDate')?.value,
-            actualStartDate: document.getElementById('implActualStartDate')?.value,
-            planEndDate: document.getElementById('planEndDate')?.value,
-            actualEndDate: document.getElementById('implActualEndDate')?.value,
-            acceptanceDate: document.getElementById('implAcceptanceDate')?.value,
-            warrantyPeriod: document.getElementById('implWarrantyPeriod')?.value,
-            implManager: document.getElementById('implManagerSelect')?.value,
-            teamSize: document.getElementById('teamSize')?.value,
-            contactPhone: document.getElementById('implContactPhone')?.value,
-            isAccepted: document.getElementById('implIsAccepted')?.value,
-            acceptancePerson: document.getElementById('acceptancePerson')?.value,
-            acceptanceResult: document.getElementById('acceptanceResult')?.value,
-            remark: document.getElementById('implEditRemark')?.value
-        };
-        
-        // 验证必填项
-        if (!formData.actualStartDate) {
+        const actualStartDate = document.getElementById('actualStartDate')?.value;
+        if (!actualStartDate) {
             alert('请填写实际开工时间');
             return;
         }
         
-        console.log('保存实施信息：', formData);
-        alert('实施信息已保存');
+        alert('✅ 开工登记成功！');
         modal.style.display = 'none';
         
-        // 更新表格显示
-        const row = document.querySelector(`tr[data-impl-id="${implId}"]`);
-        if (row && formData.actualStartDate) {
-            row.cells[7].textContent = formData.actualStartDate;
-            if (formData.actualEndDate) {
-                row.cells[9].textContent = formData.actualEndDate;
-            }
-            if (formData.implManager) {
-                row.cells[5].textContent = formData.implManager;
-            }
-            
-            // 更新状态
-            if (formData.isAccepted === '是') {
-                row.cells[11].innerHTML = '<span class="status-badge status-acceptance">已验收</span>';
-            } else if (formData.actualEndDate) {
-                row.cells[11].innerHTML = '<span class="status-badge status-complete">已完工</span>';
-            } else {
-                row.cells[11].innerHTML = '<span class="status-badge status-implementation">实施中</span>';
-            }
+        const row = document.querySelector(`tr[data-id="${projectId}"]`);
+        if (row) {
+            row.cells[7].textContent = actualStartDate;
+            row.cells[10].innerHTML = '<div class="progress-bar-mini" style="width:10%"><span>10%</span></div>';
+            row.cells[11].innerHTML = '<span class="status-badge status-implementation">实施中</span>';
         }
     }
-})();
-</script>
+    
+    // 保存进度
+    function saveProgress() {
+        const modal = document.getElementById('updateProgressModal');
+        const projectId = modal?.dataset.projectId;
+        
+        const percent = document.getElementById('progressPercent')?.value;
+        if (!percent) {
+            alert('请填写当前进度');
+            return;
+        }
+        
+        alert('✅ 进度更新成功！');
+        modal.style.display = 'none';
+        
+        const row = document.querySelector(`tr[data-id="${projectId}"]`);
+        if (row) {
+            row.cells[10].innerHTML = `<div class="progress-bar-mini" style="width:${percent}%"><span>${percent}%</span></div>`;
+        }
+    }
+    
+    // 保存完工信息
+    function saveComplete() {
+        const modal = document.getElementById('completeImplModal');
+        const projectId = modal?.dataset.projectId;
+        
+        const actualEndDate = document.getElementById('actualEndDate')?.value;
+        if (!actualEndDate) {
+            alert('请填写实际完工时间');
+            return;
+        }
+        
+        alert('✅ 完工登记成功！');
+        modal.style.display = 'none';
+        
+        const row = document.querySelector(`tr[data-id="${projectId}"]`);
+        if (row) {
+            row.cells[9].textContent = actualEndDate;
+            row.cells[10].innerHTML = '<div class="progress-bar-mini complete" style="width:100%"><span>100%</span></div>';
+            row.cells[11].innerHTML = '<span class="status-badge status-complete">已完工</span>';
+        }
+    };
+    
+    // 保存验收信息
+    function saveAcceptance() {
+        const modal = document.getElementById('acceptanceModal');
+        const projectId = modal?.dataset.projectId;
+        
+        const acceptanceDate = document.getElementById('acceptanceDate')?.value;
+        const acceptancePerson = document.getElementById('acceptancePerson')?.value;
+        const acceptanceResult = document.getElementById('acceptanceResult')?.value;
+        
+        if (!acceptanceDate || !acceptancePerson || !acceptanceResult) {
+            alert('请填写所有必填项');
+            return;
+        }
+        
+        alert('✅ 验收登记成功！\n\n项目已完成全部流程！');
+        modal.style.display = 'none';
+        
+        const row = document.querySelector(`tr[data-id="${projectId}"]`);
+        if (row) {
+            row.cells[11].innerHTML = '<span class="status-badge status-acceptance">已验收</span>';
+        }
+            }
+        })();
+    </script>

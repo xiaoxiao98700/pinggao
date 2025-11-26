@@ -1,530 +1,661 @@
 <!-- 标签页 -->
-            <div class="tabs">
-                <div class="tab active">
-                    合同信息
-                    <span class="tab-close">×</span>
-                </div>
-            </div>
+<div class="tabs">
+    <div class="tab active">
+        合同信息 <span class="tab-badge">项目部</span>
+        <span class="tab-close">×</span>
+    </div>
+</div>
 
-            <!-- 搜索筛选区域 -->
-            <div class="search-section">
-                <div class="search-filters">
-                    <div class="filter-item">
-                        <label>客户名称</label>
-                        <select class="filter-input">
-                            <option value="">请选择客户</option>
-                            <option value="沙俄有限公司">沙俄有限公司</option>
-                            <option value="正大化工有限公司">正大化工有限公司</option>
-                            <option value="新疆昌吉新能源有限公司">新疆昌吉新能源有限公司</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label>项目名称</label>
-                        <input type="text" placeholder="输入项目名称" class="filter-input">
-                    </div>
-                    <div class="filter-item">
-                        <label>合同类型</label>
-                        <select class="filter-input">
-                            <option value="">请选择合同类型</option>
-                            <option value="框架合同">框架合同</option>
-                            <option value="设备采购合同">设备采购合同</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="search-actions">
-                    <button class="btn-query">Q查询</button>
-                    <button class="btn-reset">C重置</button>
-                    <button class="btn-expand">展开</button>
-                </div>
+<!-- 项目部工作台 -->
+<div class="contract-info-wrapper">
+    <div class="dept-header">
+        <h2 class="dept-title">📋 项目部工作台</h2>
+        <p class="dept-desc">管理已签约项目、合同信息和实施分配</p>
+    </div>
+    
+    <!-- 搜索筛选区域 -->
+    <div class="search-section">
+        <div class="search-filters">
+            <div class="filter-item">
+                <label>项目编号</label>
+                <input type="text" placeholder="输入项目编号" class="filter-input" id="filterProjectNumber">
             </div>
+            <div class="filter-item">
+                <label>项目名称</label>
+                <input type="text" placeholder="输入项目名称" class="filter-input" id="filterProjectName">
+            </div>
+            <div class="filter-item">
+                <label>客户名称</label>
+                <input type="text" placeholder="输入客户名称" class="filter-input" id="filterCustomerName">
+            </div>
+            <div class="filter-item">
+                <label>项目负责人</label>
+                <input type="text" placeholder="输入项目负责人" class="filter-input" id="filterManager">
+            </div>
+            <div class="filter-item">
+                <label>状态</label>
+                <select class="filter-input" id="filterStatus">
+                    <option value="">全部</option>
+                    <option value="待分配负责人">待分配负责人</option>
+                    <option value="已分配负责人">已分配负责人</option>
+                    <option value="待分配实施">待分配实施</option>
+                    <option value="已分配实施">已分配实施</option>
+                </select>
+            </div>
+        </div>
+        <div class="search-actions">
+            <button class="btn-query" onclick="queryContracts()">Q查询</button>
+            <button class="btn-reset" onclick="resetFilters()">C重置</button>
+            <button class="btn-expand" onclick="toggleFilters()">展开</button>
+        </div>
+    </div>
 
-            <!-- 操作按钮 -->
-            <div class="table-actions">
-                <button class="btn-export">导出</button>
+    <!-- 统计卡片 -->
+    <div class="stats-cards">
+        <div class="stat-card stat-card-pending">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-content">
+                <div class="stat-value">5</div>
+                <div class="stat-label">待分配负责人</div>
             </div>
-
-            <!-- 数据表格 -->
-            <div class="table-container">
-                <table class="data-table" id="contractTable">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" class="select-all"></th>
-                            <th>序号</th>
-                            <th>项目编号</th>
-                            <th>项目名称</th>
-                            <th>客户名称</th>
-                            <th>签订时间</th>
-                            <th>合同类型</th>
-                            <th>额定功率 MW</th>
-                            <th>运行（合同）功率 MW</th>
-                            <th>数量</th>
-                            <th>合计功率 MW</th>
-                            <th>产品型号</th>
-                            <th>产品编号</th>
-                            <th>签订主体</th>
-                            <th>合同交货期</th>
-                            <th>实际交货期</th>
-                            <th>是否交货</th>
-                            <th>合同完工时间</th>
-                            <th>销售负责人</th>
-                            <th>联系电话</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox" class="row-checkbox"></td>
-                            <td>1</td>
-                            <td>PE2025-09-2607</td>
-                            <td>郑州高新区新能源发电项目</td>
-                            <td>沙俄有限公司</td>
-                            <td>2025-09-15</td>
-                            <td>框架合同</td>
-                            <td>100.5</td>
-                            <td>90.0</td>
-                            <td>1</td>
-                            <td>95.2</td>
-                            <td>EP-100</td>
-                            <td>PN2025001</td>
-                            <td>河南平高电气股份有限公司</td>
-                            <td>2026-01-31</td>
-                            <td>2026-02-15</td>
-                            <td>是</td>
-                            <td>2026-08-31</td>
-                            <td>赵经理</td>
-                            <td>13600136000</td>
-                            <td class="actions">
-                                <a href="#" class="action-link" onclick="if(typeof viewContractDetail === 'function') viewContractDetail(1); else { const modal = document.getElementById('contractDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
-                                <a href="#" class="action-link" onclick="if(typeof editContract === 'function') editContract(1); else { const modal = document.getElementById('contractEditModal'); if(modal) modal.style.display = 'flex'; }">信息补充</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="row-checkbox"></td>
-                            <td>2</td>
-                            <td>PE2025-09-2602</td>
-                            <td>沙俄有限公司生产基地供电项目</td>
-                            <td>沙俄有限公司</td>
-                            <td>2025-09-15</td>
-                            <td>设备采购合同</td>
-                            <td>200.0</td>
-                            <td>190.0</td>
-                            <td>2</td>
-                            <td>195.5</td>
-                            <td>EP-200</td>
-                            <td>PN2025002</td>
-                            <td>河南平高电气股份有限公司</td>
-                            <td>2026-01-31</td>
-                            <td>2026-02-15</td>
-                            <td>是</td>
-                            <td>2026-08-31</td>
-                            <td>赵经理</td>
-                            <td>13600136000</td>
-                            <td class="actions">
-                                <a href="#" class="action-link" onclick="if(typeof viewContractDetail === 'function') viewContractDetail(2); else { const modal = document.getElementById('contractDetailModal'); if(modal) modal.style.display = 'flex'; }">详情</a>
-                                <a href="#" class="action-link" onclick="if(typeof editContract === 'function') editContract(2); else { const modal = document.getElementById('contractEditModal'); if(modal) modal.style.display = 'flex'; }">信息补充</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+        <div class="stat-card stat-card-assigned">
+            <div class="stat-icon">👤</div>
+            <div class="stat-content">
+                <div class="stat-value">18</div>
+                <div class="stat-label">已分配负责人</div>
             </div>
-
-            <!-- 分页 -->
-            <div class="pagination">
-                <div class="pagination-info">
-                    <span>共12条</span>
-                </div>
-                <div class="pagination-controls">
-                    <select class="page-size">
-                        <option value="20" selected>20条/页</option>
-                        <option value="50">50条/页</option>
-                        <option value="100">100条/页</option>
-                    </select>
-                    <div class="page-nav">
-                        <button class="page-btn" disabled><</button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">></button>
-                    </div>
-                    <div class="page-jump">
-                        <span>前往</span>
-                        <input type="number" class="page-input" value="1" min="1">
-                        <span>页</span>
-                    </div>
-                </div>
+        </div>
+        <div class="stat-card stat-card-impl">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-content">
+                <div class="stat-value">12</div>
+                <div class="stat-label">待分配实施</div>
             </div>
-
-<div class="modal-overlay" id="contractEditModal" style="display: none;">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="modal-header">
-                <h3 class="modal-title">合同信息补充</h3>
-                <button class="modal-close" onclick="closeContractModal()">&times;</button>
-            </div>
-            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-                <form id="contractEditForm">
-                    <!-- 项目基本信息（只读） -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>项目编号</label>
-                            <input type="text" class="modal-input" id="projectNumber" readonly style="background-color: #f5f5f5;">
-                        </div>
-                        <div class="form-group">
-                            <label>项目名称</label>
-                            <input type="text" class="modal-input" id="projectName" readonly style="background-color: #f5f5f5;">
-                        </div>
-                        <div class="form-group">
-                            <label>客户名称</label>
-                            <input type="text" class="modal-input" id="customerName" readonly style="background-color: #f5f5f5;">
-                        </div>
-                    </div>
-                    
-                    <!-- 合同信息（可编辑） -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>签订时间</label>
-                            <input type="date" class="modal-input" id="signDate">
-                        </div>
-                        <div class="form-group">
-                            <label>合同类型</label>
-                            <select class="modal-input" id="contractType">
-                                <option value="">请选择合同类型</option>
-                                <option value="框架合同">框架合同</option>
-                                <option value="设备采购合同">设备采购合同</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>额定功率 MW</label>
-                            <input type="number" step="0.01" class="modal-input" id="ratedPower" placeholder="请输入额定功率">
-                        </div>
-                        <div class="form-group">
-                            <label>运行（合同）功率 MW</label>
-                            <input type="number" step="0.01" class="modal-input" id="operatingPower" placeholder="请输入运行功率">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>数量</label>
-                            <input type="number" class="modal-input" id="quantity" placeholder="请输入数量">
-                        </div>
-                        <div class="form-group">
-                            <label>合计功率 MW</label>
-                            <input type="number" step="0.01" class="modal-input" id="totalPower" placeholder="请输入合计功率">
-                        </div>
-                        <div class="form-group">
-                            <label>产品型号</label>
-                            <input type="text" class="modal-input" id="productModel" placeholder="请输入产品型号">
-                        </div>
-                        <div class="form-group">
-                            <label>产品编号</label>
-                            <input type="text" class="modal-input" id="productNumber" placeholder="请输入产品编号">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>签订主体</label>
-                            <input type="text" class="modal-input" id="signEntity" placeholder="请输入签订主体">
-                        </div>
-                        <div class="form-group">
-                            <label>合同交货期</label>
-                            <input type="date" class="modal-input" id="contractDelivery">
-                        </div>
-                        <div class="form-group">
-                            <label>实际交货期</label>
-                            <input type="date" class="modal-input" id="actualDelivery">
-                        </div>
-                        <div class="form-group">
-                            <label>是否交货</label>
-                            <select class="modal-input" id="isDelivered">
-                                <option value="">请选择</option>
-                                <option value="是">是</option>
-                                <option value="否">否</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>合同完工时间</label>
-                            <input type="date" class="modal-input" id="completionDate">
-                        </div>
-                        <div class="form-group">
-                            <label>销售负责人</label>
-                            <input type="text" class="modal-input" id="salesManager" placeholder="请输入销售负责人">
-                        </div>
-                        <div class="form-group">
-                            <label>联系电话</label>
-                            <input type="text" class="modal-input" id="salesPhone" placeholder="请输入联系电话">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="modal-btn modal-btn-cancel" onclick="closeContractModal()">取消</button>
-                <button type="button" class="modal-btn modal-btn-confirm" onclick="saveContract()">确定</button>
+        </div>
+        <div class="stat-card stat-card-running">
+            <div class="stat-icon">⚙️</div>
+            <div class="stat-content">
+                <div class="stat-value">25</div>
+                <div class="stat-label">实施中项目</div>
             </div>
         </div>
     </div>
 
-<!-- 合同详情查看弹窗 -->
-<div class="modal-overlay" id="contractDetailModal" style="display: none;">
-    <div class="modal-content" style="max-width: 900px;">
-        <div class="modal-header">
-            <h3>合同详情</h3>
-            <button class="modal-close" onclick="closeContractDetailModal()">&times;</button>
+    <!-- 操作按钮 -->
+    <div class="table-actions">
+        <button class="btn-export" onclick="exportContracts()">导出</button>
+        <button class="btn-refresh" onclick="refreshData()">刷新</button>
+    </div>
+
+    <!-- 数据表格 -->
+    <div class="table-container">
+        <table class="data-table contract-list-table" id="contractTable">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>项目编号</th>
+                    <th>项目名称</th>
+                    <th>客户名称</th>
+                    <th>合同金额(万)</th>
+                    <th>签订时间</th>
+                    <th>项目负责人</th>
+                    <th>计划开始</th>
+                    <th>计划完工</th>
+                    <th>实施负责人</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 待分配项目负责人 - 市场部刚移交过来的 -->
+                <tr data-id="1" data-status="待分配负责人">
+                    <td>1</td>
+                    <td>PE2025-11-2601</td>
+                    <td>郑州高新区新能源发电项目</td>
+                    <td>沙俄有限公司</td>
+                    <td>350.00</td>
+                    <td>2025-11-26</td>
+                    <td><span class="text-warning">未分配</span></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><span class="status-badge status-warning">待分配负责人</span></td>
+                    <td class="actions">
+                        <a href="#" class="action-link action-primary" onclick="assignProjectManager(1); return false;">分配负责人</a>
+                        <a href="#" class="action-link" onclick="viewContractDetail(1); return false;">合同详情</a>
+                    </td>
+                </tr>
+                
+                <!-- 已分配负责人，待分配实施人员 -->
+                <tr data-id="2" data-status="待分配实施">
+                    <td>2</td>
+                    <td>PE2025-11-2001</td>
+                    <td>正大化工园区配电改造项目</td>
+                    <td>正大化工有限公司</td>
+                    <td>280.00</td>
+                    <td>2025-11-20</td>
+                    <td>王明</td>
+                    <td>2025-12-01</td>
+                    <td>2026-05-31</td>
+                    <td><span class="text-warning">未分配</span></td>
+                    <td><span class="status-badge status-info">待分配实施</span></td>
+                    <td class="actions">
+                        <a href="#" class="action-link" onclick="editProjectInfo(2); return false;">项目信息</a>
+                        <a href="#" class="action-link" onclick="editContractInfo(2); return false;">完善合同</a>
+                        <a href="#" class="action-link action-primary" onclick="assignImplementation(2); return false;">分配实施</a>
+                    </td>
+                </tr>
+                
+                <!-- 已分配实施，正在实施中 -->
+                <tr data-id="3" data-status="已分配实施">
+                    <td>3</td>
+                    <td>PE2025-10-1501</td>
+                    <td>新疆昌吉风电场并网项目</td>
+                    <td>新疆昌吉新能源有限公司</td>
+                    <td>520.00</td>
+                    <td>2025-10-15</td>
+                    <td>赵强</td>
+                    <td>2025-11-01</td>
+                    <td>2026-06-30</td>
+                    <td>张三</td>
+                    <td><span class="status-badge status-implementation">实施中</span></td>
+                    <td class="actions">
+                        <a href="#" class="action-link" onclick="viewProjectArchive(3); return false;">项目档案</a>
+                        <a href="#" class="action-link" onclick="editContractInfo(3); return false;">合同管理</a>
+                        <a href="#" class="action-link" onclick="viewImplementationProgress(3); return false;">实施进度</a>
+                    </td>
+                </tr>
+                
+                <tr data-id="4" data-status="已分配实施">
+                    <td>4</td>
+                    <td>PE2025-10-0801</td>
+                    <td>武汉迈瑞医疗设备供电项目</td>
+                    <td>武汉迈瑞医疗设备有限公司</td>
+                    <td>180.00</td>
+                    <td>2025-10-08</td>
+                    <td>刘静</td>
+                    <td>2025-11-15</td>
+                    <td>2026-03-31</td>
+                    <td>李四</td>
+                    <td><span class="status-badge status-implementation">实施中</span></td>
+                    <td class="actions">
+                        <a href="#" class="action-link" onclick="viewProjectArchive(4); return false;">项目档案</a>
+                        <a href="#" class="action-link" onclick="editContractInfo(4); return false;">合同管理</a>
+                        <a href="#" class="action-link" onclick="viewImplementationProgress(4); return false;">实施进度</a>
+                    </td>
+                </tr>
+                
+                <tr data-id="5" data-status="已分配实施">
+                    <td>5</td>
+                    <td>PE2025-09-2501</td>
+                    <td>平顶山尼龙产业园配电工程</td>
+                    <td>平顶山尼龙产业园管理有限公司</td>
+                    <td>420.00</td>
+                    <td>2025-09-25</td>
+                    <td>孙伟</td>
+                    <td>2025-10-20</td>
+                    <td>2026-04-30</td>
+                    <td>王五</td>
+                    <td><span class="status-badge status-complete">已完工</span></td>
+                    <td class="actions">
+                        <a href="#" class="action-link" onclick="viewProjectArchive(5); return false;">项目档案</a>
+                        <a href="#" class="action-link" onclick="editContractInfo(5); return false;">合同管理</a>
+                        <a href="#" class="action-link" onclick="viewAcceptanceInfo(5); return false;">验收信息</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination">
+        <div class="pagination-info">
+            <span>共60个已签约项目</span>
         </div>
-        <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-            <div class="form-container" style="padding: 0;">
-                <form class="project-form">
-                    <!-- 第一行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>项目编号</label>
-                            <input type="text" class="modal-input" data-field="projectNumber" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>项目名称</label>
-                            <input type="text" class="modal-input" data-field="projectName" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>客户名称</label>
-                            <input type="text" class="modal-input" data-field="customerName" readonly>
-                        </div>
-                    </div>
-                    
-                    <!-- 第二行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>签订时间</label>
-                            <input type="text" class="modal-input" data-field="signDate" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>合同类型</label>
-                            <input type="text" class="modal-input" data-field="contractType" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>额定功率 MW</label>
-                            <input type="text" class="modal-input" data-field="ratedPower" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>运行（合同）功率 MW</label>
-                            <input type="text" class="modal-input" data-field="operatingPower" readonly>
-                        </div>
-                    </div>
-                    
-                    <!-- 第三行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>数量</label>
-                            <input type="text" class="modal-input" data-field="quantity" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>合计功率 MW</label>
-                            <input type="text" class="modal-input" data-field="totalPower" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>产品型号</label>
-                            <input type="text" class="modal-input" data-field="productModel" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>产品编号</label>
-                            <input type="text" class="modal-input" data-field="productNumber" readonly>
-                        </div>
-                    </div>
-                    
-                    <!-- 第四行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>签订主体</label>
-                            <input type="text" class="modal-input" data-field="signEntity" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>合同交货期</label>
-                            <input type="text" class="modal-input" data-field="contractDelivery" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>实际交货期</label>
-                            <input type="text" class="modal-input" data-field="actualDelivery" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>是否交货</label>
-                            <input type="text" class="modal-input" data-field="isDelivered" readonly>
-                        </div>
-                    </div>
-                    
-                    <!-- 第五行 -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>合同完工时间</label>
-                            <input type="text" class="modal-input" data-field="completionDate" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>销售负责人</label>
-                            <input type="text" class="modal-input" data-field="salesManager" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>联系电话</label>
-                            <input type="text" class="modal-input" data-field="salesPhone" readonly>
-                        </div>
-                    </div>
-                </form>
+        <div class="pagination-controls">
+            <select class="page-size">
+                <option value="20" selected>20条/页</option>
+                <option value="50">50条/页</option>
+                <option value="100">100条/页</option>
+            </select>
+            <div class="page-nav">
+                <button class="page-btn" disabled><</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">></button>
+            </div>
+            <div class="page-jump">
+                <span>前往</span>
+                <input type="number" class="page-input" value="1" min="1">
+                <span>页</span>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- 分配项目负责人弹窗 -->
+<div class="modal-overlay" id="assignPMModal" style="display:none;">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h3 class="modal-title">👤 分配项目负责人</h3>
+            <button class="modal-close" type="button">×</button>
+        </div>
+        <div class="modal-body">
+            <form id="assignPMForm">
+                <div class="form-section-title">项目基本信息</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>项目编号</label>
+                        <input type="text" class="modal-input" id="pmProjectNumber" readonly style="background-color:#f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>项目名称</label>
+                        <input type="text" class="modal-input" id="pmProjectName" readonly style="background-color:#f5f5f5;">
+                    </div>
+                </div>
+                
+                <div class="form-section-title">项目负责人及计划时间<span class="required">*</span></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>项目负责人<span class="required">*</span></label>
+                        <select class="modal-input" id="projectManager" required>
+                            <option value="">请选择项目负责人</option>
+                            <option value="刘静">刘静</option>
+                            <option value="王明">王明</option>
+                            <option value="赵强">赵强</option>
+                            <option value="孙伟">孙伟</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>负责人电话</label>
+                        <input type="text" class="modal-input" id="pmPhone" placeholder="请输入联系电话">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>计划开始时间<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="planStartDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>计划完工时间<span class="required">*</span></label>
+                        <input type="date" class="modal-input" id="planEndDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>项目周期（天）</label>
+                        <input type="number" class="modal-input" id="projectDays" readonly style="background-color:#f5f5f5;">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>项目要求</label>
+                        <textarea class="modal-input" id="projectRequirements" rows="2" placeholder="请输入项目特殊要求、注意事项等"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="modal-footer">
-            <button class="modal-btn modal-btn-cancel" onclick="closeContractDetailModal()">关闭</button>
+            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
+            <button type="button" class="modal-btn modal-btn-confirm">确认分配</button>
+        </div>
+    </div>
+</div>
+
+<!-- 完善合同信息弹窗 -->
+<div class="modal-overlay" id="editContractModal" style="display:none;">
+    <div class="modal-content" style="max-width: 1000px;">
+        <div class="modal-header">
+            <h3 class="modal-title">📝 完善合同信息</h3>
+            <button class="modal-close" type="button">×</button>
+        </div>
+        <div class="modal-body">
+            <form id="editContractForm">
+                <div class="form-section-title">基本信息</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>项目编号</label>
+                        <input type="text" class="modal-input" id="contractProjectNumber" readonly style="background-color:#f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>项目名称</label>
+                        <input type="text" class="modal-input" id="contractProjectName" readonly style="background-color:#f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>客户名称</label>
+                        <input type="text" class="modal-input" id="contractCustomerName" readonly style="background-color:#f5f5f5;">
+                    </div>
+                </div>
+                
+                <div class="form-section-title">合同详细信息</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>合同编号</label>
+                        <input type="text" class="modal-input" id="contractNumber" placeholder="请输入合同编号">
+                    </div>
+                    <div class="form-group">
+                        <label>签订主体</label>
+                        <input type="text" class="modal-input" id="signEntity" placeholder="如：河南平高电气股份有限公司">
+                    </div>
+                    <div class="form-group">
+                        <label>产品型号</label>
+                        <input type="text" class="modal-input" id="productModel">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>产品编号</label>
+                        <input type="text" class="modal-input" id="productNumber">
+                    </div>
+                    <div class="form-group">
+                        <label>额定功率 MW</label>
+                        <input type="number" step="0.01" class="modal-input" id="ratedPower">
+                    </div>
+                    <div class="form-group">
+                        <label>数量</label>
+                        <input type="number" class="modal-input" id="quantity">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>合同交货期</label>
+                        <input type="date" class="modal-input" id="contractDelivery">
+                    </div>
+                    <div class="form-group">
+                        <label>付款方式</label>
+                        <select class="modal-input" id="paymentMethod">
+                            <option value="">请选择</option>
+                            <option value="一次性付款">一次性付款</option>
+                            <option value="分期付款">分期付款</option>
+                            <option value="验收后付款">验收后付款</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>质保期</label>
+                        <input type="text" class="modal-input" id="warrantyPeriod" placeholder="如：2年">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>合同备注</label>
+                        <textarea class="modal-input" id="contractRemark" rows="2" placeholder="请输入合同相关备注"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
+            <button type="button" class="modal-btn modal-btn-confirm">保存</button>
+        </div>
+    </div>
+</div>
+
+<!-- 分配实施人员弹窗 -->
+<div class="modal-overlay" id="assignImplModal" style="display:none;">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h3 class="modal-title">🚀 分配实施人员</h3>
+            <button class="modal-close" type="button">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-header-tip">
+                <span class="tip-icon">ℹ️</span>
+                <span class="tip-text">分配实施人员后，项目将移交给<strong>实施部</strong>，由实施负责人管理项目实施过程</span>
+            </div>
+            
+            <form id="assignImplForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>项目编号</label>
+                        <input type="text" class="modal-input" id="implProjectNumber" readonly style="background-color:#f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>项目名称</label>
+                        <input type="text" class="modal-input" id="implProjectName" readonly style="background-color:#f5f5f5;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>实施负责人<span class="required">*</span></label>
+                        <select class="modal-input" id="implManager" required>
+                            <option value="">请选择实施负责人</option>
+                            <option value="张三">张三</option>
+                            <option value="李四">李四</option>
+                            <option value="王五">王五</option>
+                            <option value="赵六">赵六</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>实施团队人数</label>
+                        <input type="number" class="modal-input" id="teamSize" min="1" placeholder="如：5">
+                    </div>
+                    <div class="form-group">
+                        <label>预计开工时间</label>
+                        <input type="date" class="modal-input" id="implStartDate">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>实施要求</label>
+                        <textarea class="modal-input" id="implRequirements" rows="2" placeholder="请输入实施特殊要求、安全注意事项等"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
+            <button type="button" class="modal-btn modal-btn-confirm">确认分配并移交</button>
         </div>
     </div>
 </div>
 
 <script>
-        (function() {
-            const contractData = [
-                {
-                    id: 1,
-                    projectNumber: 'PE2025-09-2607',
-                    projectName: '郑州高新区新能源发电项目',
-                    customerName: '沙俄有限公司',
-                    signDate: '2025-09-15',
-                    contractType: '框架合同',
-                    ratedPower: '100.5',
-                    operatingPower: '90.0',
-                    quantity: '1',
-                    totalPower: '95.2',
-                    productModel: 'EP-100',
-                    productNumber: 'PN2025001',
-                    signEntity: '河南平高电气股份有限公司',
-                    contractDelivery: '2026-01-31',
-                    actualDelivery: '2026-02-15',
-                    isDelivered: '是',
-                    completionDate: '2026-08-31',
-                    salesManager: '赵经理',
-                    salesPhone: '13600136000'
-                },
-                {
-                    id: 2,
-                    projectNumber: 'PE2025-09-2602',
-                    projectName: '沙俄有限公司生产基地供电项目',
-                    customerName: '沙俄有限公司',
-                    signDate: '2025-09-15',
-                    contractType: '设备采购合同',
-                    ratedPower: '200.0',
-                    operatingPower: '190.0',
-                    quantity: '2',
-                    totalPower: '195.5',
-                    productModel: 'EP-200',
-                    productNumber: 'PN2025002',
-                    signEntity: '河南平高电气股份有限公司',
-                    contractDelivery: '2026-01-31',
-                    actualDelivery: '2026-02-15',
-                    isDelivered: '是',
-                    completionDate: '2026-08-31',
-                    salesManager: '赵经理',
-                    salesPhone: '13600136000'
-                }
-            ];
-
-            const editModal = document.getElementById('contractEditModal');
-            const detailModal = document.getElementById('contractDetailModal');
-            const editForm = document.getElementById('contractEditForm');
-            const detailFields = detailModal ? detailModal.querySelectorAll('[data-field]') : [];
-            const editFieldMap = {
-                projectNumber: 'projectNumber',
-                projectName: 'projectName',
-                customerName: 'customerName',
-                signDate: 'signDate',
-                contractType: 'contractType',
-                ratedPower: 'ratedPower',
-                operatingPower: 'operatingPower',
-                quantity: 'quantity',
-                totalPower: 'totalPower',
-                productModel: 'productModel',
-                productNumber: 'productNumber',
-                signEntity: 'signEntity',
-                contractDelivery: 'contractDelivery',
-                actualDelivery: 'actualDelivery',
-                isDelivered: 'isDelivered',
-                completionDate: 'completionDate',
-                salesManager: 'salesManager',
-                salesPhone: 'salesPhone'
-            };
-
-            function findContract(id) {
-                return contractData.find(item => item.id === Number(id));
+// 项目部工作台功能
+(function() {
+    'use strict';
+    
+    window.queryContracts = function() {
+        alert('查询功能开发中...');
+    };
+    
+    window.resetFilters = function() {
+        document.getElementById('filterProjectNumber').value = '';
+        document.getElementById('filterProjectName').value = '';
+        document.getElementById('filterCustomerName').value = '';
+        document.getElementById('filterManager').value = '';
+        document.getElementById('filterStatus').value = '';
+    };
+    
+    window.toggleFilters = function() {
+        const filters = document.querySelector('.search-filters');
+        filters?.classList.toggle('expanded');
+    };
+    
+    window.exportContracts = function() {
+        alert('导出功能开发中...');
+    };
+    
+    window.refreshData = function() {
+        alert('数据已刷新');
+    };
+    
+    // 分配项目负责人
+    window.assignProjectManager = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        if (!row) return;
+        
+        const modal = document.getElementById('assignPMModal');
+        if (!modal) return;
+        
+        document.getElementById('pmProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('pmProjectName').value = row.cells[2]?.textContent || '';
+        
+        modal.dataset.projectId = id;
+        modal.style.display = 'flex';
+    };
+    
+    // 编辑项目信息
+    window.editProjectInfo = function(id) {
+        window.loadPage('pages/edit-project.html', {id: id});
+    };
+    
+    // 完善合同信息
+    window.editContractInfo = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        if (!row) return;
+        
+        const modal = document.getElementById('editContractModal');
+        if (!modal) return;
+        
+        document.getElementById('contractProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('contractProjectName').value = row.cells[2]?.textContent || '';
+        document.getElementById('contractCustomerName').value = row.cells[3]?.textContent || '';
+        
+        modal.dataset.projectId = id;
+        modal.style.display = 'flex';
+    };
+    
+    // 查看合同详情
+    window.viewContractDetail = function(id) {
+        alert('合同详情查看功能开发中...');
+    };
+    
+    // 分配实施人员
+    window.assignImplementation = function(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        if (!row) return;
+        
+        const modal = document.getElementById('assignImplModal');
+        if (!modal) return;
+        
+        document.getElementById('implProjectNumber').value = row.cells[1]?.textContent || '';
+        document.getElementById('implProjectName').value = row.cells[2]?.textContent || '';
+        
+        modal.dataset.projectId = id;
+        modal.style.display = 'flex';
+    };
+    
+    // 查看项目档案
+    window.viewProjectArchive = function(id) {
+        window.loadPage('pages/project-archive.html', {id: id});
+    };
+    
+    // 查看实施进度
+    window.viewImplementationProgress = function(id) {
+        alert('实施进度查看功能开发中...');
+    };
+    
+    // 查看验收信息
+    window.viewAcceptanceInfo = function(id) {
+        alert('验收信息查看功能开发中...');
+    };
+    
+    // 计算项目周期
+    document.getElementById('planStartDate')?.addEventListener('change', calculateDays);
+    document.getElementById('planEndDate')?.addEventListener('change', calculateDays);
+    
+    function calculateDays() {
+        const start = document.getElementById('planStartDate')?.value;
+        const end = document.getElementById('planEndDate')?.value;
+        if (start && end) {
+            const days = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24));
+            document.getElementById('projectDays').value = days > 0 ? days : 0;
+        }
+    }
+    
+    // 弹窗关闭事件
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal-overlay')) {
+            const modal = e.target.closest('.modal-overlay') || e.target;
+            if (modal && modal.classList.contains('modal-overlay')) {
+                modal.style.display = 'none';
             }
-
-            function fillDetailModal(data) {
-                detailFields.forEach(field => {
-                    const key = field.getAttribute('data-field');
-                    field.value = typeof key === 'string' ? (data?.[key] ?? '') : '';
-                });
-            }
-
-            function fillEditForm(data) {
-                if (!editForm) return;
-                Object.entries(editFieldMap).forEach(([field, inputId]) => {
-                    const input = editForm.querySelector(`#${inputId}`);
-                    if (input) {
-                        input.value = data?.[field] ?? '';
-                    }
-                });
-            }
-
-            window.viewContractDetail = function(id) {
-                const data = findContract(id);
-                if (!detailModal || !data) return;
-                fillDetailModal(data);
-                detailModal.style.display = 'flex';
-            };
-
-            window.closeContractDetailModal = function() {
-                if (detailModal) {
-                    detailModal.style.display = 'none';
+        }
+        
+        if (e.target.classList.contains('modal-btn-confirm')) {
+            const modal = e.target.closest('.modal-overlay');
+            if (modal) {
+                if (modal.id === 'assignPMModal') {
+                    saveAssignPM();
+                } else if (modal.id === 'editContractModal') {
+                    saveContractInfo();
+                } else if (modal.id === 'assignImplModal') {
+                    saveAssignImpl();
                 }
-            };
-
-            window.editContract = function(id) {
-                const data = findContract(id);
-                if (!editModal || !data) return;
-                fillEditForm(data);
-                editModal.dataset.contractId = String(id);
-                editModal.style.display = 'flex';
-            };
-
-            window.closeContractModal = function() {
-                if (editModal) {
-                    editModal.style.display = 'none';
-                }
-            };
-
-            window.saveContract = function() {
-                if (!editForm) return;
-                const formData = new FormData(editForm);
-                const payload = {};
-                formData.forEach((value, key) => {
-                    payload[key] = value;
-                });
-
-                const contractId = Number(editModal?.dataset.contractId);
-                const target = contractId ? findContract(contractId) : null;
-                if (target) {
-                    Object.keys(editFieldMap).forEach(key => {
-                        target[key] = payload[key] ?? target[key];
-                    });
-                }
-
-                alert('合同信息已保存');
-                window.closeContractModal();
-            };
-
-            if (!window.__contractModalOverlayListener) {
-                window.__contractModalOverlayListener = true;
-                document.addEventListener('click', function(e) {
-                    if (e.target.id === 'contractEditModal') {
-                        window.closeContractModal();
-                    }
-                    if (e.target.id === 'contractDetailModal') {
-                        window.closeContractDetailModal();
-                    }
-                });
             }
-        })();
-    </script>
+        }
+        
+        if (e.target.classList.contains('modal-btn-cancel')) {
+            const modal = e.target.closest('.modal-overlay');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
+    
+    // 保存项目负责人分配
+    function saveAssignPM() {
+        const modal = document.getElementById('assignPMModal');
+        const projectId = modal?.dataset.projectId;
+        
+        const pm = document.getElementById('projectManager')?.value;
+        const startDate = document.getElementById('planStartDate')?.value;
+        const endDate = document.getElementById('planEndDate')?.value;
+        
+        if (!pm || !startDate || !endDate) {
+            alert('请填写所有必填项');
+            return;
+        }
+        
+        alert('✅ 项目负责人分配成功！\n\n' +
+              '项目负责人：' + pm + '\n' +
+              '计划周期：' + startDate + ' 至 ' + endDate);
+        
+        modal.style.display = 'none';
+        
+        // 更新表格
+        const row = document.querySelector(`tr[data-id="${projectId}"]`);
+        if (row) {
+            row.cells[6].textContent = pm;
+            row.cells[7].textContent = startDate;
+            row.cells[8].textContent = endDate;
+            row.cells[10].innerHTML = '<span class="status-badge status-info">待分配实施</span>';
+        }
+    }
+    
+    // 保存合同信息
+    function saveContractInfo() {
+        const modal = document.getElementById('editContractModal');
+        alert('合同信息已保存！');
+        modal.style.display = 'none';
+    }
+    
+    // 保存实施人员分配
+    function saveAssignImpl() {
+        const modal = document.getElementById('assignImplModal');
+        const projectId = modal?.dataset.projectId;
+        
+        const implManager = document.getElementById('implManager')?.value;
+        
+        if (!implManager) {
+            alert('请选择实施负责人');
+            return;
+        }
+        
+        alert('✅ 实施人员分配成功！\n\n' +
+              '实施负责人：' + implManager + '\n\n' +
+              '项目已移交给实施部，由实施负责人管理后续工作');
+        
+        modal.style.display = 'none';
+        
+        // 更新表格
+        const row = document.querySelector(`tr[data-id="${projectId}"]`);
+        if (row) {
+            row.cells[9].textContent = implManager;
+            row.cells[10].innerHTML = '<span class="status-badge status-implementation">实施中</span>';
+        }
+    }
+})();
+</script>

@@ -4942,3 +4942,234 @@ body {
     color: #ad6800;
     line-height: 1.6;
 }
+
+/* 部门协作样式 */
+.dept-header {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #1890ff;
+}
+
+.dept-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0c4a6e;
+    margin-bottom: 8px;
+}
+
+.dept-desc {
+    font-size: 14px;
+    color: #0369a1;
+    margin: 0;
+}
+
+.tab-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+.dept-tag {
+    display: inline-block;
+    background: #e6f7ff;
+    color: #0050b3;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+/* 优先级徽章 */
+.priority-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.priority-high {
+    background: linear-gradient(135deg, #fff1f0 0%, #ffe4e6 100%);
+    color: #cf1322;
+    border: 1px solid #ffccc7;
+}
+
+.priority-medium {
+    background: linear-gradient(135deg, #fffbe6 0%, #fff7cc 100%);
+    color: #d48806;
+    border: 1px solid #ffe58f;
+}
+
+.priority-low {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    color: #595959;
+    border: 1px solid #d9d9d9;
+}
+
+/* 操作链接增强 */
+.action-link.action-primary {
+    color: #1890ff;
+    font-weight: 600;
+}
+
+.action-link.action-success {
+    color: #52c41a;
+    font-weight: 600;
+}
+
+.action-link.action-primary:hover {
+    color: #40a9ff;
+    background-color: #e6f7ff;
+}
+
+.action-link.action-success:hover {
+    color: #73d13d;
+    background-color: #f6ffed;
+}
+
+/* 文本辅助样式 */
+.text-warning {
+    color: #faad14;
+    font-weight: 500;
+}
+
+.text-muted {
+    color: #8c8c8c;
+}
+
+/* 进度条迷你版 */
+.progress-bar-mini {
+    position: relative;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #1890ff 0%, #40a9ff 100%);
+    min-width: 50px;
+}
+
+.progress-bar-mini span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.progress-bar-mini.complete {
+    background: linear-gradient(90deg, #52c41a 0%, #73d13d 100%);
+}
+
+/* 包装器样式 */
+.project-info-wrapper,
+.contract-info-wrapper,
+.implementation-info-wrapper {
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* 统计卡片行 */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 2px solid #f0f0f0;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card:hover {
+    border-color: #1890ff;
+    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    font-size: 32px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f0f9ff;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #262626;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #8c8c8c;
+}
+
+/* 不同类型的统计卡片 */
+.stat-card-lead .stat-icon {
+    background: #fff7e6;
+}
+
+.stat-card-opportunity .stat-icon {
+    background: #e6f7ff;
+}
+
+.stat-card-signed .stat-icon,
+.stat-card-accepted .stat-icon {
+    background: #f6ffed;
+}
+
+.stat-card-target .stat-icon {
+    background: #f9f0ff;
+}
+
+.stat-card-pending .stat-icon {
+    background: #fff1f0;
+}
+
+.stat-card-assigned .stat-icon,
+.stat-card-working .stat-icon {
+    background: #e6f7ff;
+}
+
+.stat-card-impl .stat-icon {
+    background: #f9f0ff;
+}
+
+.stat-card-running .stat-icon,
+.stat-card-finished .stat-icon {
+    background: #fff7e6;
+}
+
+.stat-card-waiting .stat-icon {
+    background: #fffbe6;
+}
