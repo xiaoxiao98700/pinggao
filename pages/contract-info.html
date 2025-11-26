@@ -123,7 +123,6 @@
                     <td><span class="status-badge status-warning">待分配负责人</span></td>
                     <td class="actions">
                         <a href="#" class="action-link action-primary" onclick="assignProjectManager(1); return false;">分配负责人</a>
-                        <a href="#" class="action-link" onclick="viewContractDetail(1); return false;">合同详情</a>
                     </td>
                 </tr>
                 
@@ -141,8 +140,6 @@
                     <td><span class="text-warning">未分配</span></td>
                     <td><span class="status-badge status-info">待分配实施</span></td>
                     <td class="actions">
-                        <a href="#" class="action-link" onclick="editProjectInfo(2); return false;">项目信息</a>
-                        <a href="#" class="action-link" onclick="editContractInfo(2); return false;">完善合同</a>
                         <a href="#" class="action-link action-primary" onclick="assignImplementation(2); return false;">分配实施</a>
                     </td>
                 </tr>
@@ -162,7 +159,6 @@
                     <td><span class="status-badge status-implementation">实施中</span></td>
                     <td class="actions">
                         <a href="#" class="action-link" onclick="viewProjectArchive(3); return false;">项目档案</a>
-                        <a href="#" class="action-link" onclick="editContractInfo(3); return false;">合同管理</a>
                         <a href="#" class="action-link" onclick="viewImplementationProgress(3); return false;">实施进度</a>
                     </td>
                 </tr>
@@ -181,7 +177,6 @@
                     <td><span class="status-badge status-implementation">实施中</span></td>
                     <td class="actions">
                         <a href="#" class="action-link" onclick="viewProjectArchive(4); return false;">项目档案</a>
-                        <a href="#" class="action-link" onclick="editContractInfo(4); return false;">合同管理</a>
                         <a href="#" class="action-link" onclick="viewImplementationProgress(4); return false;">实施进度</a>
                     </td>
                 </tr>
@@ -200,7 +195,6 @@
                     <td><span class="status-badge status-complete">已完工</span></td>
                     <td class="actions">
                         <a href="#" class="action-link" onclick="viewProjectArchive(5); return false;">项目档案</a>
-                        <a href="#" class="action-link" onclick="editContractInfo(5); return false;">合同管理</a>
                         <a href="#" class="action-link" onclick="viewAcceptanceInfo(5); return false;">验收信息</a>
                     </td>
                 </tr>
@@ -299,95 +293,6 @@
         <div class="modal-footer">
             <button type="button" class="modal-btn modal-btn-cancel">取消</button>
             <button type="button" class="modal-btn modal-btn-confirm">确认分配</button>
-        </div>
-    </div>
-</div>
-
-<!-- 完善合同信息弹窗 -->
-<div class="modal-overlay" id="editContractModal" style="display:none;">
-    <div class="modal-content" style="max-width: 1000px;">
-        <div class="modal-header">
-            <h3 class="modal-title">📝 完善合同信息</h3>
-            <button class="modal-close" type="button">×</button>
-        </div>
-        <div class="modal-body">
-            <form id="editContractForm">
-                <div class="form-section-title">基本信息</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>项目编号</label>
-                        <input type="text" class="modal-input" id="contractProjectNumber" readonly style="background-color:#f5f5f5;">
-                    </div>
-                    <div class="form-group">
-                        <label>项目名称</label>
-                        <input type="text" class="modal-input" id="contractProjectName" readonly style="background-color:#f5f5f5;">
-                    </div>
-                    <div class="form-group">
-                        <label>客户名称</label>
-                        <input type="text" class="modal-input" id="contractCustomerName" readonly style="background-color:#f5f5f5;">
-                    </div>
-                </div>
-                
-                <div class="form-section-title">合同详细信息</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>合同编号</label>
-                        <input type="text" class="modal-input" id="contractNumber" placeholder="请输入合同编号">
-                    </div>
-                    <div class="form-group">
-                        <label>签订主体</label>
-                        <input type="text" class="modal-input" id="signEntity" placeholder="如：河南平高电气股份有限公司">
-                    </div>
-                    <div class="form-group">
-                        <label>产品型号</label>
-                        <input type="text" class="modal-input" id="productModel">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>产品编号</label>
-                        <input type="text" class="modal-input" id="productNumber">
-                    </div>
-                    <div class="form-group">
-                        <label>额定功率 MW</label>
-                        <input type="number" step="0.01" class="modal-input" id="ratedPower">
-                    </div>
-                    <div class="form-group">
-                        <label>数量</label>
-                        <input type="number" class="modal-input" id="quantity">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>合同交货期</label>
-                        <input type="date" class="modal-input" id="contractDelivery">
-                    </div>
-                    <div class="form-group">
-                        <label>付款方式</label>
-                        <select class="modal-input" id="paymentMethod">
-                            <option value="">请选择</option>
-                            <option value="一次性付款">一次性付款</option>
-                            <option value="分期付款">分期付款</option>
-                            <option value="验收后付款">验收后付款</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>质保期</label>
-                        <input type="text" class="modal-input" id="warrantyPeriod" placeholder="如：2年">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group full-width">
-                        <label>合同备注</label>
-                        <textarea class="modal-input" id="contractRemark" rows="2" placeholder="请输入合同相关备注"></textarea>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="modal-btn modal-btn-cancel">取消</button>
-            <button type="button" class="modal-btn modal-btn-confirm">保存</button>
         </div>
     </div>
 </div>
@@ -496,31 +401,6 @@
         modal.style.display = 'flex';
     };
     
-    // 编辑项目信息
-    window.editProjectInfo = function(id) {
-        window.loadPage('pages/edit-project.html', {id: id});
-    };
-    
-    // 完善合同信息
-    window.editContractInfo = function(id) {
-        const row = document.querySelector(`tr[data-id="${id}"]`);
-        if (!row) return;
-        
-        const modal = document.getElementById('editContractModal');
-        if (!modal) return;
-        
-        document.getElementById('contractProjectNumber').value = row.cells[1]?.textContent || '';
-        document.getElementById('contractProjectName').value = row.cells[2]?.textContent || '';
-        document.getElementById('contractCustomerName').value = row.cells[3]?.textContent || '';
-        
-        modal.dataset.projectId = id;
-        modal.style.display = 'flex';
-    };
-    
-    // 查看合同详情
-    window.viewContractDetail = function(id) {
-        alert('合同详情查看功能开发中...');
-    };
     
     // 分配实施人员
     window.assignImplementation = function(id) {
