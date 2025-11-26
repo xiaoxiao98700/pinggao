@@ -1296,6 +1296,10 @@ body {
     max-height: 90vh;
 }
 
+.modal-content.modal-detail-content {
+    width: min(1100px, 90vw);
+}
+
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -1334,6 +1338,47 @@ body {
     padding: 24px 20px;
     flex: 1;
     overflow-y: auto;
+}
+
+.modal-detail-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px 18px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-detail-summary div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.modal-detail-summary span {
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.modal-detail-summary strong {
+    font-size: 14px;
+    color: #262626;
+    font-weight: 600;
+}
+
+.modal-loading,
+.modal-error {
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #595959;
+    font-size: 14px;
+    text-align: center;
+}
+
+.modal-error {
+    color: #ff4d4f;
 }
 
 .modal-form-group {

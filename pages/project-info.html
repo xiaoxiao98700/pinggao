@@ -3,9 +3,6 @@
     <div class="tab active">
         项目信息
         <span class="tab-close">×</span>
-    </div>
-</div>
-
 <!-- 内容区域：左侧客户列表 + 右侧项目列表 -->
 <div class="content-wrapper">
     <!-- 左侧：我的客户部分 -->
@@ -105,7 +102,7 @@
                         <td class="actions">
                             <a href="#" class="action-link">签约</a>
                             <a href="pages/edit-project.html" onclick="event.preventDefault(); window.loadPage('pages/edit-project.html'); return false;" class="action-link">编辑</a>
-                            <a href="pages/detail-project.html" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">详情</a>
+                            <a href="#" class="action-link action-detail" data-detail-page="pages/detail-project.html">详情</a>
                         </td>
                     </tr>
                     <tr>
@@ -121,7 +118,7 @@
                         <td class="actions">
                             <a href="#" class="action-link">签约</a>
                             <a href="pages/edit-project.html" onclick="event.preventDefault(); window.loadPage('pages/edit-project.html'); return false;" class="action-link">编辑</a>
-                            <a href="pages/detail-project.html" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">详情</a>
+                            <a href="#" class="action-link action-detail" data-detail-page="pages/detail-project.html">详情</a>
                         </td>
                     </tr>
                     <tr>
@@ -137,7 +134,7 @@
                         <td class="actions">
                             <a href="#" class="action-link">签约</a>
                             <a href="pages/edit-project.html" onclick="event.preventDefault(); window.loadPage('pages/edit-project.html'); return false;" class="action-link">编辑</a>
-                            <a href="pages/detail-project.html" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">详情</a>
+                            <a href="#" class="action-link action-detail" data-detail-page="pages/detail-project.html">详情</a>
                         </td>
                     </tr>
                     <tr>
@@ -153,7 +150,7 @@
                         <td class="actions">
                             <a href="#" class="action-link">签约</a>
                             <a href="pages/edit-project.html" onclick="event.preventDefault(); window.loadPage('pages/edit-project.html'); return false;" class="action-link">编辑</a>
-                            <a href="pages/detail-project.html" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">详情</a>
+                            <a href="#" class="action-link action-detail" data-detail-page="pages/detail-project.html">详情</a>
                         </td>
                     </tr>
                     <tr>
@@ -169,7 +166,7 @@
                         <td class="actions">
                             <a href="#" class="action-link">签约</a>
                             <a href="pages/edit-project.html" onclick="event.preventDefault(); window.loadPage('pages/edit-project.html'); return false;" class="action-link">编辑</a>
-                            <a href="pages/detail-project.html" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">详情</a>
+                            <a href="#" class="action-link action-detail" data-detail-page="pages/detail-project.html">详情</a>
                         </td>
                     </tr>
                     <tr>
@@ -185,7 +182,7 @@
                         <td class="actions">
                             <a href="#" class="action-link">签约</a>
                             <a href="pages/edit-project.html" onclick="event.preventDefault(); window.loadPage('pages/edit-project.html'); return false;" class="action-link">编辑</a>
-                            <a href="pages/detail-project.html" onclick="event.preventDefault(); window.loadPage('pages/detail-project.html'); return false;" class="action-link">详情</a>
+                            <a href="#" class="action-link action-detail" data-detail-page="pages/detail-project.html">详情</a>
                         </td>
                     </tr>
                 </tbody>
@@ -216,6 +213,18 @@
                     <span>页</span>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="projectDetailModal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+    <div class="modal-content modal-detail-content">
+        <div class="modal-header">
+            <h3 class="modal-title">项目详情</h3>
+            <button type="button" class="modal-close" aria-label="关闭">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-loading">准备加载项目详情…</div>
         </div>
     </div>
 </div>

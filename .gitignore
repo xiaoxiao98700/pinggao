@@ -1,0 +1,6 @@
+# Local workspace/temporary files
+# ignore Word temporary lock files
+~$*
+# ignore personal response docs if they are temporary
+问题回复*.doc
+

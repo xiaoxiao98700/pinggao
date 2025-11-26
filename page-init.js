@@ -6,6 +6,101 @@
     window.initPageEvents = function(container) {
         // 如果没有指定容器，使用整个文档
         const scope = container || document;
+        const detailModalId = 'projectDetailModal';
+        const detailModal = document.getElementById(detailModalId);
+        const detailModalBody = detailModal?.querySelector('.modal-body');
+        const detailModalTitle = detailModal?.querySelector('.modal-title');
+
+        async function openProjectDetailModal(actionLink) {
+            if (!detailModal || !detailModalBody || !detailModalTitle || !actionLink) return;
+            const detailPage = actionLink.getAttribute('data-detail-page');
+            if (!detailPage) {
+                console.warn('项目详情按钮没有配置 data-detail-page');
+                return;
+            }
+
+            const row = actionLink.closest('tr');
+            const projectInfo = collectProjectInfo(row);
+            detailModalTitle.textContent = `项目详情${projectInfo.name ? ` - ${projectInfo.name}` : ''}`;
+            detailModalBody.innerHTML = '<div class="modal-loading">加载中，请稍候…</div>';
+            detailModal.setAttribute('aria-hidden', 'false');
+            detailModal.style.display = '';
+            detailModal.classList.add('show');
+
+            try {
+                const html = await fetchDetailPage(detailPage);
+                const detailSection = extractDetailSection(html);
+                detailModalBody.innerHTML = '';
+                const summaryNode = createSummaryNode(projectInfo);
+                if (summaryNode) {
+                    detailModalBody.appendChild(summaryNode);
+                }
+                if (detailSection) {
+                    detailModalBody.appendChild(detailSection);
+                } else {
+                    detailModalBody.innerHTML += '<p class="modal-error">未能获取详情内容，请稍后重试</p>';
+                }
+            } catch (error) {
+                console.error('加载项目详情失败：', error);
+                detailModalBody.innerHTML = `<p class="modal-error">加载失败：${error.message}</p>`;
+            }
+        }
+
+        function collectProjectInfo(row) {
+            const emptyInfo = { code: '', name: '', customer: '', location: '', manager: '', contact: '', status: '' };
+            if (!row) return emptyInfo;
+            const cells = (index) => row.querySelector(`td:nth-child(${index})`)?.textContent.trim() || '';
+            return {
+                code: cells(3),
+                name: cells(4),
+                customer: cells(5),
+                location: cells(6),
+                manager: cells(7),
+                contact: cells(8),
+                status: row.querySelector('.status-badge')?.textContent.trim() || ''
+            };
+        }
+
+        function createSummaryNode(info) {
+            if (!info) return null;
+            const fields = [
+                ['项目编号', info.code],
+                ['项目名称', info.name],
+                ['客户名称', info.customer],
+                ['项目所在地', info.location],
+                ['项目负责人', info.manager],
+                ['联系方式', info.contact],
+                ['项目状态', info.status]
+            ];
+            const wrapper = document.createElement('div');
+            wrapper.className = 'modal-detail-summary';
+            fields.forEach(([label, value]) => {
+                const item = document.createElement('div');
+                const labelEl = document.createElement('span');
+                labelEl.textContent = label;
+                const valueEl = document.createElement('strong');
+                valueEl.textContent = value || '—';
+                item.appendChild(labelEl);
+                item.appendChild(valueEl);
+                wrapper.appendChild(item);
+            });
+            return wrapper;
+        }
+
+        async function fetchDetailPage(url) {
+            const response = await fetch(url, { cache: 'no-cache' });
+            if (!response.ok) {
+                throw new Error(`无法加载页面（${response.status}）`);
+            }
+            return response.text();
+        }
+
+        function extractDetailSection(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const container = doc.querySelector('.form-container');
+            return container ? container.cloneNode(true) : null;
+        }
         
         // 限制单元格文本显示长度
         function truncateTableCellText() {
@@ -192,7 +287,9 @@
                         // 编辑操作通常有 onclick，这里作为备选
                         break;
                     case '详情':
-                        // 详情操作通常有 onclick，这里作为备选
+                        if (actionLink.classList.contains('action-detail')) {
+                            openProjectDetailModal(actionLink);
+                        }
                         break;
                     case '查看详情':
                         // 查看详情操作通常有 onclick，这里作为备选
@@ -327,7 +424,12 @@
                 const modal = e.target.closest('.modal-overlay') || 
                              (e.target.classList.contains('modal-overlay') ? e.target : null);
                 if (modal) {
+                    modal.classList.remove('show');
+                    modal.setAttribute('aria-hidden', 'true');
                     modal.style.display = 'none';
+                    if (modal.id === detailModalId && detailModalBody) {
+                        detailModalBody.innerHTML = '';
+                    }
                 }
             }
         });
