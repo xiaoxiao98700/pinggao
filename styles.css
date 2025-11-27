@@ -2125,6 +2125,58 @@ body {
     border-left: 3px solid #f0f7ff;
 }
 
+.monitoring-status-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.status-item-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.status-item-card .status-label {
+    font-size: 13px;
+    color: #8c8c8c;
+    font-weight: 500;
+}
+
+.status-item-card .status-value {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #262626;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.status-item-card .status-value.running {
+    color: #52c41a;
+}
+
+.status-item-card .status-value.normal {
+    color: #1890ff;
+}
+
+.status-item-card .status-unit {
+    font-size: 12px;
+    color: #8c8c8c;
+    font-weight: normal;
+    font-family: inherit;
+}
+
+.status-item-card .status-text {
+    font-family: inherit;
+}
+
 .section-title {
     display: flex;
     align-items: center;
