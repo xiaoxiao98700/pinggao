@@ -1211,32 +1211,40 @@
 
                     // 能耗统计页签
                     if (targetTab === 'energy') {
+                        // 先加载数据
+                        const deviceId = document.querySelector('.device-device-item.active')?.getAttribute('data-device-id') || 'tianbang-heat-tank';
+                        if (typeof window.loadEnergyData === 'function') {
+                            window.loadEnergyData(deviceId);
+                        } else {
+                            console.warn('loadEnergyData 函数尚未加载');
+                        }
+                        
+                        // 延迟初始化图表，确保DOM已渲染
                         setTimeout(() => {
-                            // 先加载数据
-                            const deviceId = document.querySelector('.device-device-item.active')?.getAttribute('data-device-id') || 'tianbang-heat-tank';
-                            if (typeof window.loadEnergyData === 'function') {
-                                window.loadEnergyData(deviceId);
-                            } else {
-                                console.warn('loadEnergyData 函数尚未加载');
-                            }
-                            
-                            // 然后初始化图表
                             if (typeof echarts === 'undefined') {
+                                console.warn('ECharts 未加载，等待加载...');
                                 const checkEnergyChart = setInterval(() => {
                                     if (typeof echarts !== 'undefined') {
                                         clearInterval(checkEnergyChart);
+                                        console.log('ECharts 已加载，初始化图表...');
                                         if (typeof window.initEnergyChart === 'function') {
                                             window.initEnergyChart();
                                         }
                                     }
                                 }, 100);
-                                setTimeout(() => clearInterval(checkEnergyChart), 10000);
+                                setTimeout(() => {
+                                    clearInterval(checkEnergyChart);
+                                    console.error('ECharts 加载超时');
+                                }, 10000);
                             } else {
+                                console.log('初始化能耗图表...');
                                 if (typeof window.initEnergyChart === 'function') {
                                     window.initEnergyChart();
+                                } else {
+                                    console.error('initEnergyChart 函数未找到');
                                 }
                             }
-                        }, 300);
+                        }, 500);
                     }
                 });
             });
@@ -1323,26 +1331,57 @@
 
             function initEnergyChart() {
                 console.log('开始初始化能耗趋势图表...');
+                
+                // 检查 ECharts 是否已加载
+                if (typeof echarts === 'undefined') {
+                    console.error('ECharts 库尚未加载！');
+                    return;
+                }
+                
                 const chartElement = document.getElementById('energyChart');
                 if (!chartElement) {
                     console.error('能耗图表容器未找到！');
                     return;
                 }
 
-                if (typeof window.energyChart === 'undefined' || !window.energyChart) {
-                    try {
-                        window.energyChart = echarts.init(chartElement);
-                        console.log('✓ 能耗图表初始化成功');
-                    } catch (error) {
-                        console.error('能耗图表初始化失败:', error);
-                        return;
+                // 检查容器是否可见
+                const computedStyle = window.getComputedStyle(chartElement);
+                if (computedStyle.display === 'none' || chartElement.offsetParent === null) {
+                    console.warn('图表容器不可见，延迟初始化');
+                    setTimeout(() => window.initEnergyChart(), 200);
+                    return;
+                }
+
+                // 如果已经存在图表实例，先销毁
+                if (window.energyChart && typeof window.energyChart.dispose === 'function') {
+                    window.energyChart.dispose();
+                    window.energyChart = null;
+                }
+
+                // 创建新的图表实例
+                try {
+                    window.energyChart = echarts.init(chartElement);
+                    console.log('✓ 能耗图表实例创建成功', window.energyChart);
+                    
+                    // 验证实例
+                    if (!window.energyChart || typeof window.energyChart.setOption !== 'function') {
+                        throw new Error('图表实例创建后无效');
                     }
+                } catch (error) {
+                    console.error('能耗图表创建失败:', error);
+                    return;
                 }
 
                 const chartData = energySampleData.chart || {};
                 const hours = chartData.hours || ['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00'];
                 const energyUsage = chartData.usage || [48, 42, 39, 45, 62, 74, 88, 96, 110, 142, 128, 98];
                 const energyCost = chartData.cost || [0.9,0.8,0.75,0.78,0.94,1.05,1.12,1.18,1.32,1.48,1.35,1.05];
+
+                // 再次验证图表实例
+                if (!window.energyChart || typeof window.energyChart.setOption !== 'function') {
+                    console.error('图表实例无效，无法设置配置');
+                    return;
+                }
 
                 const option = {
                     tooltip: {
