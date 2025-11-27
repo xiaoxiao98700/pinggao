@@ -1572,7 +1572,98 @@ body {
     font-weight: 500;
     color: #333;
     border-bottom: 1px solid #e8e8e8;
-    margin-bottom: 8px;
+}
+
+.device-search-box {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e8e8e8;
+    background-color: #fff;
+}
+
+.device-search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.device-search-input:focus {
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+.device-filter-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-tag {
+    padding: 4px 10px;
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #595959;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.filter-tag:hover {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.filter-tag.active {
+    background-color: #1890ff;
+    border-color: #1890ff;
+    color: #fff;
+}
+
+.filter-tag[data-status="running"].active {
+    background-color: #52c41a;
+    border-color: #52c41a;
+}
+
+.filter-tag[data-status="stopped"].active {
+    background-color: #8c8c8c;
+    border-color: #8c8c8c;
+}
+
+.filter-tag[data-status="maintenance"].active {
+    background-color: #faad14;
+    border-color: #faad14;
+}
+
+.device-project-item.hidden,
+.device-device-item.hidden {
+    display: none !important;
+}
+
+.device-project-item.matched {
+    animation: highlightMatch 0.5s ease;
+}
+
+@keyframes highlightMatch {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: #e6f7ff;
+    }
+}
+
+.no-result-tip {
+    padding: 20px;
+    text-align: center;
+    color: #8c8c8c;
+    font-size: 14px;
+    margin: 20px 0;
 }
 
 .device-project-list {

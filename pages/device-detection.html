@@ -3,6 +3,18 @@
                 <!-- 左侧：功能位置 -->
                 <aside class="device-sidebar">
                     <div class="device-sidebar-title">功能位置</div>
+                    
+                    <!-- 搜索栏 -->
+                    <div class="device-search-box">
+                        <input type="text" id="deviceSearchInput" class="device-search-input" placeholder="🔍 搜索项目或设备...">
+                        <div class="device-filter-tags">
+                            <button class="filter-tag active" data-status="all">全部</button>
+                            <button class="filter-tag" data-status="running">运行中</button>
+                            <button class="filter-tag" data-status="stopped">停机</button>
+                            <button class="filter-tag" data-status="maintenance">维护</button>
+                        </div>
+                    </div>
+                    
                     <div class="device-project-list">
                         <div class="device-project-item expanded">
                             <div class="device-project-header">
@@ -1731,6 +1743,114 @@
                     }
                 }
             }
+            
+            // 搜索功能
+            const searchInput = document.getElementById('deviceSearchInput');
+            const filterTags = document.querySelectorAll('.filter-tag');
+            let currentFilter = 'all';
+            
+            // 搜索函数
+            function performSearch() {
+                const searchText = searchInput.value.toLowerCase().trim();
+                const projectItems = document.querySelectorAll('.device-project-item');
+                
+                let hasVisibleProject = false;
+                
+                projectItems.forEach(projectItem => {
+                    const projectName = projectItem.querySelector('.device-project-name').textContent.toLowerCase();
+                    const deviceItems = projectItem.querySelectorAll('.device-device-item');
+                    let projectMatched = false;
+                    let hasVisibleDevice = false;
+                    
+                    // 检查项目名称是否匹配
+                    if (searchText && projectName.includes(searchText)) {
+                        projectMatched = true;
+                    }
+                    
+                    // 检查每个设备
+                    deviceItems.forEach(deviceItem => {
+                        const deviceId = deviceItem.getAttribute('data-device-id');
+                        const deviceName = deviceItem.getAttribute('data-device-name').toLowerCase();
+                        const deviceConfig = deviceDataConfig[deviceId];
+                        
+                        let visible = true;
+                        
+                        // 应用搜索过滤
+                        if (searchText) {
+                            if (!projectMatched && !deviceName.includes(searchText)) {
+                                visible = false;
+                            }
+                        }
+                        
+                        // 应用状态过滤
+                        if (visible && currentFilter !== 'all' && deviceConfig) {
+                            const statusMap = {
+                                'running': '运行中',
+                                'stopped': '停机',
+                                'maintenance': '维护中'
+                            };
+                            if (deviceConfig.status !== statusMap[currentFilter]) {
+                                visible = false;
+                            }
+                        }
+                        
+                        if (visible) {
+                            deviceItem.classList.remove('hidden');
+                            hasVisibleDevice = true;
+                        } else {
+                            deviceItem.classList.add('hidden');
+                        }
+                    });
+                    
+                    // 如果项目有可见的设备，或者项目名称匹配，显示项目
+                    if (hasVisibleDevice || (searchText && projectMatched)) {
+                        projectItem.classList.remove('hidden');
+                        hasVisibleProject = true;
+                        
+                        // 如果项目名称匹配，自动展开
+                        if (searchText && projectMatched) {
+                            projectItem.classList.add('expanded', 'matched');
+                            const toggle = projectItem.querySelector('.device-project-toggle');
+                            const children = projectItem.querySelector('.device-project-children');
+                            if (toggle) toggle.textContent = '▼';
+                            if (children) children.style.display = 'block';
+                        }
+                    } else {
+                        projectItem.classList.add('hidden');
+                    }
+                });
+                
+                // 如果没有搜索结果，可以显示提示
+                const projectList = document.querySelector('.device-project-list');
+                let noResultTip = projectList.querySelector('.no-result-tip');
+                
+                if (!hasVisibleProject && (searchText || currentFilter !== 'all')) {
+                    if (!noResultTip) {
+                        noResultTip = document.createElement('div');
+                        noResultTip.className = 'no-result-tip';
+                        noResultTip.textContent = '未找到匹配的项目或设备';
+                        projectList.appendChild(noResultTip);
+                    }
+                    noResultTip.style.display = 'block';
+                } else if (noResultTip) {
+                    noResultTip.style.display = 'none';
+                }
+            }
+            
+            // 搜索输入事件
+            if (searchInput) {
+                searchInput.addEventListener('input', performSearch);
+            }
+            
+            // 状态筛选事件
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.getAttribute('data-status');
+                    performSearch();
+                });
+            });
             
             // 页面加载时初始化
             setTimeout(() => {
