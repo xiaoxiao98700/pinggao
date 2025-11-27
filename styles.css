@@ -1656,7 +1656,7 @@ body {
 .device-tab-content {
     flex: 1;
     overflow-y: auto;
-    padding: 24px;
+    padding: 16px 14px;
     min-height: 0;
     display: none;
     background-color: #fafafa;
@@ -2084,6 +2084,11 @@ body {
     border: 1px solid #f0f0f0;
 }
 
+.monitoring-section.dense {
+    padding: 12px 14px;
+    margin-bottom: 6px;
+}
+
 .section-title {
     display: flex;
     align-items: center;
@@ -2124,6 +2129,25 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px 16px;
+}
+
+.monitoring-layout-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.5fr);
+    gap: 12px;
+    align-items: start;
+}
+
+.monitoring-values-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.monitoring-status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+    gap: 8px;
 }
 
 .monitoring-item {
@@ -2247,6 +2271,15 @@ body {
     color: #52c41a;
     font-weight: 600;
     text-align: center;
+}
+
+.monitoring-section.dense .monitoring-item {
+    min-height: 48px;
+    padding: 6px 10px;
+}
+
+.monitoring-section.dense .monitoring-item.highlighted {
+    box-shadow: none;
 }
 
 /* 参数状态样式 */
