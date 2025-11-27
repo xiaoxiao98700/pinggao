@@ -289,33 +289,36 @@
                     <div class="device-tab-content" id="energyContent" data-device="tianbang-heat-tank">
                         <div class="energy-container">
                             <div class="energy-summary-grid">
-                                <div class="energy-card">
+                                <div class="energy-card" data-card-key="today">
                                     <div class="energy-card-title">今日能耗</div>
-                                    <div class="energy-card-value">1,250.5 kWh</div>
-                                    <div class="energy-card-note">较昨日下降 5%</div>
+                                    <div class="energy-card-value" data-card-value>--</div>
+                                    <div class="energy-card-note" data-card-note>--</div>
                                 </div>
-                                <div class="energy-card">
+                                <div class="energy-card" data-card-key="month">
                                     <div class="energy-card-title">本月累计</div>
-                                    <div class="energy-card-value">34,520 kWh</div>
-                                    <div class="energy-card-note">同比增长 2.3%</div>
+                                    <div class="energy-card-value" data-card-value>--</div>
+                                    <div class="energy-card-note" data-card-note>--</div>
                                 </div>
-                                <div class="energy-card">
+                                <div class="energy-card" data-card-key="load">
                                     <div class="energy-card-title">平均负荷</div>
-                                    <div class="energy-card-value">88.6 kW</div>
-                                    <div class="energy-card-note">峰值 120 kW / 谷值 62 kW</div>
+                                    <div class="energy-card-value" data-card-value>--</div>
+                                    <div class="energy-card-note" data-card-note>--</div>
                                 </div>
-                                <div class="energy-card">
+                                <div class="energy-card" data-card-key="price">
                                     <div class="energy-card-title">能耗单价</div>
-                                    <div class="energy-card-value">0.67 元/kWh</div>
-                                    <div class="energy-card-note">智能浮动价格</div>
+                                    <div class="energy-card-value" data-card-value>--</div>
+                                    <div class="energy-card-note" data-card-note>--</div>
                                 </div>
                             </div>
 
                             <div class="energy-chart-panel">
                                 <div class="energy-panel">
                                     <div class="panel-header">
-                                        <h3>24 小时能耗趋势</h3>
-                                        <span class="panel-subtitle">单位：kWh · 更新频率：30 分钟</span>
+                                        <div>
+                                            <h3>24 小时能耗趋势</h3>
+                                            <div class="panel-subtitle">单位：kWh · 每 30 分钟更新</div>
+                                        </div>
+                                        <div class="energy-badge">峰谷对比</div>
                                     </div>
                                     <div id="energyChart" style="width: 100%; height: 320px;"></div>
                                     <div class="panel-legend">
@@ -325,12 +328,15 @@
                                     </div>
                                 </div>
                                 <div class="energy-peak-card">
-                                    <div class="energy-peak-title">峰谷对比</div>
-                                    <ul>
-                                        <li><strong>峰值能耗</strong>：142.5 kWh（18:00-20:00）</li>
-                                        <li><strong>谷值能耗</strong>：68.3 kWh（02:00-04:00）</li>
-                                        <li><strong>峰谷差</strong>：74.2 kWh，可削峰填谷</li>
-                                        <li><strong>今日日差率</strong>：-6.1%，节省 93 元</li>
+                                    <div class="energy-peak-header">
+                                        <h4>峰谷对比洞察</h4>
+                                        <span class="energy-peak-highlight">节省 93 元</span>
+                                    </div>
+                                    <ul id="energyPeakList">
+                                        <li>峰值能耗：<strong>142.5 kWh</strong>（18:00-20:00）</li>
+                                        <li>谷值能耗：<strong>68.3 kWh</strong>（02:00-04:00）</li>
+                                        <li>峰谷差：<strong>74.2 kWh</strong>，可削峰填谷</li>
+                                        <li>日差率：<strong>-6.1%</strong>，降低用电成本</li>
                                     </ul>
                                 </div>
                             </div>
@@ -348,47 +354,15 @@
                                                 <th>峰谷比例</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>主锅炉</td>
-                                                <td>710.4</td>
-                                                <td>56.8%</td>
-                                                <td>峰 62% / 谷 38%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>循环泵组</td>
-                                                <td>212.1</td>
-                                                <td>16.9%</td>
-                                                <td>峰 24% / 谷 76%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>补水系统</td>
-                                                <td>144.8</td>
-                                                <td>11.6%</td>
-                                                <td>峰 29% / 谷 71%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>辅助系统</td>
-                                                <td>96.2</td>
-                                                <td>7.7%</td>
-                                                <td>峰 35% / 谷 65%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>照明/办公</td>
-                                                <td>86.7</td>
-                                                <td>7.0%</td>
-                                                <td>峰 40% / 谷 60%</td>
-                                            </tr>
+                                        <tbody id="energyBreakdownBody">
+                                            <!-- 自动渲染 -->
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="energy-suggestion">
                                     <h4>节能建议</h4>
-                                    <ul>
-                                        <li>偏高的峰值集中在 18:00-20:00，建议提前调度蓄热罐放电。</li>
-                                        <li>循环泵在低谷期运行比例超过 70%，可尝试调低频率以缓冲负荷。</li>
-                                        <li>补水系统谷值占比较高，检查阀门响应，避免频繁启停。</li>
-                                        <li>观察本月能耗增长 2.3%，评估设备基础负荷是否需调整。</li>
+                                    <ul id="energySuggestionList">
+                                        <!-- 自动渲染 -->
                                     </ul>
                                 </div>
                             </div>
@@ -1081,6 +1055,88 @@
                 console.error('所有ECharts CDN源都加载失败');
                 return;
             }
+
+            const energySampleData = {
+                summary: [
+                    { key: 'today', value: '1,250.5 kWh', note: '较昨日下降 5%' },
+                    { key: 'month', value: '34,520 kWh', note: '同比增长 2.3%' },
+                    { key: 'load', value: '88.6 kW', note: '峰值 120 kW / 谷值 62 kW' },
+                    { key: 'price', value: '0.67 元/kWh', note: '智能浮动价格' }
+                ],
+                chart: {
+                    hours: ['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00'],
+                    usage: [48, 42, 39, 45, 62, 74, 88, 96, 110, 142, 128, 98],
+                    cost: [0.9,0.8,0.75,0.78,0.94,1.05,1.12,1.18,1.32,1.48,1.35,1.05]
+                },
+                breakdown: [
+                    { name: '主锅炉', energy: '710.4', ratio: '56.8%', peakValley: '峰 62% / 谷 38%' },
+                    { name: '循环泵组', energy: '212.1', ratio: '16.9%', peakValley: '峰 24% / 谷 76%' },
+                    { name: '补水系统', energy: '144.8', ratio: '11.6%', peakValley: '峰 29% / 谷 71%' },
+                    { name: '辅助系统', energy: '96.2', ratio: '7.7%', peakValley: '峰 35% / 谷 65%' },
+                    { name: '照明/办公', energy: '86.7', ratio: '7.0%', peakValley: '峰 40% / 谷 60%' }
+                ],
+                suggestions: [
+                    '峰值集中在 18:00-20:00，建议提前调度蓄热罐放电缓冲负荷。',
+                    '循环泵在低谷期运行比例高达 70%，可适度调低频率降低能耗。',
+                    '补水系统谷值占比较高，检查阀门响应避免阀体频繁切换。',
+                    '本月累计同比增长 2.3%，建议跟踪基础负荷及非生产能耗。'
+                ],
+                peakInsights: [
+                    '峰值能耗：142.5 kWh（18:00-20:00）',
+                    '谷值能耗：68.3 kWh（02:00-04:00）',
+                    '峰谷差：74.2 kWh，可削峰填谷',
+                    '日差率：-6.1%，降低用电成本 93 元'
+                ]
+            };
+
+            function renderEnergySummary(data = []) {
+                data.forEach(item => {
+                    const card = document.querySelector(`.energy-card[data-card-key="${item.key}"]`);
+                    if (!card) return;
+                    const valueEl = card.querySelector('[data-card-value]');
+                    const noteEl = card.querySelector('[data-card-note]');
+                    if (valueEl) valueEl.textContent = item.value;
+                    if (noteEl) noteEl.textContent = item.note;
+                });
+            }
+
+            function renderEnergyBreakdown(data = []) {
+                const body = document.getElementById('energyBreakdownBody');
+                if (!body) return;
+                body.innerHTML = data.map(row => `
+                    <tr>
+                        <td>${row.name}</td>
+                        <td>${row.energy}</td>
+                        <td>${row.ratio}</td>
+                        <td>${row.peakValley}</td>
+                    </tr>
+                `).join('');
+            }
+
+            function renderEnergySuggestions(list = []) {
+                const target = document.getElementById('energySuggestionList');
+                if (!target) return;
+                target.innerHTML = list.map(item => `<li>${item}</li>`).join('');
+            }
+
+            function renderEnergyPeaks(items = []) {
+                const list = document.getElementById('energyPeakList');
+                if (!list) return;
+                list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            }
+
+            function loadEnergyData(deviceId) {
+                console.log('加载能耗统计样例数据：', deviceId);
+                renderEnergySummary(energySampleData.summary);
+                renderEnergyBreakdown(energySampleData.breakdown);
+                renderEnergySuggestions(energySampleData.suggestions);
+                renderEnergyPeaks(energySampleData.peakInsights);
+                if (typeof energySampleData.chart !== 'undefined') {
+                    if (typeof window.energyChart !== 'undefined') {
+                        initEnergyChart();
+                    }
+                }
+            }
             
             var script = document.createElement('script');
             script.src = echartsUrls[currentUrlIndex];
@@ -1265,9 +1321,10 @@
                     }
                 }
 
-                const hours = ['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00'];
-                const energyUsage = [48, 42, 39, 45, 62, 74, 88, 96, 110, 142, 128, 98];
-                const energyCost = [0.9,0.8,0.75,0.78,0.94,1.05,1.12,1.18,1.32,1.48,1.35,1.05];
+                const chartData = energySampleData.chart || {};
+                const hours = chartData.hours || ['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00'];
+                const energyUsage = chartData.usage || [48, 42, 39, 45, 62, 74, 88, 96, 110, 142, 128, 98];
+                const energyCost = chartData.cost || [0.9,0.8,0.75,0.78,0.94,1.05,1.12,1.18,1.32,1.48,1.35,1.05];
 
                 const option = {
                     tooltip: {
@@ -1426,12 +1483,15 @@
                 // 根据设备ID和内容ID加载对应的数据
                 console.log('加载设备数据:', deviceId, contentId);
                 
-                // 如果是实时监测页签，更新监测数据
                 if (contentId === 'monitoringContent') {
                     updateMonitoringData(deviceId);
+                } else if (contentId === 'energyContent') {
+                    loadEnergyData(deviceId);
                 }
             }
             
+            // 默认加载能耗样例数据
+            loadEnergyData('tianbang-heat-tank');
             // 更新实时监测数据
             function updateMonitoringData(deviceId) {
                 // 这里可以根据不同设备显示不同的监测数据
