@@ -1733,9 +1733,6 @@
                     // 标题格式：项目名——设备名 [设备编号]
                     document.getElementById('deviceTitle').textContent = projectName + '——' + deviceName + (deviceCode ? ' [' + deviceCode + ']' : '');
                     
-                    // 获取设备ID
-                    const deviceId = this.getAttribute('data-device-id');
-                    
                     // 切换所有页签内容的数据
                     const tabContents = document.querySelectorAll('.device-tab-content');
                     tabContents.forEach(content => {
