@@ -329,15 +329,12 @@
                                 </div>
                                 <div class="energy-peak-card">
                                     <div class="energy-peak-header">
-                                        <h4>峰谷对比洞察</h4>
-                                        <span class="energy-peak-highlight">节省 93 元</span>
+                                        <h4>📊 峰谷对比洞察</h4>
+                                        <span class="energy-peak-highlight">💰 节省 93 元</span>
                                     </div>
-                                    <ul id="energyPeakList">
-                                        <li>峰值能耗：<strong>142.5 kWh</strong>（18:00-20:00）</li>
-                                        <li>谷值能耗：<strong>68.3 kWh</strong>（02:00-04:00）</li>
-                                        <li>峰谷差：<strong>74.2 kWh</strong>，可削峰填谷</li>
-                                        <li>日差率：<strong>-6.1%</strong>，降低用电成本</li>
-                                    </ul>
+                                    <div id="energyPeakList" class="energy-peak-list">
+                                        <!-- 动态渲染 -->
+                                    </div>
                                 </div>
                             </div>
 
@@ -1117,7 +1114,34 @@
         function renderEnergyPeaks(items = []) {
             const list = document.getElementById('energyPeakList');
             if (!list) return;
-            list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            
+            // 解析每一项的内容并生成更美观的HTML
+            const iconMap = {
+                '峰值': '📈',
+                '谷值': '📉',
+                '峰谷差': '⚡',
+                '日差率': '💰'
+            };
+            
+            list.innerHTML = items.map(item => {
+                // 匹配关键词来添加对应图标
+                let icon = '●';
+                for (let key in iconMap) {
+                    if (item.includes(key)) {
+                        icon = iconMap[key];
+                        break;
+                    }
+                }
+                
+                // 提取数值和单位，高亮显示
+                const highlightedItem = item.replace(/(\d+\.?\d*\s*[kKMW]*[Wh]*|[+-]?\d+\.?\d*%|[+-]?\d+\.?\d*\s*元)/g, 
+                    '<strong class="peak-value">$1</strong>');
+                
+                return `<div class="energy-peak-item">
+                    <span class="peak-icon">${icon}</span>
+                    <span class="peak-text">${highlightedItem}</span>
+                </div>`;
+            }).join('');
         }
 
         function loadEnergyData(deviceId) {
