@@ -2259,7 +2259,7 @@ body {
 
 .monitoring-layout-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 260px;
+    grid-template-columns: 260px minmax(0, 1fr);
     gap: 12px;
     align-items: start;
 }
