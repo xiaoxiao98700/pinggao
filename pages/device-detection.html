@@ -19,17 +19,29 @@
                                 <span class="device-project-toggle">▶</span>
                                 <span class="device-project-name">治多供暖项目</span>
                             </div>
+                            <div class="device-project-children">
+                                <div class="device-device-item" data-device-id="zhiduo-heater-1" data-device-name="供暖主机1号">供暖主机1号</div>
+                                <div class="device-device-item" data-device-id="zhiduo-heater-2" data-device-name="供暖主机2号">供暖主机2号</div>
+                            </div>
                         </div>
                         <div class="device-project-item">
                             <div class="device-project-header">
                                 <span class="device-project-toggle">▶</span>
                                 <span class="device-project-name">迈瑞医疗项目</span>
                             </div>
+                            <div class="device-project-children">
+                                <div class="device-device-item" data-device-id="mindray-hvac" data-device-name="中央空调系统">中央空调系统</div>
+                                <div class="device-device-item" data-device-id="mindray-power" data-device-name="配电柜">配电柜</div>
+                            </div>
                         </div>
                         <div class="device-project-item">
                             <div class="device-project-header">
                                 <span class="device-project-toggle">▶</span>
                                 <span class="device-project-name">平顶山尼龙园项目</span>
+                            </div>
+                            <div class="device-project-children">
+                                <div class="device-device-item" data-device-id="pingdingshan-boiler" data-device-name="工业锅炉">工业锅炉</div>
+                                <div class="device-device-item" data-device-id="pingdingshan-steam" data-device-name="蒸汽系统">蒸汽系统</div>
                             </div>
                         </div>
                         <div class="device-project-item">
@@ -1656,11 +1668,395 @@
                     }
                 }
             }, 500);
+            // 不同设备的数据配置
+            const deviceDataConfig = {
+                'tianbang-boiler': {
+                    name: '电极式蒸汽锅炉',
+                    status: '运行中',
+                    runningHours: 2150,
+                    totalHours: 4200,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 125,
+                        '电流 B相': 128,
+                        '电流 C相': 123,
+                        '电压 A相': 385,
+                        '电压 B相': 382,
+                        '电压 C相': 387,
+                        '频率': 50.1,
+                        '总功率': 145.8,
+                        '锅炉温度': 92.5,
+                        '出水温度': 88.0,
+                        '回水温度': 78.0,
+                        '温差': 10.0,
+                        '锅炉压力': 0.72,
+                        '系统压力': 0.58,
+                        '水位': 82.0,
+                        '流量': 135.5,
+                        'PH值': 7.5,
+                        '电导率': 1150,
+                        '溶解氧': 8.2,
+                        '浊度': 2.1,
+                        '运行效率': 93.8,
+                        '能耗统计': 1580.3,
+                        '功率因数': 0.93,
+                        '环境温度': 24.0
+                    }
+                },
+                'tianbang-heat-tank': {
+                    name: '天邦蓄热罐',
+                    status: '运行中',
+                    runningHours: 1250,
+                    totalHours: 3650,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 112,
+                        '电流 B相': 112,
+                        '电流 C相': 112,
+                        '电压 A相': 380,
+                        '电压 B相': 380,
+                        '电压 C相': 380,
+                        '频率': 50.0,
+                        '总功率': 127.5,
+                        '锅炉温度': 85.0,
+                        '出水温度': 82.0,
+                        '回水温度': 75.0,
+                        '温差': 7.0,
+                        '锅炉压力': 0.60,
+                        '系统压力': 0.50,
+                        '水位': 85.0,
+                        '流量': 120.0,
+                        'PH值': 7.2,
+                        '电导率': 1200,
+                        '溶解氧': 8.5,
+                        '浊度': 2.3,
+                        '运行效率': 95.5,
+                        '能耗统计': 1250.5,
+                        '功率因数': 0.95,
+                        '环境温度': 22.0
+                    }
+                },
+                'zhiduo-heater-1': {
+                    name: '供暖主机1号',
+                    status: '运行中',
+                    runningHours: 3200,
+                    totalHours: 5800,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 98,
+                        '电流 B相': 102,
+                        '电流 C相': 100,
+                        '电压 A相': 378,
+                        '电压 B相': 381,
+                        '电压 C相': 379,
+                        '频率': 49.9,
+                        '总功率': 115.2,
+                        '锅炉温度': 78.5,
+                        '出水温度': 75.0,
+                        '回水温度': 68.0,
+                        '温差': 7.0,
+                        '锅炉压力': 0.55,
+                        '系统压力': 0.48,
+                        '水位': 88.0,
+                        '流量': 110.0,
+                        'PH值': 7.0,
+                        '电导率': 1100,
+                        '溶解氧': 8.0,
+                        '浊度': 2.0,
+                        '运行效率': 94.2,
+                        '能耗统计': 2100.8,
+                        '功率因数': 0.94,
+                        '环境温度': 20.0
+                    }
+                },
+                'zhiduo-heater-2': {
+                    name: '供暖主机2号',
+                    status: '待机',
+                    runningHours: 800,
+                    totalHours: 5800,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 0,
+                        '电流 B相': 0,
+                        '电流 C相': 0,
+                        '电压 A相': 380,
+                        '电压 B相': 380,
+                        '电压 C相': 380,
+                        '频率': 50.0,
+                        '总功率': 0,
+                        '锅炉温度': 35.0,
+                        '出水温度': 32.0,
+                        '回水温度': 30.0,
+                        '温差': 2.0,
+                        '锅炉压力': 0.20,
+                        '系统压力': 0.18,
+                        '水位': 90.0,
+                        '流量': 0,
+                        'PH值': 7.1,
+                        '电导率': 1050,
+                        '溶解氧': 8.8,
+                        '浊度': 1.8,
+                        '运行效率': 0,
+                        '能耗统计': 680.2,
+                        '功率因数': 0.0,
+                        '环境温度': 19.0
+                    }
+                },
+                'mindray-hvac': {
+                    name: '中央空调系统',
+                    status: '运行中',
+                    runningHours: 4500,
+                    totalHours: 7200,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 88,
+                        '电流 B相': 92,
+                        '电流 C相': 90,
+                        '电压 A相': 382,
+                        '电压 B相': 380,
+                        '电压 C相': 383,
+                        '频率': 50.0,
+                        '总功率': 102.5,
+                        '锅炉温度': 0,
+                        '出水温度': 7.0,
+                        '回水温度': 12.0,
+                        '温差': 5.0,
+                        '锅炉压力': 0.45,
+                        '系统压力': 0.42,
+                        '水位': 0,
+                        '流量': 95.0,
+                        'PH值': 7.3,
+                        '电导率': 980,
+                        '溶解氧': 9.2,
+                        '浊度': 1.5,
+                        '运行效率': 96.8,
+                        '能耗统计': 3250.6,
+                        '功率因数': 0.96,
+                        '环境温度': 26.0
+                    }
+                },
+                'mindray-power': {
+                    name: '配电柜',
+                    status: '运行中',
+                    runningHours: 7200,
+                    totalHours: 7200,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 156,
+                        '电流 B相': 162,
+                        '电流 C相': 158,
+                        '电压 A相': 380,
+                        '电压 B相': 381,
+                        '电压 C相': 379,
+                        '频率': 50.0,
+                        '总功率': 180.8,
+                        '锅炉温度': 0,
+                        '出水温度': 0,
+                        '回水温度': 0,
+                        '温差': 0,
+                        '锅炉压力': 0,
+                        '系统压力': 0,
+                        '水位': 0,
+                        '流量': 0,
+                        'PH值': 0,
+                        '电导率': 0,
+                        '溶解氧': 0,
+                        '浊度': 0,
+                        '运行效率': 98.2,
+                        '能耗统计': 4850.3,
+                        '功率因数': 0.97,
+                        '环境温度': 32.0
+                    }
+                },
+                'pingdingshan-boiler': {
+                    name: '工业锅炉',
+                    status: '运行中',
+                    runningHours: 5600,
+                    totalHours: 8200,
+                    alarm: '正常',
+                    params: {
+                        '电流 A相': 142,
+                        '电流 B相': 138,
+                        '电流 C相': 145,
+                        '电压 A相': 383,
+                        '电压 B相': 378,
+                        '电压 C相': 381,
+                        '频率': 50.1,
+                        '总功率': 162.3,
+                        '锅炉温度': 98.0,
+                        '出水温度': 95.0,
+                        '回水温度': 82.0,
+                        '温差': 13.0,
+                        '锅炉压力': 0.78,
+                        '系统压力': 0.65,
+                        '水位': 80.0,
+                        '流量': 155.0,
+                        'PH值': 7.4,
+                        '电导率': 1280,
+                        '溶解氧': 7.8,
+                        '浊度': 2.8,
+                        '运行效率': 92.5,
+                        '能耗统计': 5280.7,
+                        '功率因数': 0.92,
+                        '环境温度': 28.0
+                    }
+                },
+                'pingdingshan-steam': {
+                    name: '蒸汽系统',
+                    status: '运行中',
+                    runningHours: 5550,
+                    totalHours: 8200,
+                    alarm: '轻微告警',
+                    params: {
+                        '电流 A相': 135,
+                        '电流 B相': 132,
+                        '电流 C相': 138,
+                        '电压 A相': 381,
+                        '电压 B相': 379,
+                        '电压 C相': 382,
+                        '频率': 50.0,
+                        '总功率': 155.0,
+                        '锅炉温度': 105.0,
+                        '出水温度': 102.0,
+                        '回水温度': 88.0,
+                        '温差': 14.0,
+                        '锅炉压力': 0.85,
+                        '系统压力': 0.72,
+                        '水位': 78.0,
+                        '流量': 148.0,
+                        'PH值': 7.6,
+                        '电导率': 1350,
+                        '溶解氧': 7.5,
+                        '浊度': 3.2,
+                        '运行效率': 91.8,
+                        '能耗统计': 5150.4,
+                        '功率因数': 0.91,
+                        '环境温度': 30.0
+                    }
+                }
+            };
+            
             // 更新实时监测数据
             function updateMonitoringData(deviceId) {
-                // 这里可以根据不同设备显示不同的监测数据
-                const monitoringGrid = document.querySelector('#monitoringContent .monitoring-grid');
-                if (!monitoringGrid) return;
+                const deviceConfig = deviceDataConfig[deviceId];
+                if (!deviceConfig) {
+                    console.warn('未找到设备配置:', deviceId);
+                    return;
+                }
+                
+                console.log('切换到设备:', deviceConfig.name);
+                
+                // 更新运行状态
+                const statusItems = document.querySelectorAll('#monitoringContent .status-item-card');
+                statusItems.forEach(card => {
+                    const label = card.querySelector('.status-label')?.textContent;
+                    const valueEl = card.querySelector('.status-value');
+                    
+                    if (label === '运行状态' && valueEl) {
+                        const statusText = valueEl.querySelector('.status-text');
+                        const statusDot = valueEl.querySelector('.status-dot');
+                        if (statusText) statusText.textContent = deviceConfig.status;
+                        
+                        // 更新状态样式
+                        valueEl.classList.remove('running', 'normal', 'warning');
+                        statusDot?.classList.remove('running', 'normal', 'warning');
+                        
+                        if (deviceConfig.status === '运行中') {
+                            valueEl.classList.add('running');
+                            statusDot?.classList.add('running');
+                        } else if (deviceConfig.status === '待机') {
+                            valueEl.classList.add('normal');
+                            statusDot?.classList.add('normal');
+                        }
+                    } else if (label === '本次运行' && valueEl) {
+                        valueEl.innerHTML = `${deviceConfig.runningHours} <span class="status-unit">小时</span>`;
+                    } else if (label === '累计运行' && valueEl) {
+                        valueEl.innerHTML = `${deviceConfig.totalHours} <span class="status-unit">小时</span>`;
+                    } else if (label === '故障报警' && valueEl) {
+                        const statusText = valueEl.querySelector('.status-text');
+                        const statusDot = valueEl.querySelector('.status-dot');
+                        if (statusText) statusText.textContent = deviceConfig.alarm;
+                        
+                        valueEl.classList.remove('normal', 'warning', 'danger');
+                        statusDot?.classList.remove('normal', 'warning', 'danger');
+                        
+                        if (deviceConfig.alarm === '正常') {
+                            valueEl.classList.add('normal');
+                            statusDot?.classList.add('normal');
+                        } else {
+                            valueEl.classList.add('warning');
+                            statusDot?.classList.add('warning');
+                        }
+                    }
+                });
+                
+                // 更新核心参数
+                const valueCards = document.querySelectorAll('#monitoringContent .monitoring-value-card');
+                valueCards.forEach(card => {
+                    const labelEl = card.querySelector('.monitoring-label');
+                    const valueEl = card.querySelector('.monitoring-value');
+                    
+                    if (!labelEl || !valueEl) return;
+                    
+                    const label = labelEl.textContent.trim();
+                    const paramValue = deviceConfig.params[label];
+                    
+                    if (paramValue !== undefined) {
+                        // 确定单位
+                        let unit = '';
+                        if (label.includes('电流')) unit = 'A';
+                        else if (label.includes('电压')) unit = 'V';
+                        else if (label.includes('频率')) unit = 'Hz';
+                        else if (label.includes('功率') && !label.includes('因数')) unit = 'kW';
+                        else if (label.includes('温度')) unit = '℃';
+                        else if (label.includes('压力')) unit = 'MPa';
+                        else if (label.includes('水位') || label.includes('效率')) unit = '%';
+                        else if (label.includes('流量')) unit = 'm³/h';
+                        else if (label === 'PH值') unit = 'pH';
+                        else if (label.includes('电导率')) unit = 'μS/cm';
+                        else if (label.includes('溶解氧')) unit = 'mg/L';
+                        else if (label.includes('浊度')) unit = 'NTU';
+                        else if (label.includes('能耗')) unit = 'kWh';
+                        else if (label.includes('功率因数')) unit = 'cos';
+                        
+                        // 确定小数位数
+                        let decimals = 0;
+                        if (label.includes('压力') || label.includes('因数')) decimals = 2;
+                        else if (label.includes('温度') || label.includes('频率') || label.includes('PH') || 
+                                 label.includes('溶解氧') || label.includes('浊度') || label.includes('效率') || 
+                                 label.includes('能耗') || label.includes('水位') || label.includes('流量') ||
+                                 (label.includes('功率') && !label.includes('因数'))) decimals = 1;
+                        
+                        const formattedValue = paramValue.toFixed(decimals);
+                        valueEl.innerHTML = `${formattedValue} <span class="monitoring-unit">${unit}</span>`;
+                        
+                        // 移除之前的状态样式
+                        card.classList.remove('status-normal', 'status-warning', 'status-danger');
+                    }
+                });
+                
+                // 更新顶部汇总卡片
+                const summaryCards = document.querySelectorAll('#monitoringContent .summary-card');
+                summaryCards.forEach(card => {
+                    const labelEl = card.querySelector('.card-label');
+                    const valueEl = card.querySelector('.card-value');
+                    
+                    if (!labelEl || !valueEl) return;
+                    
+                    const label = labelEl.textContent.trim();
+                    
+                    if (label === '设备状态') {
+                        valueEl.textContent = deviceConfig.status;
+                    } else if (label === '总功率') {
+                        valueEl.innerHTML = `${deviceConfig.params['总功率'].toFixed(1)} <span class="unit">kW</span>`;
+                    } else if (label === '锅炉温度') {
+                        valueEl.innerHTML = `${deviceConfig.params['锅炉温度'].toFixed(1)} <span class="unit">℃</span>`;
+                    } else if (label === '运行效率') {
+                        valueEl.innerHTML = `${deviceConfig.params['运行效率'].toFixed(1)} <span class="unit">%</span>`;
+                    }
+                });
+                
+                console.log('设备数据已更新');
             }
             
             // 参数阈值定义（正常范围）
