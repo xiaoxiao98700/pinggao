@@ -25,10 +25,12 @@
                                 <div class="device-device-item" data-device-id="tianbang-boiler" data-device-name="电极式蒸汽锅炉">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">电极式蒸汽锅炉</span>
+                                    <span class="device-code">TB-GL-001</span>
                                 </div>
                                 <div class="device-device-item active" data-device-id="tianbang-heat-tank" data-device-name="天邦蓄热罐">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">天邦蓄热罐</span>
+                                    <span class="device-code">TB-XRG-001</span>
                                 </div>
                             </div>
                         </div>
@@ -41,10 +43,12 @@
                                 <div class="device-device-item" data-device-id="zhiduo-heater-1" data-device-name="供暖主机1号">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">供暖主机1号</span>
+                                    <span class="device-code">ZD-GN-001</span>
                                 </div>
                                 <div class="device-device-item" data-device-id="zhiduo-heater-2" data-device-name="供暖主机2号">
                                     <span class="device-status-dot standby"></span>
                                     <span class="device-item-name">供暖主机2号</span>
+                                    <span class="device-code">ZD-GN-002</span>
                                 </div>
                             </div>
                         </div>
@@ -57,10 +61,12 @@
                                 <div class="device-device-item" data-device-id="mindray-hvac" data-device-name="中央空调系统">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">中央空调系统</span>
+                                    <span class="device-code">MR-KT-001</span>
                                 </div>
                                 <div class="device-device-item" data-device-id="mindray-power" data-device-name="配电柜">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">配电柜</span>
+                                    <span class="device-code">MR-PDG-001</span>
                                 </div>
                             </div>
                         </div>
@@ -73,10 +79,12 @@
                                 <div class="device-device-item" data-device-id="pingdingshan-boiler" data-device-name="工业锅炉">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">工业锅炉</span>
+                                    <span class="device-code">PDS-GL-001</span>
                                 </div>
                                 <div class="device-device-item" data-device-id="pingdingshan-steam" data-device-name="蒸汽系统">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">蒸汽系统</span>
+                                    <span class="device-code">PDS-ZQ-001</span>
                                 </div>
                             </div>
                         </div>
@@ -89,14 +97,17 @@
                                 <div class="device-device-item" data-device-id="shangyi-boiler-1" data-device-name="供热锅炉1号">
                                     <span class="device-status-dot running"></span>
                                     <span class="device-item-name">供热锅炉1号</span>
+                                    <span class="device-code">SY-GL-001</span>
                                 </div>
                                 <div class="device-device-item" data-device-id="shangyi-boiler-2" data-device-name="供热锅炉2号">
                                     <span class="device-status-dot stopped"></span>
                                     <span class="device-item-name">供热锅炉2号</span>
+                                    <span class="device-code">SY-GL-002</span>
                                 </div>
                                 <div class="device-device-item" data-device-id="shangyi-boiler-3" data-device-name="供热锅炉3号">
                                     <span class="device-status-dot maintenance"></span>
                                     <span class="device-item-name">供热锅炉3号</span>
+                                    <span class="device-code">SY-GL-003</span>
                                 </div>
                             </div>
                         </div>
@@ -1715,7 +1726,12 @@
                     // 更新标题
                     const projectName = this.closest('.device-project-item').querySelector('.device-project-name').textContent;
                     const deviceName = this.getAttribute('data-device-name');
-                    document.getElementById('deviceTitle').textContent = projectName + '——' + deviceName;
+                    const deviceId = this.getAttribute('data-device-id');
+                    const deviceConfig = deviceDataConfig[deviceId];
+                    const deviceCode = deviceConfig ? deviceConfig.code : '';
+                    
+                    // 标题格式：项目名——设备名 [设备编号]
+                    document.getElementById('deviceTitle').textContent = projectName + '——' + deviceName + (deviceCode ? ' [' + deviceCode + ']' : '');
                     
                     // 获取设备ID
                     const deviceId = this.getAttribute('data-device-id');
@@ -1868,6 +1884,7 @@
             // 不同设备的数据配置
             const deviceDataConfig = {
                 'tianbang-boiler': {
+                    code: 'TB-GL-001',
                     name: '电极式蒸汽锅炉',
                     status: '运行中',
                     runningHours: 2150,
@@ -1902,6 +1919,7 @@
                     }
                 },
                 'tianbang-heat-tank': {
+                    code: 'TB-XRG-001',
                     name: '天邦蓄热罐',
                     status: '运行中',
                     runningHours: 1250,
@@ -1936,6 +1954,7 @@
                     }
                 },
                 'zhiduo-heater-1': {
+                    code: 'ZD-GN-001',
                     name: '供暖主机1号',
                     status: '运行中',
                     runningHours: 3200,
@@ -1970,6 +1989,7 @@
                     }
                 },
                 'zhiduo-heater-2': {
+                    code: 'ZD-GN-002',
                     name: '供暖主机2号',
                     status: '待机',
                     runningHours: 800,
@@ -2004,6 +2024,7 @@
                     }
                 },
                 'mindray-hvac': {
+                    code: 'MR-KT-001',
                     name: '中央空调系统',
                     status: '运行中',
                     runningHours: 4500,
@@ -2038,6 +2059,7 @@
                     }
                 },
                 'mindray-power': {
+                    code: 'MR-PDG-001',
                     name: '配电柜',
                     status: '运行中',
                     runningHours: 7200,
@@ -2072,6 +2094,7 @@
                     }
                 },
                 'pingdingshan-boiler': {
+                    code: 'PDS-GL-001',
                     name: '工业锅炉',
                     status: '运行中',
                     runningHours: 5600,
@@ -2106,6 +2129,7 @@
                     }
                 },
                 'pingdingshan-steam': {
+                    code: 'PDS-ZQ-001',
                     name: '蒸汽系统',
                     status: '运行中',
                     runningHours: 5550,
@@ -2140,6 +2164,7 @@
                     }
                 },
                 'shangyi-boiler-1': {
+                    code: 'SY-GL-001',
                     name: '供热锅炉1号',
                     status: '运行中',
                     runningHours: 2800,
@@ -2174,6 +2199,7 @@
                     }
                 },
                 'shangyi-boiler-2': {
+                    code: 'SY-GL-002',
                     name: '供热锅炉2号',
                     status: '停机',
                     runningHours: 0,
@@ -2208,6 +2234,7 @@
                     }
                 },
                 'shangyi-boiler-3': {
+                    code: 'SY-GL-003',
                     name: '供热锅炉3号',
                     status: '维护中',
                     runningHours: 0,
