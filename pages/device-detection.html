@@ -1128,6 +1128,14 @@
             renderEnergyPeaks(energySampleData.peakInsights);
         }
         
+        // 将函数暴露到全局作用域
+        window.loadEnergyData = loadEnergyData;
+        window.renderEnergySummary = renderEnergySummary;
+        window.renderEnergyBreakdown = renderEnergyBreakdown;
+        window.renderEnergySuggestions = renderEnergySuggestions;
+        window.renderEnergyPeaks = renderEnergyPeaks;
+        window.energySampleData = energySampleData;
+        
         function loadECharts() {
             if (currentUrlIndex >= echartsUrls.length) {
                 console.error('所有ECharts CDN源都加载失败');
@@ -1478,6 +1486,9 @@
                 });
             }
             
+            // 暴露图表初始化函数到全局
+            window.initEnergyChart = initEnergyChart;
+            
             // 如果页面加载时就在数据分析页签，也初始化
             setTimeout(() => {
                 const analysisTab = document.querySelector('.device-tab[data-tab="analysis"]');
@@ -1749,7 +1760,16 @@
             
             // 立即加载能耗统计数据（页面加载时）
             setTimeout(() => {
-                loadEnergyData('tianbang-heat-tank');
-            }, 100);
+                if (typeof window.loadEnergyData === 'function') {
+                    window.loadEnergyData('tianbang-heat-tank');
+                } else {
+                    console.warn('loadEnergyData 函数尚未加载，等待重试...');
+                    setTimeout(() => {
+                        if (typeof window.loadEnergyData === 'function') {
+                            window.loadEnergyData('tianbang-heat-tank');
+                        }
+                    }, 500);
+                }
+            }, 200);
         })();
     </script>
