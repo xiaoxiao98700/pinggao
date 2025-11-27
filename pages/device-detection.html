@@ -113,123 +113,296 @@
 
                     <!-- 实时监测页签内容 -->
                     <div class="device-tab-content active" id="monitoringContent" data-device="tianbang-heat-tank">
-                        <div class="monitoring-grid">
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电流1:</label>
-                                <input type="text" class="monitoring-input" value="112" readonly>
+                        <!-- 关键指标卡片 -->
+                        <div class="monitoring-summary-cards">
+                            <div class="summary-card status-running">
+                                <div class="card-icon">🔄</div>
+                                <div class="card-info">
+                                    <div class="card-label">设备状态</div>
+                                    <div class="card-value">运行中</div>
+                                </div>
+                                <div class="status-indicator running"></div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电流2:</label>
-                                <input type="text" class="monitoring-input" value="112" readonly>
+                            <div class="summary-card">
+                                <div class="card-icon">⚡</div>
+                                <div class="card-info">
+                                    <div class="card-label">总功率</div>
+                                    <div class="card-value">127.5 <span class="unit">kW</span></div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电流3:</label>
-                                <input type="text" class="monitoring-input" value="112" readonly>
+                            <div class="summary-card">
+                                <div class="card-icon">🌡️</div>
+                                <div class="card-info">
+                                    <div class="card-label">锅炉温度</div>
+                                    <div class="card-value">85.0 <span class="unit">℃</span></div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电压1:</label>
-                                <input type="text" class="monitoring-input" value="380" readonly>
+                            <div class="summary-card">
+                                <div class="card-icon">📊</div>
+                                <div class="card-info">
+                                    <div class="card-label">运行效率</div>
+                                    <div class="card-value">95.5 <span class="unit">%</span></div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电压2:</label>
-                                <input type="text" class="monitoring-input" value="380" readonly>
+                        </div>
+
+                        <!-- 电气参数组 -->
+                        <div class="monitoring-section">
+                            <div class="section-title">
+                                <span class="title-icon">⚡</span>
+                                <span class="title-text">电气参数</span>
+                                <span class="section-badge">实时</span>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电压3:</label>
-                                <input type="text" class="monitoring-input" value="380" readonly>
+                            <div class="monitoring-grid">
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电流 A相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="112" readonly>
+                                        <span class="monitoring-unit">A</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电流 B相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="112" readonly>
+                                        <span class="monitoring-unit">A</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电流 C相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="112" readonly>
+                                        <span class="monitoring-unit">A</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电压 A相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="380" readonly>
+                                        <span class="monitoring-unit">V</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电压 B相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="380" readonly>
+                                        <span class="monitoring-unit">V</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电压 C相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="380" readonly>
+                                        <span class="monitoring-unit">V</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">功率 A相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="42.5" readonly>
+                                        <span class="monitoring-unit">kW</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">功率 B相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="42.5" readonly>
+                                        <span class="monitoring-unit">kW</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">功率 C相</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="42.5" readonly>
+                                        <span class="monitoring-unit">kW</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item highlighted">
+                                    <label class="monitoring-label">总功率</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="127.5" readonly>
+                                        <span class="monitoring-unit">kW</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">频率 1</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="50.0" readonly>
+                                        <span class="monitoring-unit">Hz</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">频率 2</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="50.0" readonly>
+                                        <span class="monitoring-unit">Hz</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">功率1:</label>
-                                <input type="text" class="monitoring-input" value="42.5" readonly>
+                        </div>
+
+                        <!-- 温度参数组 -->
+                        <div class="monitoring-section">
+                            <div class="section-title">
+                                <span class="title-icon">🌡️</span>
+                                <span class="title-text">温度监测</span>
+                                <span class="section-badge">实时</span>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">功率2:</label>
-                                <input type="text" class="monitoring-input" value="42.5" readonly>
+                            <div class="monitoring-grid">
+                                <div class="monitoring-item highlighted">
+                                    <label class="monitoring-label">锅炉温度</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="85.0" readonly>
+                                        <span class="monitoring-unit">℃</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">出水温度</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="82.0" readonly>
+                                        <span class="monitoring-unit">℃</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">回水温度</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="75.0" readonly>
+                                        <span class="monitoring-unit">℃</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">温差</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="7.0" readonly>
+                                        <span class="monitoring-unit">℃</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">功率3:</label>
-                                <input type="text" class="monitoring-input" value="42.5" readonly>
+                        </div>
+
+                        <!-- 压力与流量参数组 -->
+                        <div class="monitoring-section">
+                            <div class="section-title">
+                                <span class="title-icon">💧</span>
+                                <span class="title-text">压力与流量</span>
+                                <span class="section-badge">实时</span>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">总功率:</label>
-                                <input type="text" class="monitoring-input" value="127.5" readonly>
+                            <div class="monitoring-grid">
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">锅炉压力</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="0.60" readonly>
+                                        <span class="monitoring-unit">MPa</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">系统压力</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="0.50" readonly>
+                                        <span class="monitoring-unit">MPa</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">水位</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="85.0" readonly>
+                                        <span class="monitoring-unit">%</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">流量</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="120.0" readonly>
+                                        <span class="monitoring-unit">m³/h</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">锅炉温度:</label>
-                                <input type="text" class="monitoring-input" value="85" readonly>
+                        </div>
+
+                        <!-- 水质参数组 -->
+                        <div class="monitoring-section">
+                            <div class="section-title">
+                                <span class="title-icon">🔬</span>
+                                <span class="title-text">水质监测</span>
+                                <span class="section-badge">实时</span>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">出水温度:</label>
-                                <input type="text" class="monitoring-input" value="82" readonly>
+                            <div class="monitoring-grid">
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">PH值</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="7.2" readonly>
+                                        <span class="monitoring-unit">pH</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">电导率</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="1200" readonly>
+                                        <span class="monitoring-unit">μS/cm</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">回水温度:</label>
-                                <input type="text" class="monitoring-input" value="75" readonly>
+                        </div>
+
+                        <!-- 运行状态组 -->
+                        <div class="monitoring-section">
+                            <div class="section-title">
+                                <span class="title-icon">📊</span>
+                                <span class="title-text">运行状态</span>
+                                <span class="section-badge normal">正常</span>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">锅炉压力:</label>
-                                <input type="text" class="monitoring-input" value="0.6" readonly>
+                            <div class="monitoring-grid">
+                                <div class="monitoring-item status-item">
+                                    <label class="monitoring-label">运行状态</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input status-running" value="运行中" readonly>
+                                        <span class="status-dot running"></span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">本次运行时间</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="1250" readonly>
+                                        <span class="monitoring-unit">小时</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">累计运行时间</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="3650" readonly>
+                                        <span class="monitoring-unit">小时</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item highlighted">
+                                    <label class="monitoring-label">运行效率</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="95.5" readonly>
+                                        <span class="monitoring-unit">%</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item">
+                                    <label class="monitoring-label">能耗统计</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input" value="1250.5" readonly>
+                                        <span class="monitoring-unit">kWh</span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item status-item">
+                                    <label class="monitoring-label">故障代码</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input status-normal" value="无故障" readonly>
+                                        <span class="status-dot normal"></span>
+                                    </div>
+                                </div>
+                                <div class="monitoring-item status-item">
+                                    <label class="monitoring-label">报警状态</label>
+                                    <div class="monitoring-value-wrapper">
+                                        <input type="text" class="monitoring-input status-normal" value="正常" readonly>
+                                        <span class="status-dot normal"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">系统压力:</label>
-                                <input type="text" class="monitoring-input" value="0.5" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">水位:</label>
-                                <input type="text" class="monitoring-input" value="85" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">流量:</label>
-                                <input type="text" class="monitoring-input" value="120" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">频率1:</label>
-                                <input type="text" class="monitoring-input" value="50" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">频率2:</label>
-                                <input type="text" class="monitoring-input" value="50" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">频率3:</label>
-                                <input type="text" class="monitoring-input" value="50" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">运行状态:</label>
-                                <input type="text" class="monitoring-input" value="运行中" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">运行时间:</label>
-                                <input type="text" class="monitoring-input" value="1250" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">累计运行:</label>
-                                <input type="text" class="monitoring-input" value="3650" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">故障代码:</label>
-                                <input type="text" class="monitoring-input" value="无" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">报警状态:</label>
-                                <input type="text" class="monitoring-input" value="正常" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">能耗统计:</label>
-                                <input type="text" class="monitoring-input" value="1250.5" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">效率:</label>
-                                <input type="text" class="monitoring-input" value="95.5" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">PH值:</label>
-                                <input type="text" class="monitoring-input" value="7.2" readonly>
-                            </div>
-                            <div class="monitoring-item">
-                                <label class="monitoring-label">电导率:</label>
-                                <input type="text" class="monitoring-input" value="1200" readonly>
-                            </div>
+                        </div>
                             <div class="monitoring-item">
                                 <label class="monitoring-label">溶解氧:</label>
                                 <input type="text" class="monitoring-input" value="8.5" readonly>

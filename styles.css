@@ -1976,16 +1976,154 @@ body {
     }
 }
 
+/* 关键指标卡片 */
+.monitoring-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.summary-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #1890ff 0%, #40a9ff 100%);
+}
+
+.summary-card.status-running::before {
+    background: linear-gradient(180deg, #52c41a 0%, #73d13d 100%);
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.summary-card .card-icon {
+    font-size: 32px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e6f4ff 100%);
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.summary-card .card-info {
+    flex: 1;
+}
+
+.summary-card .card-label {
+    font-size: 13px;
+    color: #8c8c8c;
+    margin-bottom: 6px;
+}
+
+.summary-card .card-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #262626;
+    line-height: 1.2;
+}
+
+.summary-card .card-value .unit {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8c8c8c;
+    margin-left: 4px;
+}
+
+.summary-card .status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: pulseStatus 2s ease-in-out infinite;
+}
+
+.status-indicator.running {
+    background-color: #52c41a;
+    box-shadow: 0 0 0 0 rgba(82, 196, 26, 0.4);
+}
+
+@keyframes pulseStatus {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(82, 196, 26, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(82, 196, 26, 0);
+    }
+}
+
+/* 监测分组 */
+.monitoring-section {
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.title-icon {
+    font-size: 20px;
+}
+
+.title-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    flex: 1;
+}
+
+.section-badge {
+    padding: 4px 12px;
+    background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+    border-radius: 10px;
+    font-size: 12px;
+    color: #1890ff;
+    font-weight: 500;
+    border: 1px solid #91d5ff;
+}
+
+.section-badge.normal {
+    background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
+    color: #52c41a;
+    border-color: #b7eb8f;
+}
+
 .monitoring-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px 28px;
-    max-width: 1200px;
-    margin: 0;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    gap: 16px 20px;
 }
 
 .monitoring-item {
@@ -2032,8 +2170,83 @@ body {
 .monitoring-input[readonly] {
     background-color: #fff;
     cursor: default;
+    font-weight: 600;
+    text-align: right;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #262626;
+}
+
+/* 监测项优化样式 */
+.monitoring-item:hover {
+    background-color: #f0f7ff;
+    border-color: #bae7ff;
+}
+
+.monitoring-item.highlighted {
+    background: linear-gradient(135deg, #e6f7ff 0%, #f0f7ff 100%);
+    border: 1px solid #91d5ff;
+    box-shadow: 0 2px 6px rgba(24, 144, 255, 0.1);
+}
+
+.monitoring-item.highlighted .monitoring-label {
+    color: #1890ff;
+    font-weight: 600;
+}
+
+.monitoring-item.highlighted .monitoring-input {
+    color: #1890ff;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.monitoring-value-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+.monitoring-unit {
+    font-size: 13px;
+    color: #8c8c8c;
     font-weight: 500;
+    min-width: 50px;
     text-align: left;
+}
+
+/* 状态样式 */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-dot.running {
+    background-color: #52c41a;
+    box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.2);
+    animation: blink 2s ease-in-out infinite;
+}
+
+.status-dot.normal {
+    background-color: #52c41a;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.monitoring-input.status-running {
+    color: #52c41a;
+    font-weight: 600;
+    text-align: center;
+}
+
+.monitoring-input.status-normal {
+    color: #52c41a;
+    font-weight: 600;
+    text-align: center;
 }
 
 /* 参数状态样式 */
