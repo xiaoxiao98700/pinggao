@@ -1207,6 +1207,11 @@
                     // 能耗统计页签
                     if (targetTab === 'energy') {
                         setTimeout(() => {
+                            // 先加载数据
+                            const deviceId = document.querySelector('.device-device-item.active')?.getAttribute('data-device-id') || 'tianbang-heat-tank';
+                            loadEnergyData(deviceId);
+                            
+                            // 然后初始化图表
                             if (typeof echarts === 'undefined') {
                                 const checkEnergyChart = setInterval(() => {
                                     if (typeof echarts !== 'undefined') {
@@ -1490,8 +1495,13 @@
                 }
             }
             
-            // 默认加载能耗样例数据
-            loadEnergyData('tianbang-heat-tank');
+            // 页面加载时初始化能耗数据（如果能耗页签是激活的）
+            setTimeout(() => {
+                const energyTab = document.querySelector('.device-tab[data-tab="energy"]');
+                if (energyTab && energyTab.classList.contains('active')) {
+                    loadEnergyData('tianbang-heat-tank');
+                }
+            }, 500);
             // 更新实时监测数据
             function updateMonitoringData(deviceId) {
                 // 这里可以根据不同设备显示不同的监测数据
