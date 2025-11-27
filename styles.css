@@ -1621,6 +1621,9 @@ body {
 }
 
 .device-device-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 4px;
@@ -1638,6 +1641,53 @@ body {
 .device-device-item.active {
     background-color: #1890ff;
     color: #fff;
+}
+
+.device-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.device-status-dot.running {
+    background-color: #52c41a;
+    box-shadow: 0 0 4px rgba(82, 196, 26, 0.6);
+}
+
+.device-status-dot.standby {
+    background-color: #1890ff;
+    box-shadow: 0 0 4px rgba(24, 144, 255, 0.6);
+}
+
+.device-status-dot.stopped {
+    background-color: #8c8c8c;
+    box-shadow: 0 0 4px rgba(140, 140, 140, 0.4);
+    animation: none;
+}
+
+.device-status-dot.maintenance {
+    background-color: #faad14;
+    box-shadow: 0 0 4px rgba(250, 173, 20, 0.6);
+}
+
+.device-status-dot.fault {
+    background-color: #ff4d4f;
+    box-shadow: 0 0 4px rgba(255, 77, 79, 0.6);
+}
+
+@keyframes statusPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.device-item-name {
+    flex: 1;
 }
 
 .device-main-content {
