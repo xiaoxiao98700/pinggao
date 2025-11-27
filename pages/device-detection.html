@@ -49,6 +49,11 @@
                                 <span class="device-project-toggle">▶</span>
                                 <span class="device-project-name">尚义县供热改造项目</span>
                             </div>
+                            <div class="device-project-children">
+                                <div class="device-device-item" data-device-id="shangyi-boiler-1" data-device-name="供热锅炉1号">供热锅炉1号</div>
+                                <div class="device-device-item" data-device-id="shangyi-boiler-2" data-device-name="供热锅炉2号">供热锅炉2号</div>
+                                <div class="device-device-item" data-device-id="shangyi-boiler-3" data-device-name="供热锅炉3号">供热锅炉3号</div>
+                            </div>
                         </div>
                         <div class="device-project-item">
                             <div class="device-project-header">
@@ -1941,6 +1946,134 @@
                         '功率因数': 0.91,
                         '环境温度': 30.0
                     }
+                },
+                'shangyi-boiler-1': {
+                    name: '供热锅炉1号',
+                    status: '运行中',
+                    runningHours: 2800,
+                    totalHours: 6500,
+                    alarm: '正常',
+                    type: 'boiler',
+                    params: {
+                        '电流 A相': 118,
+                        '电流 B相': 122,
+                        '电流 C相': 120,
+                        '电压 A相': 381,
+                        '电压 B相': 379,
+                        '电压 C相': 382,
+                        '频率': 50.0,
+                        '总功率': 138.5,
+                        '锅炉温度': 88.0,
+                        '出水温度': 85.0,
+                        '回水温度': 72.0,
+                        '温差': 13.0,
+                        '锅炉压力': 0.68,
+                        '系统压力': 0.55,
+                        '水位': 83.0,
+                        '流量': 128.0,
+                        'PH值': 7.3,
+                        '电导率': 1180,
+                        '溶解氧': 8.3,
+                        '浊度': 2.2,
+                        '运行效率': 94.8,
+                        '能耗统计': 2980.5,
+                        '功率因数': 0.94,
+                        '环境温度': 23.0
+                    }
+                },
+                'shangyi-boiler-2': {
+                    name: '供热锅炉2号',
+                    status: '停机',
+                    runningHours: 0,
+                    totalHours: 6500,
+                    alarm: '正常',
+                    type: 'boiler',
+                    params: {
+                        '电流 A相': 0,
+                        '电流 B相': 0,
+                        '电流 C相': 0,
+                        '电压 A相': 380,
+                        '电压 B相': 380,
+                        '电压 C相': 380,
+                        '频率': 50.0,
+                        '总功率': 0,
+                        '锅炉温度': 28.0,
+                        '出水温度': 25.0,
+                        '回水温度': 24.0,
+                        '温差': 1.0,
+                        '锅炉压力': 0.15,
+                        '系统压力': 0.12,
+                        '水位': 90.0,
+                        '流量': 0,
+                        'PH值': 7.1,
+                        '电导率': 1050,
+                        '溶解氧': 9.0,
+                        '浊度': 1.8,
+                        '运行效率': 0,
+                        '能耗统计': 2650.0,
+                        '功率因数': 0,
+                        '环境温度': 18.0
+                    }
+                },
+                'shangyi-boiler-3': {
+                    name: '供热锅炉3号',
+                    status: '维护中',
+                    runningHours: 0,
+                    totalHours: 6500,
+                    alarm: '维护',
+                    type: 'boiler',
+                    params: {
+                        '电流 A相': 0,
+                        '电流 B相': 0,
+                        '电流 C相': 0,
+                        '电压 A相': 380,
+                        '电压 B相': 380,
+                        '电压 C相': 380,
+                        '频率': 50.0,
+                        '总功率': 0,
+                        '锅炉温度': 25.0,
+                        '出水温度': 23.0,
+                        '回水温度': 22.0,
+                        '温差': 1.0,
+                        '锅炉压力': 0.10,
+                        '系统压力': 0.08,
+                        '水位': 85.0,
+                        '流量': 0,
+                        'PH值': 7.2,
+                        '电导率': 1020,
+                        '溶解氧': 9.2,
+                        '浊度': 1.5,
+                        '运行效率': 0,
+                        '能耗统计': 2580.0,
+                        '功率因数': 0,
+                        '环境温度': 17.0
+                    }
+                }
+            };
+            
+            // 设备运行状态定义
+            const deviceStatusConfig = {
+                '运行中': {
+                    showAllParams: true,
+                    zeroParams: []
+                },
+                '待机': {
+                    showAllParams: true,
+                    zeroParams: ['总功率', '锅炉温度', '流量', '运行效率', '功率因数']
+                },
+                '停机': {
+                    showAllParams: false,
+                    visibleParams: ['电压 A相', '电压 B相', '电压 C相', '频率', '环境温度', '水位', 'PH值', '电导率'],
+                    zeroParams: ['电流 A相', '电流 B相', '电流 C相', '总功率', '锅炉温度', '出水温度', '回水温度', '温差', '流量', '运行效率', '能耗统计', '功率因数']
+                },
+                '故障': {
+                    showAllParams: true,
+                    zeroParams: []
+                },
+                '维护中': {
+                    showAllParams: false,
+                    visibleParams: ['电压 A相', '电压 B相', '电压 C相', '频率', '环境温度', '水位', 'PH值', '电导率', '锅炉压力', '系统压力'],
+                    zeroParams: ['电流 A相', '电流 B相', '电流 C相', '总功率', '锅炉温度', '出水温度', '回水温度', '温差', '流量', '运行效率', '能耗统计', '功率因数']
                 }
             };
             
@@ -2134,6 +2267,9 @@
                 // 获取该设备类型的参数列表
                 const paramsList = deviceTypeParams[deviceConfig.type] || deviceTypeParams['boiler'];
                 
+                // 获取设备状态配置
+                const statusConfig = deviceStatusConfig[deviceConfig.status] || deviceStatusConfig['运行中'];
+                
                 // 更新运行状态
                 const statusItems = document.querySelectorAll('#monitoringContent .status-item-card');
                 statusItems.forEach(card => {
@@ -2185,7 +2321,21 @@
                     paramsList.forEach(paramConfig => {
                         const label = paramConfig.label;
                         const mappedLabel = paramConfig.mappedTo || label; // 如果有映射，使用映射的标签获取数据
-                        const paramValue = deviceConfig.params[mappedLabel];
+                        
+                        // 根据状态配置决定是否显示该参数
+                        if (!statusConfig.showAllParams) {
+                            // 如果不显示所有参数，检查该参数是否在可见列表中
+                            if (!statusConfig.visibleParams.includes(label) && !statusConfig.visibleParams.includes(mappedLabel)) {
+                                return; // 跳过此参数
+                            }
+                        }
+                        
+                        let paramValue = deviceConfig.params[mappedLabel];
+                        
+                        // 检查是否应该显示为0
+                        if (statusConfig.zeroParams && (statusConfig.zeroParams.includes(label) || statusConfig.zeroParams.includes(mappedLabel))) {
+                            paramValue = 0;
+                        }
                         
                         if (paramValue !== undefined) {
                             const { unit, decimals } = getParamUnitAndDecimals(label);
@@ -2193,6 +2343,13 @@
                             
                             const card = document.createElement('div');
                             card.className = 'monitoring-value-card' + (paramConfig.highlighted ? ' highlighted' : '');
+                            
+                            // 如果值为0且在zeroParams列表中，添加灰色样式
+                            if (paramValue === 0 && statusConfig.zeroParams && 
+                                (statusConfig.zeroParams.includes(label) || statusConfig.zeroParams.includes(mappedLabel))) {
+                                card.classList.add('status-inactive');
+                            }
+                            
                             card.innerHTML = `
                                 <div class="monitoring-label">${label}</div>
                                 <div class="monitoring-value">${formattedValue} <span class="monitoring-unit">${unit}</span></div>
