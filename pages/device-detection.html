@@ -1128,13 +1128,14 @@
             renderEnergyPeaks(energySampleData.peakInsights);
         }
         
-        // 将函数暴露到全局作用域
+        // 将函数和数据暴露到全局作用域，确保其他脚本可以访问
         window.loadEnergyData = loadEnergyData;
         window.renderEnergySummary = renderEnergySummary;
         window.renderEnergyBreakdown = renderEnergyBreakdown;
         window.renderEnergySuggestions = renderEnergySuggestions;
         window.renderEnergyPeaks = renderEnergyPeaks;
         window.energySampleData = energySampleData;
+        console.log('✓ 能耗统计函数已注册到全局作用域');
         
         function loadECharts() {
             if (currentUrlIndex >= echartsUrls.length) {
@@ -1213,19 +1214,27 @@
                         setTimeout(() => {
                             // 先加载数据
                             const deviceId = document.querySelector('.device-device-item.active')?.getAttribute('data-device-id') || 'tianbang-heat-tank';
-                            loadEnergyData(deviceId);
+                            if (typeof window.loadEnergyData === 'function') {
+                                window.loadEnergyData(deviceId);
+                            } else {
+                                console.warn('loadEnergyData 函数尚未加载');
+                            }
                             
                             // 然后初始化图表
                             if (typeof echarts === 'undefined') {
                                 const checkEnergyChart = setInterval(() => {
                                     if (typeof echarts !== 'undefined') {
                                         clearInterval(checkEnergyChart);
-                                        initEnergyChart();
+                                        if (typeof window.initEnergyChart === 'function') {
+                                            window.initEnergyChart();
+                                        }
                                     }
                                 }, 100);
                                 setTimeout(() => clearInterval(checkEnergyChart), 10000);
                             } else {
-                                initEnergyChart();
+                                if (typeof window.initEnergyChart === 'function') {
+                                    window.initEnergyChart();
+                                }
                             }
                         }, 300);
                     }
@@ -1565,7 +1574,9 @@
                 if (contentId === 'monitoringContent') {
                     updateMonitoringData(deviceId);
                 } else if (contentId === 'energyContent') {
-                    loadEnergyData(deviceId);
+                    if (typeof window.loadEnergyData === 'function') {
+                        window.loadEnergyData(deviceId);
+                    }
                 }
             }
             
@@ -1573,7 +1584,9 @@
             setTimeout(() => {
                 const energyTab = document.querySelector('.device-tab[data-tab="energy"]');
                 if (energyTab && energyTab.classList.contains('active')) {
-                    loadEnergyData('tianbang-heat-tank');
+                    if (typeof window.loadEnergyData === 'function') {
+                        window.loadEnergyData('tianbang-heat-tank');
+                    }
                 }
             }, 500);
             // 更新实时监测数据
@@ -1758,18 +1771,19 @@
                 });
             }
             
-            // 立即加载能耗统计数据（页面加载时）
-            setTimeout(() => {
+            // 延迟加载能耗统计数据，等待全局函数注册完成
+            function initEnergyDataWithRetry(retries = 5, delay = 300) {
                 if (typeof window.loadEnergyData === 'function') {
+                    console.log('✓ 加载能耗统计数据...');
                     window.loadEnergyData('tianbang-heat-tank');
+                } else if (retries > 0) {
+                    console.log(`等待 loadEnergyData 函数加载... (剩余重试: ${retries})`);
+                    setTimeout(() => initEnergyDataWithRetry(retries - 1, delay), delay);
                 } else {
-                    console.warn('loadEnergyData 函数尚未加载，等待重试...');
-                    setTimeout(() => {
-                        if (typeof window.loadEnergyData === 'function') {
-                            window.loadEnergyData('tianbang-heat-tank');
-                        }
-                    }, 500);
+                    console.error('✗ loadEnergyData 函数加载超时');
                 }
-            }, 200);
+            }
+            
+            setTimeout(() => initEnergyDataWithRetry(), 500);
         })();
     </script>
