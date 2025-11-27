@@ -2099,11 +2099,49 @@ body {
     background: #fff;
     min-height: 48px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 .monitoring-value-card.highlighted {
     border-color: #1890ff;
     box-shadow: 0 1px 5px rgba(24, 144, 255, 0.15);
+}
+
+/* 参数状态样式 */
+.monitoring-value-card.status-normal {
+    border-color: #e8e8e8;
+    background: #fff;
+}
+
+.monitoring-value-card.status-warning {
+    border-color: #faad14;
+    background: #fffbe6;
+    box-shadow: 0 1px 5px rgba(250, 173, 20, 0.2);
+}
+
+.monitoring-value-card.status-warning .monitoring-value {
+    color: #faad14;
+}
+
+.monitoring-value-card.status-danger {
+    border-color: #ff4d4f;
+    background: #fff1f0;
+    box-shadow: 0 1px 5px rgba(255, 77, 79, 0.2);
+    animation: dangerPulse 2s ease-in-out infinite;
+}
+
+.monitoring-value-card.status-danger .monitoring-value {
+    color: #ff4d4f;
+    font-weight: 700;
+}
+
+@keyframes dangerPulse {
+    0%, 100% {
+        box-shadow: 0 1px 5px rgba(255, 77, 79, 0.2);
+    }
+    50% {
+        box-shadow: 0 2px 8px rgba(255, 77, 79, 0.4);
+    }
 }
 
 .monitoring-value-card.wide {

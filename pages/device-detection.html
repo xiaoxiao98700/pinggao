@@ -1748,33 +1748,52 @@
                 const valueCards = document.querySelectorAll('#monitoringContent .monitoring-value-card');
                 const summaryCards = document.querySelectorAll('#monitoringContent .summary-card');
                 
-                // 定义参数的数据范围和波动规则
+                // 定义参数的数据范围、波动规则和阈值
                 const paramRanges = {
-                    '电流 A相': { base: 112, variation: 5, unit: 'A', decimals: 0 },
-                    '电流 B相': { base: 112, variation: 5, unit: 'A', decimals: 0 },
-                    '电流 C相': { base: 112, variation: 5, unit: 'A', decimals: 0 },
-                    '电压 A相': { base: 380, variation: 5, unit: 'V', decimals: 0 },
-                    '电压 B相': { base: 380, variation: 5, unit: 'V', decimals: 0 },
-                    '电压 C相': { base: 380, variation: 5, unit: 'V', decimals: 0 },
-                    '频率': { base: 50.0, variation: 0.2, unit: 'Hz', decimals: 1 },
-                    '总功率': { base: 127.5, variation: 10, unit: 'kW', decimals: 1 },
-                    '锅炉温度': { base: 85, variation: 3, unit: '℃', decimals: 1 },
-                    '出水温度': { base: 82, variation: 2, unit: '℃', decimals: 1 },
-                    '回水温度': { base: 75, variation: 2, unit: '℃', decimals: 1 },
-                    '温差': { base: 7, variation: 1, unit: '℃', decimals: 1 },
-                    '锅炉压力': { base: 0.6, variation: 0.05, unit: 'MPa', decimals: 2 },
-                    '系统压力': { base: 0.5, variation: 0.05, unit: 'MPa', decimals: 2 },
-                    '水位': { base: 85, variation: 3, unit: '%', decimals: 1 },
-                    '流量': { base: 120, variation: 10, unit: 'm³/h', decimals: 1 },
-                    'PH值': { base: 7.2, variation: 0.3, unit: 'pH', decimals: 1 },
-                    '电导率': { base: 1200, variation: 50, unit: 'μS/cm', decimals: 0 },
-                    '溶解氧': { base: 8.5, variation: 0.5, unit: 'mg/L', decimals: 1 },
-                    '浊度': { base: 2.3, variation: 0.3, unit: 'NTU', decimals: 1 },
-                    '运行效率': { base: 95.5, variation: 2, unit: '%', decimals: 1 },
-                    '能耗统计': { base: 1250.5, variation: 50, unit: 'kWh', decimals: 1 },
-                    '功率因数': { base: 0.95, variation: 0.03, unit: 'cos', decimals: 2 },
-                    '环境温度': { base: 22.0, variation: 2, unit: '℃', decimals: 1 }
+                    '电流 A相': { base: 112, variation: 5, unit: 'A', decimals: 0, warning: [100, 130], danger: [90, 140] },
+                    '电流 B相': { base: 112, variation: 5, unit: 'A', decimals: 0, warning: [100, 130], danger: [90, 140] },
+                    '电流 C相': { base: 112, variation: 5, unit: 'A', decimals: 0, warning: [100, 130], danger: [90, 140] },
+                    '电压 A相': { base: 380, variation: 5, unit: 'V', decimals: 0, warning: [370, 390], danger: [360, 400] },
+                    '电压 B相': { base: 380, variation: 5, unit: 'V', decimals: 0, warning: [370, 390], danger: [360, 400] },
+                    '电压 C相': { base: 380, variation: 5, unit: 'V', decimals: 0, warning: [370, 390], danger: [360, 400] },
+                    '频率': { base: 50.0, variation: 0.2, unit: 'Hz', decimals: 1, warning: [49.5, 50.5], danger: [49.0, 51.0] },
+                    '总功率': { base: 127.5, variation: 10, unit: 'kW', decimals: 1, warning: [115, 140], danger: [105, 150] },
+                    '锅炉温度': { base: 85, variation: 3, unit: '℃', decimals: 1, warning: [80, 90], danger: [75, 95] },
+                    '出水温度': { base: 82, variation: 2, unit: '℃', decimals: 1, warning: [78, 86], danger: [75, 90] },
+                    '回水温度': { base: 75, variation: 2, unit: '℃', decimals: 1, warning: [70, 80], danger: [65, 85] },
+                    '温差': { base: 7, variation: 1, unit: '℃', decimals: 1, warning: [5, 10], danger: [3, 12] },
+                    '锅炉压力': { base: 0.6, variation: 0.05, unit: 'MPa', decimals: 2, warning: [0.55, 0.7], danger: [0.5, 0.8] },
+                    '系统压力': { base: 0.5, variation: 0.05, unit: 'MPa', decimals: 2, warning: [0.45, 0.6], danger: [0.4, 0.7] },
+                    '水位': { base: 85, variation: 3, unit: '%', decimals: 1, warning: [75, 95], danger: [65, 98] },
+                    '流量': { base: 120, variation: 10, unit: 'm³/h', decimals: 1, warning: [100, 140], danger: [80, 160] },
+                    'PH值': { base: 7.2, variation: 0.3, unit: 'pH', decimals: 1, warning: [6.8, 7.6], danger: [6.5, 8.0] },
+                    '电导率': { base: 1200, variation: 50, unit: 'μS/cm', decimals: 0, warning: [1100, 1300], danger: [1000, 1400] },
+                    '溶解氧': { base: 8.5, variation: 0.5, unit: 'mg/L', decimals: 1, warning: [7.5, 9.5], danger: [6.5, 10.5] },
+                    '浊度': { base: 2.3, variation: 0.3, unit: 'NTU', decimals: 1, warning: [2.0, 3.0], danger: [1.5, 3.5] },
+                    '运行效率': { base: 95.5, variation: 2, unit: '%', decimals: 1, warning: [92, 98], danger: [88, 100] },
+                    '能耗统计': { base: 1250.5, variation: 50, unit: 'kWh', decimals: 1, warning: [1150, 1350], danger: [1050, 1450] },
+                    '功率因数': { base: 0.95, variation: 0.03, unit: 'cos', decimals: 2, warning: [0.90, 1.0], danger: [0.85, 1.0] },
+                    '环境温度': { base: 22.0, variation: 2, unit: '℃', decimals: 1, warning: [18, 28], danger: [15, 32] }
                 };
+                
+                // 判断参数状态（正常/警告/危险）
+                function getParameterStatus(value, range) {
+                    if (!range.warning || !range.danger) return 'normal';
+                    
+                    const [dangerMin, dangerMax] = range.danger;
+                    const [warningMin, warningMax] = range.warning;
+                    
+                    // 危险状态：超出危险阈值
+                    if (value < dangerMin || value > dangerMax) {
+                        return 'danger';
+                    }
+                    // 警告状态：超出警告阈值但未达危险
+                    if (value < warningMin || value > warningMax) {
+                        return 'warning';
+                    }
+                    // 正常状态
+                    return 'normal';
+                }
                 
                 // 更新核心参数卡片
                 valueCards.forEach(card => {
@@ -1786,9 +1805,28 @@
                     const range = paramRanges[label];
                     if (!range) return;
                     
-                    // 生成新值（基准值 ± 随机波动）
-                    const newValue = range.base + (Math.random() - 0.5) * 2 * range.variation;
+                    // 生成新值（基准值 ± 随机波动），有15%概率生成超标值
+                    let newValue;
+                    if (Math.random() < 0.15) {
+                        // 生成超标值
+                        if (Math.random() < 0.5) {
+                            // 偏高
+                            newValue = range.base + range.variation * (2 + Math.random() * 2);
+                        } else {
+                            // 偏低
+                            newValue = range.base - range.variation * (2 + Math.random() * 2);
+                        }
+                    } else {
+                        // 正常波动
+                        newValue = range.base + (Math.random() - 0.5) * 2 * range.variation;
+                    }
+                    
                     const formattedValue = newValue.toFixed(range.decimals);
+                    
+                    // 判断状态并应用样式
+                    const status = getParameterStatus(newValue, range);
+                    card.classList.remove('status-normal', 'status-warning', 'status-danger');
+                    card.classList.add('status-' + status);
                     
                     valueEl.innerHTML = `${formattedValue} <span class="monitoring-unit">${range.unit}</span>`;
                 });
