@@ -105,6 +105,7 @@
                     <!-- 页签 -->
                     <div class="device-tabs">
                         <div class="device-tab active" data-tab="monitoring">实时监测</div>
+                        <div class="device-tab" data-tab="energy">能耗统计</div>
                         <div class="device-tab" data-tab="configuration">组态</div>
                         <div class="device-tab" data-tab="alarm">告警记录</div>
                         <div class="device-tab" data-tab="analysis">数据分析</div>
@@ -280,6 +281,116 @@
                             <div class="monitoring-item">
                                 <label class="monitoring-label">蒸汽温度:</label>
                                 <input type="text" class="monitoring-input" value="120" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 能耗统计页签内容 -->
+                    <div class="device-tab-content" id="energyContent" data-device="tianbang-heat-tank">
+                        <div class="energy-container">
+                            <div class="energy-summary-grid">
+                                <div class="energy-card">
+                                    <div class="energy-card-title">今日能耗</div>
+                                    <div class="energy-card-value">1,250.5 kWh</div>
+                                    <div class="energy-card-note">较昨日下降 5%</div>
+                                </div>
+                                <div class="energy-card">
+                                    <div class="energy-card-title">本月累计</div>
+                                    <div class="energy-card-value">34,520 kWh</div>
+                                    <div class="energy-card-note">同比增长 2.3%</div>
+                                </div>
+                                <div class="energy-card">
+                                    <div class="energy-card-title">平均负荷</div>
+                                    <div class="energy-card-value">88.6 kW</div>
+                                    <div class="energy-card-note">峰值 120 kW / 谷值 62 kW</div>
+                                </div>
+                                <div class="energy-card">
+                                    <div class="energy-card-title">能耗单价</div>
+                                    <div class="energy-card-value">0.67 元/kWh</div>
+                                    <div class="energy-card-note">智能浮动价格</div>
+                                </div>
+                            </div>
+
+                            <div class="energy-chart-panel">
+                                <div class="energy-panel">
+                                    <div class="panel-header">
+                                        <h3>24 小时能耗趋势</h3>
+                                        <span class="panel-subtitle">单位：kWh · 更新频率：30 分钟</span>
+                                    </div>
+                                    <div id="energyChart" style="width: 100%; height: 320px;"></div>
+                                    <div class="panel-legend">
+                                        <span class="legend-dot peak"></span> 峰时
+                                        <span class="legend-dot valley"></span> 谷时
+                                        <span class="legend-dot average"></span> 平均值
+                                    </div>
+                                </div>
+                                <div class="energy-peak-card">
+                                    <div class="energy-peak-title">峰谷对比</div>
+                                    <ul>
+                                        <li><strong>峰值能耗</strong>：142.5 kWh（18:00-20:00）</li>
+                                        <li><strong>谷值能耗</strong>：68.3 kWh（02:00-04:00）</li>
+                                        <li><strong>峰谷差</strong>：74.2 kWh，可削峰填谷</li>
+                                        <li><strong>今日日差率</strong>：-6.1%，节省 93 元</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="energy-breakdown-section">
+                                <div class="section-header">能耗构成与分布</div>
+                                <div class="section-note">按照设备分类、用能类型和高低谷进行归集</div>
+                                <div class="energy-breakdown-table-wrapper">
+                                    <table class="energy-breakdown-table">
+                                        <thead>
+                                            <tr>
+                                                <th>设备/系统</th>
+                                                <th>今日能耗 (kWh)</th>
+                                                <th>占比</th>
+                                                <th>峰谷比例</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>主锅炉</td>
+                                                <td>710.4</td>
+                                                <td>56.8%</td>
+                                                <td>峰 62% / 谷 38%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>循环泵组</td>
+                                                <td>212.1</td>
+                                                <td>16.9%</td>
+                                                <td>峰 24% / 谷 76%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>补水系统</td>
+                                                <td>144.8</td>
+                                                <td>11.6%</td>
+                                                <td>峰 29% / 谷 71%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>辅助系统</td>
+                                                <td>96.2</td>
+                                                <td>7.7%</td>
+                                                <td>峰 35% / 谷 65%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>照明/办公</td>
+                                                <td>86.7</td>
+                                                <td>7.0%</td>
+                                                <td>峰 40% / 谷 60%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="energy-suggestion">
+                                    <h4>节能建议</h4>
+                                    <ul>
+                                        <li>偏高的峰值集中在 18:00-20:00，建议提前调度蓄热罐放电。</li>
+                                        <li>循环泵在低谷期运行比例超过 70%，可尝试调低频率以缓冲负荷。</li>
+                                        <li>补水系统谷值占比较高，检查阀门响应，避免频繁启停。</li>
+                                        <li>观察本月能耗增长 2.3%，评估设备基础负荷是否需调整。</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1036,6 +1147,23 @@
                             }
                         }, 300);
                     }
+
+                    // 能耗统计页签
+                    if (targetTab === 'energy') {
+                        setTimeout(() => {
+                            if (typeof echarts === 'undefined') {
+                                const checkEnergyChart = setInterval(() => {
+                                    if (typeof echarts !== 'undefined') {
+                                        clearInterval(checkEnergyChart);
+                                        initEnergyChart();
+                                    }
+                                }, 100);
+                                setTimeout(() => clearInterval(checkEnergyChart), 10000);
+                            } else {
+                                initEnergyChart();
+                            }
+                        }, 300);
+                    }
                 });
             });
             
@@ -1117,6 +1245,112 @@
                         }, 500);
                     }
                 }
+            }
+
+            function initEnergyChart() {
+                console.log('开始初始化能耗趋势图表...');
+                const chartElement = document.getElementById('energyChart');
+                if (!chartElement) {
+                    console.error('能耗图表容器未找到！');
+                    return;
+                }
+
+                if (typeof window.energyChart === 'undefined' || !window.energyChart) {
+                    try {
+                        window.energyChart = echarts.init(chartElement);
+                        console.log('✓ 能耗图表初始化成功');
+                    } catch (error) {
+                        console.error('能耗图表初始化失败:', error);
+                        return;
+                    }
+                }
+
+                const hours = ['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00'];
+                const energyUsage = [48, 42, 39, 45, 62, 74, 88, 96, 110, 142, 128, 98];
+                const energyCost = [0.9,0.8,0.75,0.78,0.94,1.05,1.12,1.18,1.32,1.48,1.35,1.05];
+
+                const option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: params => {
+                            const usage = params[0];
+                            const cost = params[1];
+                            return `${usage.axisValue}<br/>能耗: ${usage.data} kWh<br/>能耗单价: ${cost.data.toFixed(2)} 元/kWh`;
+                        }
+                    },
+                    legend: {
+                        data: ['能耗', '能耗单价'],
+                        bottom: 10
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '18%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: hours
+                    },
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '能耗 (kWh)',
+                            position: 'left',
+                            min: 0,
+                            max: 160,
+                            axisLine: { lineStyle: { color: '#1890ff' } },
+                            axisLabel: { formatter: '{value}' }
+                        },
+                        {
+                            type: 'value',
+                            name: '能耗单价 (元/kWh)',
+                            position: 'right',
+                            axisLine: { lineStyle: { color: '#faad14' } },
+                            axisLabel: { formatter: '{value}' }
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '能耗',
+                            type: 'line',
+                            smooth: true,
+                            areaStyle: {
+                                color: 'rgba(24, 144, 255, 0.22)'
+                            },
+                            symbol: 'circle',
+                            symbolSize: 6,
+                            lineStyle: {
+                                width: 2
+                            },
+                            data: energyUsage
+                        },
+                        {
+                            name: '能耗单价',
+                            type: 'line',
+                            yAxisIndex: 1,
+                            smooth: true,
+                            symbol: 'diamond',
+                            itemStyle: {
+                                color: '#faad14'
+                            },
+                            lineStyle: {
+                                width: 2,
+                                type: 'dashed'
+                            },
+                            data: energyCost
+                        }
+                    ]
+                };
+
+                window.energyChart.setOption(option);
+
+                window.addEventListener('resize', () => {
+                    if (window.energyChart) {
+                        window.energyChart.resize();
+                    }
+                });
             }
             
             // 如果页面加载时就在数据分析页签，也初始化

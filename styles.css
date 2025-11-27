@@ -1667,6 +1667,181 @@ body {
     display: block;
 }
 
+.energy-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.energy-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.energy-card {
+    background-color: #fff;
+    border: 1px solid #e2e2e2;
+    border-left: 4px solid #1890ff;
+    padding: 16px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.energy-card-title {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.energy-card-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+}
+
+.energy-card-note {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #999;
+}
+
+.energy-chart-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.energy-panel,
+.energy-peak-card {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+    padding: 16px 20px;
+    flex: 1;
+    min-width: 260px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #222;
+}
+
+.panel-subtitle {
+    font-size: 12px;
+    color: #999;
+}
+
+.panel-legend {
+    margin-top: 10px;
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #555;
+    flex-wrap: wrap;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+
+.legend-dot.peak {
+    background-color: #ff4d4f;
+}
+
+.legend-dot.valley {
+    background-color: #52c41a;
+}
+
+.legend-dot.average {
+    background-color: #1890ff;
+}
+
+.energy-peak-card ul {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 8px 0 0;
+    line-height: 1.6;
+    color: #444;
+}
+
+.energy-breakdown-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.energy-breakdown-section .section-header {
+    font-size: 16px;
+    color: #111;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.energy-breakdown-section .section-note {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.energy-breakdown-table-wrapper {
+    overflow-x: auto;
+}
+
+.energy-breakdown-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #444;
+}
+
+.energy-breakdown-table th,
+.energy-breakdown-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+}
+
+.energy-breakdown-table th {
+    background-color: #fafafa;
+    font-weight: 600;
+}
+
+.energy-suggestion {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #fafafa;
+    border-left: 3px solid #1890ff;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #333;
+}
+
+.energy-suggestion h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+}
+
+.energy-suggestion ul {
+    padding-left: 18px;
+    line-height: 1.6;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
