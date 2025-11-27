@@ -167,6 +167,22 @@
                                         <div class="monitoring-label">电流 C相</div>
                                         <div class="monitoring-value">112 <span class="monitoring-unit">A</span></div>
                                     </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">电压 A相</div>
+                                        <div class="monitoring-value">380 <span class="monitoring-unit">V</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">电压 B相</div>
+                                        <div class="monitoring-value">380 <span class="monitoring-unit">V</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">电压 C相</div>
+                                        <div class="monitoring-value">380 <span class="monitoring-unit">V</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">频率</div>
+                                        <div class="monitoring-value">50.0 <span class="monitoring-unit">Hz</span></div>
+                                    </div>
                                     <div class="monitoring-value-card highlighted">
                                         <div class="monitoring-label">总功率</div>
                                         <div class="monitoring-value">127.5 <span class="monitoring-unit">kW</span></div>
@@ -202,6 +218,38 @@
                                     <div class="monitoring-value-card">
                                         <div class="monitoring-label">流量</div>
                                         <div class="monitoring-value">120.0 <span class="monitoring-unit">m³/h</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">PH值</div>
+                                        <div class="monitoring-value">7.2 <span class="monitoring-unit">pH</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">电导率</div>
+                                        <div class="monitoring-value">1200 <span class="monitoring-unit">μS/cm</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">溶解氧</div>
+                                        <div class="monitoring-value">8.5 <span class="monitoring-unit">mg/L</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">浊度</div>
+                                        <div class="monitoring-value">2.3 <span class="monitoring-unit">NTU</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card highlighted">
+                                        <div class="monitoring-label">运行效率</div>
+                                        <div class="monitoring-value">95.5 <span class="monitoring-unit">%</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">能耗统计</div>
+                                        <div class="monitoring-value">1250.5 <span class="monitoring-unit">kWh</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">功率因数</div>
+                                        <div class="monitoring-value">0.95 <span class="monitoring-unit">cos</span></div>
+                                    </div>
+                                    <div class="monitoring-value-card">
+                                        <div class="monitoring-label">环境温度</div>
+                                        <div class="monitoring-value">22.0 <span class="monitoring-unit">℃</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -1705,6 +1753,10 @@
                     '电流 A相': { base: 112, variation: 5, unit: 'A', decimals: 0 },
                     '电流 B相': { base: 112, variation: 5, unit: 'A', decimals: 0 },
                     '电流 C相': { base: 112, variation: 5, unit: 'A', decimals: 0 },
+                    '电压 A相': { base: 380, variation: 5, unit: 'V', decimals: 0 },
+                    '电压 B相': { base: 380, variation: 5, unit: 'V', decimals: 0 },
+                    '电压 C相': { base: 380, variation: 5, unit: 'V', decimals: 0 },
+                    '频率': { base: 50.0, variation: 0.2, unit: 'Hz', decimals: 1 },
                     '总功率': { base: 127.5, variation: 10, unit: 'kW', decimals: 1 },
                     '锅炉温度': { base: 85, variation: 3, unit: '℃', decimals: 1 },
                     '出水温度': { base: 82, variation: 2, unit: '℃', decimals: 1 },
@@ -1713,7 +1765,15 @@
                     '锅炉压力': { base: 0.6, variation: 0.05, unit: 'MPa', decimals: 2 },
                     '系统压力': { base: 0.5, variation: 0.05, unit: 'MPa', decimals: 2 },
                     '水位': { base: 85, variation: 3, unit: '%', decimals: 1 },
-                    '流量': { base: 120, variation: 10, unit: 'm³/h', decimals: 1 }
+                    '流量': { base: 120, variation: 10, unit: 'm³/h', decimals: 1 },
+                    'PH值': { base: 7.2, variation: 0.3, unit: 'pH', decimals: 1 },
+                    '电导率': { base: 1200, variation: 50, unit: 'μS/cm', decimals: 0 },
+                    '溶解氧': { base: 8.5, variation: 0.5, unit: 'mg/L', decimals: 1 },
+                    '浊度': { base: 2.3, variation: 0.3, unit: 'NTU', decimals: 1 },
+                    '运行效率': { base: 95.5, variation: 2, unit: '%', decimals: 1 },
+                    '能耗统计': { base: 1250.5, variation: 50, unit: 'kWh', decimals: 1 },
+                    '功率因数': { base: 0.95, variation: 0.03, unit: 'cos', decimals: 2 },
+                    '环境温度': { base: 22.0, variation: 2, unit: '℃', decimals: 1 }
                 };
                 
                 // 更新核心参数卡片
